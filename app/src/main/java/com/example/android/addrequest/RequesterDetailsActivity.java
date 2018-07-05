@@ -11,4 +11,6 @@ public class RequesterDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_requester_details);
     }
 
+
+
 }

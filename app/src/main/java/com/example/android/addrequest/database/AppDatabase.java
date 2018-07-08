@@ -39,7 +39,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     }
 
-    /** Create only one new database instance if not yet already created. */
-    //public abstract TicketDao taskDao();
+    /** Create TicketDao object. */
+    public abstract TicketDao ticketDao();
 
 }

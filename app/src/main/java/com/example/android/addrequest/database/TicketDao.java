@@ -17,13 +17,13 @@ public interface TicketDao {
     LiveData<List<TicketEntry>> loadAllTasks();
 
     @Insert
-    void insertTask(TicketEntry taskEntry);
+    void insertTicket(TicketEntry ticketEntry);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTask(TicketEntry taskEntry);
+    void updateTicket(TicketEntry ticketEntry);
 
     @Delete
-    void deleteTask(TicketEntry taskEntry);
+    void deleteTicket(TicketEntry ticketEntry);
 
     @Query("SELECT * FROM ticket WHERE id = :id")
     LiveData<TicketEntry> loadTaskById(int id);

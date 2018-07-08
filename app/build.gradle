@@ -20,17 +20,20 @@ android {
 
 dependencies {
 
-    //For ViewModelProviders
+    // For ViewModelProviders
     implementation "android.arch.lifecycle:extensions:1.1.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
-    //For Room Database
+    // For Room Database
     compile "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
-    //For LiveData Class
+    // For LiveData Class
     implementation "android.arch.lifecycle:extensions:1.1.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+
+    // Add Recycler view dependencies; must match SDK version
+    compile 'com.android.support:recyclerview-v7:27.0.2'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'

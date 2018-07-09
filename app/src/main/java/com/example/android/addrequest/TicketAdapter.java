@@ -23,6 +23,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     // Constant for date format
     private static final String DATE_FORMAT = "dd/MM/yyy";
 
+    // Member variable to handle item clicks
+    final private ItemClickListener mItemClickListener;
+
     // Class variables for the List that holds ticket data and the Context
     private List<TicketEntry> mTicketEntries;
     private Context mContext;
@@ -37,9 +40,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
      * @param context  the current Context
      * @param listener the ItemClickListener
      */
-    public TicketAdapter(Context context /*, ItemClickListener listener*/) {
+    public TicketAdapter(Context context , ItemClickListener listener) {
         mContext = context;
-        //mItemClickListener = listener;
+        mItemClickListener = listener;
     }
 
 
@@ -143,12 +146,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             ticketTitleView = itemView.findViewById(R.id.ticketTitle);
             ticketDescriptionView = itemView.findViewById(R.id.ticketDescription);
             updatedAtView = itemView.findViewById(R.id.ticketUpdatedAt);
+            itemView.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View v) {
-            // Not in use
+            int elementId = mTicketEntries.get(getAdapterPosition()).getId();
+            mItemClickListener.onItemClickListener(elementId);
         }
 
     }

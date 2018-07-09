@@ -22,7 +22,7 @@
         <!-- AddTicketActivity -->
         <activity
             android:name="com.example.android.addrequest.AddTicketActivity"
-            android:label="@string/add_task_activity_name" />
+            android:label="@string/add_ticket_activity_name" />
 
     </application>
 

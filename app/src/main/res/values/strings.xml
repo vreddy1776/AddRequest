@@ -3,7 +3,7 @@
     <!-- Strings for Activity Names -->
     <string name="app_name">AddRequest</string>
     <string name="main_activity_name">Requests</string>
-    <string name="add_task_activity_name">Add Request</string>
+    <string name="add_ticket_activity_name">Add Request</string>
 
     <!-- Strings for Button Texts -->
     <string name="add_button">Add</string>

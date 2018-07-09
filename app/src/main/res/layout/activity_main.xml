@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- RecyclerView that is responsible for holding a listtaskEntrytask data -->
+    <!-- RecyclerView that is responsible for holding a listTicketEntry data -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:clipToPadding="false"
         android:paddingBottom="80dp" />
 
-    <!-- Floating action button that launches AddTaskActivity when clicked -->
+    <!-- Floating action button that launches AddTicketActivity when clicked -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

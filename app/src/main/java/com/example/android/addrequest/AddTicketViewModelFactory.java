@@ -8,7 +8,7 @@ import com.example.android.addrequest.database.AppDatabase;
 public class AddTicketViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
 
-    // Two member variables: one for the database and one for the taskId
+    // Two member variables: one for the database and one for the ticketId
     private final AppDatabase mDb;
     private final int mTicketId;
 

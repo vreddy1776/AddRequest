@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,24 +59,50 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new TicketAdapter(this /*, this*/);
+        mAdapter = new TicketAdapter(this , this);
         mRecyclerView.setAdapter(mAdapter);
 
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
 
         /*
+         Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
+         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
+         and uses callbacks to signal when a user is performing these actions.
+         */
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                // Here is where you'll implement swipe to delete
+                AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int position = viewHolder.getAdapterPosition();
+                        List<TicketEntry> tickets = mAdapter.getTickets();
+                        mDb.ticketDao().deleteTicket(tickets.get(position));
+                    }
+                });
+            }
+        }).attachToRecyclerView(mRecyclerView);
+
+        /*
         Set the Floating Action Button (FAB) to its corresponding View.
         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-        to launch the AddTaskActivity.
+        to launch the AddTicketActivity.
         */
         FloatingActionButton fabButton = findViewById(R.id.fab);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(MainActivity.this, AddTicketActivity.class);
-                startActivity(addTaskIntent);
+                // Create a new intent to start an AddTicketActivity
+                Intent addTicketIntent = new Intent(MainActivity.this, AddTicketActivity.class);
+                startActivity(addTicketIntent);
             }
         });
 
@@ -96,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
             public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
+                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
                 mAdapter.setTickets(ticketEntries);
             }
         });

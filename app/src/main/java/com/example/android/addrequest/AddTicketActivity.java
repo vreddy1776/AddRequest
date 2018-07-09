@@ -46,7 +46,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.activity_add_ticket);
 
         initViews();
 
@@ -145,10 +145,10 @@ public class AddTicketActivity extends AppCompatActivity{
             @Override
             public void run() {
                 if (mTicketId == DEFAULT_TICKET_ID) {
-                    // insert new task
+                    // insert new ticket
                     mDb.ticketDao().insertTicket(ticket);
                 } else {
-                    //update task
+                    //update ticket
                     ticket.setId(mTicketId);
                     mDb.ticketDao().updateTicket(ticket);
                 }

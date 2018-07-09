@@ -4,11 +4,17 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
@@ -16,73 +22,97 @@ import com.example.android.addrequest.database.TicketEntry;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
+
+public class MainActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
 
 
     /**
      * Initialize values.
      */
 
-    // Extra for the ticket ID to be received in the intent
-    public static final String EXTRA_TICKET_ID = "extraTicketId";
-    // Extra for the ticket ID to be received after rotation
-    public static final String INSTANCE_TICKET_ID = "instanceTicketId";
-    // Constant for default ticket id to be used when not in update mode
-    private static final int DEFAULT_TICKET_ID = -1;
+    // Constant for logging
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    // Initialize integer for ticket ID
-    private int mTicketId = DEFAULT_TICKET_ID;
+    // Member variables for the adapter and RecyclerView
+    private RecyclerView mRecyclerView;
+    private TicketAdapter mAdapter;
 
     // Member variable for the Database
     private AppDatabase mDb;
 
 
+    /**
+     * Main Activity created.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set the RecyclerView to its corresponding view
+        mRecyclerView = findViewById(R.id.recyclerViewTickets);
+
+        // Set the layout for the RecyclerView to be a linear layout, which measures and
+        // positions items within a RecyclerView into a linear list
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize the adapter and attach it to the RecyclerView
+        mAdapter = new TicketAdapter(this /*, this*/);
+        mRecyclerView.setAdapter(mAdapter);
+
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
+
+        /*
+        Set the Floating Action Button (FAB) to its corresponding View.
+        Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
+        to launch the AddTaskActivity.
+        */
+        FloatingActionButton fabButton = findViewById(R.id.fab);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to start an AddTaskActivity
+                Intent addTaskIntent = new Intent(MainActivity.this, AddTicketActivity.class);
+                startActivity(addTaskIntent);
+            }
+        });
+
+        // Get the AppDatabase
+        mDb = AppDatabase.getInstance(getApplicationContext());
+
+        // Setup ViewModel
         setupViewModel();
 
     }
 
+
+    /**
+     * Set up the ViewModel.
+     */
     private void setupViewModel() {
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
+                mAdapter.setTickets(ticketEntries);
+            }
+        });
     }
 
 
     /**
-     * Navigate to RequesterDetails Activity.
+     * Intent to AddTicketActivity.
      */
-    public void toRequesterDetails(View view) {
-        Intent intent = new Intent(MainActivity.this, RequesterDetailsActivity.class);
+    @Override
+    public void onItemClickListener(int itemId) {
+        // Launch AddTicketActivity adding the itemId as an extra in the intent
+        Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
+        intent.putExtra(AddTicketActivity.EXTRA_TICKET_ID, itemId);
         startActivity(intent);
     }
 
-
-    /**
-     * Add or update entry when SAVE button is clicked.
-     */
-    public void onSaveButtonClicked() {
-
-        // Set up ticket
-        String title = "test title";
-        String description = "test description";
-        Date date = new Date();
-        final TicketEntry ticket = new TicketEntry(title, description, date);
-
-        // Execute ticket entry
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mTicketId == DEFAULT_TICKET_ID) {
-                    // insert new task
-                    mDb.ticketDao().insertTicket(ticket);
-                }
-                finish();
-            }
-        });
-
-    }
 
 }

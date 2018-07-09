@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">AddRequest</string>
+
+    <!-- Strings for Activity Names -->
+    <string name="app_name">To-Do List</string>
+    <string name="main_activity_name">All Tasks</string>
+    <string name="add_task_activity_name">Add a New Task</string>
+
+    <!-- Strings for Button Texts -->
+    <string name="add_button">Add</string>
+    <string name="update_button">Update</string>
+
 </resources>

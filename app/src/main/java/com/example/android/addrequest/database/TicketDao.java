@@ -14,7 +14,7 @@ import java.util.List;
 public interface TicketDao {
 
     @Query("SELECT * FROM ticket")
-    LiveData<List<TicketEntry>> loadAllTasks();
+    LiveData<List<TicketEntry>> loadAllTickets();
 
     @Insert
     void insertTicket(TicketEntry ticketEntry);
@@ -26,6 +26,6 @@ public interface TicketDao {
     void deleteTicket(TicketEntry ticketEntry);
 
     @Query("SELECT * FROM ticket WHERE id = :id")
-    LiveData<TicketEntry> loadTaskById(int id);
+    LiveData<TicketEntry> loadTicketById(int id);
 
 }

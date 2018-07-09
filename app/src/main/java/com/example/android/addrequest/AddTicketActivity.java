@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
@@ -38,6 +39,8 @@ public class AddTicketActivity extends AppCompatActivity{
     private AppDatabase mDb;
 
     // Fields for views
+    EditText mTitleText;
+    EditText mDescriptionText;
     Button mButton;
 
 
@@ -98,6 +101,9 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void initViews() {
 
+        mTitleText = findViewById(R.id.editTextTicketTitle);
+        mDescriptionText = findViewById(R.id.editTextTicketDescription);
+
         mButton = findViewById(R.id.saveButton);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +117,15 @@ public class AddTicketActivity extends AppCompatActivity{
     /**
      * populateUI would be called to populate the UI when in update mode
      *
-     * @param task the ticketEntry to populate the UI
+     * @param ticket the ticketEntry to populate the UI
      */
-    private void populateUI(TicketEntry task) {
-        if (task == null) {
+    private void populateUI(TicketEntry ticket) {
+        if (ticket == null) {
             return;
         }
+
+        mTitleText.setText(ticket.getTitle());
+        mDescriptionText.setText(ticket.getDescription());
     }
 
     
@@ -126,8 +135,8 @@ public class AddTicketActivity extends AppCompatActivity{
     public void onSaveButtonClicked() {
 
         // Set up ticket
-        String title = "test title";
-        String description = "test description";
+        String title = mTitleText.getText().toString();
+        String description = mDescriptionText.getText().toString();
         Date date = new Date();
         final TicketEntry ticket = new TicketEntry(title, description, date);
 

@@ -10,6 +10,24 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <!-- EditText for title input -->
+    <EditText
+        android:id="@+id/editTextTicketTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="@string/edit_ticket_title"
+        android:paddingBottom="@dimen/activity_horizontal_margin" />
+
+    <!-- EditText for description input -->
+    <EditText
+        android:id="@+id/editTextTicketDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="@string/edit_ticket_description"
+        android:paddingBottom="@dimen/activity_horizontal_margin" />
+
     <!-- Add button -->
     <Button
         android:id="@+id/saveButton"

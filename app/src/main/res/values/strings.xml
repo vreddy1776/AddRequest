@@ -1,12 +1,16 @@
 <resources>
 
     <!-- Strings for Activity Names -->
-    <string name="app_name">To-Do List</string>
-    <string name="main_activity_name">All Tasks</string>
-    <string name="add_task_activity_name">Add a New Task</string>
+    <string name="app_name">AddRequest</string>
+    <string name="main_activity_name">Requests</string>
+    <string name="add_task_activity_name">Add Request</string>
 
     <!-- Strings for Button Texts -->
     <string name="add_button">Add</string>
     <string name="update_button">Update</string>
+
+    <!-- Strings for AddTicketActivity -->
+    <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
+    <string name="edit_ticket_description">Describe your request&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
 
 </resources>

@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set Actionbar Title
+        getSupportActionBar().setTitle(R.string.main_activity_name);
+
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);
 

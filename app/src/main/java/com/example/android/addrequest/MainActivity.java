@@ -2,6 +2,7 @@ package com.example.android.addrequest;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.widget.RadioGroup;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
+import com.example.android.addrequest.utilities.VolleyUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
 
         // Set Actionbar Title
         getSupportActionBar().setTitle(R.string.main_activity_name);
+
+        String s = VolleyUtils.getJSON(this);
+        Log.d(TAG, "s:  "  + s);
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);

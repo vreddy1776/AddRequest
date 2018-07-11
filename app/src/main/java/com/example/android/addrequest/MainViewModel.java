@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
-import com.example.android.addrequest.utilities.VolleyUtils;
 
 import java.util.List;
 

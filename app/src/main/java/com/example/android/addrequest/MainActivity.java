@@ -2,7 +2,6 @@ package com.example.android.addrequest;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,15 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
-import com.example.android.addrequest.utilities.VolleyUtils;
+import com.example.android.addrequest.sync.SyncVolley;
 
-import java.util.Date;
 import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
@@ -56,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         // Set Actionbar Title
         getSupportActionBar().setTitle(R.string.main_activity_name);
 
-        String s = VolleyUtils.getJSON(this);
-        Log.d(TAG, "s:  "  + s);
+        // Make JSON query
+        SyncVolley.getJSON(this);
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);

@@ -7,9 +7,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SyncVolley {
@@ -22,11 +24,11 @@ public class SyncVolley {
 
     public static void getJSON(Context context){
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, MAIN_URL, new JSONObject(),
-                new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, MAIN_URL, new JSONArray(),
+                new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         Log.d(TAG, "Volley - rawJSON:  "  + response.toString());
                         SyncBulk.bulkPopulate(response);
                     }

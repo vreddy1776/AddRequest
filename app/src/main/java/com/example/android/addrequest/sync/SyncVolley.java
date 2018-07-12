@@ -18,7 +18,7 @@ public class SyncVolley {
     private static final String TAG = SyncVolley.class.getSimpleName();
 
     private static final String MAIN_URL =
-            "http://cblunt.github.io/blog-android-volley/response.json";
+            "http://ec2-18-191-155-187.us-east-2.compute.amazonaws.com/requests/";
 
     public static void getJSON(Context context){
 

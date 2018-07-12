@@ -13,7 +13,7 @@ public class SyncBulk {
     public static void bulkPopulate(JSONObject jsonObject){
 
         try {
-            Log.d(TAG, "JSONobject for message:  "  + jsonObject.get("message"));
+            Log.d(TAG, "JSONobject for message:  "  + jsonObject.get("title"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

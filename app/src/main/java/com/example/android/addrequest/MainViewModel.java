@@ -3,7 +3,6 @@ package com.example.android.addrequest;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.android.addrequest.database.AppDatabase;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,9 @@ public class AddTicketActivity extends AppCompatActivity{
      * Initialize values.
      */
 
+    // Constant for logging
+    private static final String TAG = AddTicketActivity.class.getSimpleName();
+
     // Extra for the ticket ID to be received in the intent
     public static final String EXTRA_TICKET_ID = "extraTicketId";
     // Extra for the ticket ID to be received after rotation
@@ -35,8 +39,8 @@ public class AddTicketActivity extends AppCompatActivity{
     // Initialize integer for ticket ID
     private int mTicketId = DEFAULT_TICKET_ID;
 
-    // Member variable for the Database
-    private AppDatabase mDb;
+    // Member variable for the ViewModel
+    private AddTicketViewModel viewModel;
 
     // Fields for views
     EditText mTitleText;
@@ -50,8 +54,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
         initViews();
 
-        mDb = AppDatabase.getInstance(getApplicationContext());
-
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TICKET_ID)) {
             mTicketId = savedInstanceState.getInt(INSTANCE_TICKET_ID, DEFAULT_TICKET_ID);
         }
@@ -59,30 +61,27 @@ public class AddTicketActivity extends AppCompatActivity{
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_TICKET_ID)) {
             mButton.setText(R.string.update_button);
-            if (mTicketId == DEFAULT_TICKET_ID) {
-
-                // populate the UI
-                mTicketId = intent.getIntExtra(EXTRA_TICKET_ID, DEFAULT_TICKET_ID);
-
-                // Declare a AddTicketViewModelFactory using mDb and mTicketId
-                AddTicketViewModelFactory factory = new AddTicketViewModelFactory(mDb, mTicketId);
-
-                // Declare a AddTicketViewModel variable and initialize it by calling ViewModelProviders.of
-                // for that use the factory created above AddTicketViewModel
-                final AddTicketViewModel viewModel
-                        = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
-
-                // Observe the LiveData object in the ViewModel. Use it also when removing the observer
-                viewModel.getTicket().observe(this, new Observer<TicketEntry>() {
-                    @Override
-                    public void onChanged(@Nullable TicketEntry ticketEntry) {
-                        viewModel.getTicket().removeObserver(this);
-                        populateUI(ticketEntry);
-                    }
-                });
-            }
         }
-                
+
+        // populate the UI
+        mTicketId = intent.getIntExtra(EXTRA_TICKET_ID, DEFAULT_TICKET_ID);
+
+        // Declare a AddTicketViewModelFactory using mDb and mTicketId
+        AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
+
+        // Declare a AddTicketViewModel variable and initialize it by calling ViewModelProviders.of
+        // for that use the factory created above AddTicketViewModel
+        viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
+
+        // Observe the LiveData object in the ViewModel. Use it also when removing the observer
+        viewModel.getTicket().observe(this, new Observer<TicketEntry>() {
+            @Override
+            public void onChanged(@Nullable TicketEntry ticketEntry) {
+                viewModel.getTicket().removeObserver(this);
+                populateUI(ticketEntry);
+            }
+        });
+
     }
 
 
@@ -138,23 +137,17 @@ public class AddTicketActivity extends AppCompatActivity{
         String title = mTitleText.getText().toString();
         String description = mDescriptionText.getText().toString();
         Date date = new Date();
-        final TicketEntry ticket = new TicketEntry(title, description, date);
+        TicketEntry ticket = new TicketEntry(title, description, date);
 
         // Execute ticket entry
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (mTicketId == DEFAULT_TICKET_ID) {
-                    // insert new ticket
-                    mDb.ticketDao().insertTicket(ticket);
-                } else {
-                    //update ticket
-                    ticket.setId(mTicketId);
-                    mDb.ticketDao().updateTicket(ticket);
-                }
-                finish();
-            }
-        });
+        if (mTicketId == DEFAULT_TICKET_ID) {
+            // insert new ticket
+            viewModel.addTicket(ticket);
+        } else {
+            // update ticket
+            viewModel.changeTicket(ticket,mTicketId);
+        }
+        finish();
 
     }
 

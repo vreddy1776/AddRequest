@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
     private RecyclerView mRecyclerView;
     private TicketAdapter mAdapter;
 
-    // Member variable for the Database
-    private AppDatabase mDb;
+    // ViewModel for Main Activity
+    private MainViewModel viewModel;
 
 
     /**
@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
 
+        // Setup ViewModel
+        setupViewModel();
+
         /*
          Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
@@ -83,14 +86,10 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // Here is where you'll implement swipe to delete
-                AppExecuters.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                        List<TicketEntry> tickets = mAdapter.getTickets();
-                        mDb.ticketDao().deleteTicket(tickets.get(position));
-                    }
-                });
+                int position = viewHolder.getAdapterPosition();
+                List<TicketEntry> tickets = mAdapter.getTickets();
+                viewModel.swipeTicket(position,tickets);
+
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -109,12 +108,6 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
             }
         });
 
-        // Get the AppDatabase
-        mDb = AppDatabase.getInstance(getApplicationContext());
-
-        // Setup ViewModel
-        setupViewModel();
-
     }
 
 
@@ -122,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
      * Set up the ViewModel.
      */
     private void setupViewModel() {
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
             public void onChanged(@Nullable List<TicketEntry> ticketEntries) {

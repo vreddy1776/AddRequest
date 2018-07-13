@@ -3,6 +3,7 @@ package com.example.android.addrequest;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.android.addrequest.database.AppDatabase;
@@ -21,11 +22,22 @@ public class MainViewModel extends AndroidViewModel{
 
     private LiveData<List<TicketEntry>> tickets;
 
+    private AppDatabase database;
+
     public MainViewModel(Application application) {
         super(application);
-        AppDatabase database = AppDatabase.getInstance(this.getApplication());
+        database = AppDatabase.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving the ticket from the DataBase");
         tickets = database.ticketDao().loadAllTickets();
+    }
+
+    public void swipeTicket(final int position, final List<TicketEntry> tickets){
+        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.ticketDao().deleteTicket(tickets.get(position));
+            }
+        });
     }
 
     public LiveData<List<TicketEntry>> getTickets() {

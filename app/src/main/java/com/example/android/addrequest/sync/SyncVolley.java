@@ -34,6 +34,9 @@ public class SyncVolley {
 
     private static final String UPDATE = "update.php";
 
+    private static final String DELETE = "delete.php";
+
+
 
     // Add and Update Parameters
     // URL Params
@@ -134,6 +137,33 @@ public class SyncVolley {
     }
 
 
+    public void delete(final Context context, int id){
+
+        String stringId = String.valueOf(id);
+
+        String URL = getDeleteURL(stringId);
+        StringRequest request = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Volley - response:  "  + response);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Volley - error:  "  + error.toString());
+                    }
+                }
+        );
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+
+    }
+
+
     private String getAddURL(String id, String title, String description, String date){
 
         String addURL = MAIN_URL + ADD + START +
@@ -151,15 +181,27 @@ public class SyncVolley {
 
     private String getUpdateURL(String id, String title, String description, String date){
 
-        String addURL = MAIN_URL + UPDATE + START +
+        String updateURL = MAIN_URL + UPDATE + START +
                 ID + SET + id + AND +
                 TITLE + SET + title + AND +
                 DESCRIPTION + SET + description + AND +
                 DATE + SET + date;
 
-        Log.d(TAG, "Add URL is:  "  + addURL);
+        Log.d(TAG, "Update URL is:  "  + updateURL);
 
-        return addURL;
+        return updateURL;
+
+    }
+
+
+    private String getDeleteURL(String id){
+
+        String deleteURL = MAIN_URL + DELETE + START +
+                ID + SET + id;
+
+        Log.d(TAG, "Delete URL is:  "  + deleteURL);
+
+        return deleteURL;
 
     }
 

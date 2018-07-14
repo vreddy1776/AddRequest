@@ -24,8 +24,12 @@ public class MainViewModel extends AndroidViewModel{
 
     private AppDatabase database;
 
+    private Application application;
+
     public MainViewModel(Application application) {
         super(application);
+
+        this.application = application;
 
         database = AppDatabase.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving the ticket from the DataBase");
@@ -46,12 +50,21 @@ public class MainViewModel extends AndroidViewModel{
     }
 
     public void swipeTicket(final int position, final List<TicketEntry> tickets){
+
+        TicketEntry ticket = tickets.get(position);
+        int id = ticket.getId();
+        Log.d(TAG, "Test - Ticket ID:  " + id);
+
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 database.ticketDao().deleteTicket(tickets.get(position));
             }
         });
+
+        SyncVolley syncVolley = new SyncVolley();
+        syncVolley.delete(application,id);
+
     }
 
     public LiveData<List<TicketEntry>> getTickets() {

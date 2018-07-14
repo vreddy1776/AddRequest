@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
         intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
+        Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
     }
 

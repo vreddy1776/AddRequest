@@ -22,9 +22,10 @@ public class DateConverter {
         return date == null ? null : date.getTime();
     }
 
+
     public static Date stringToDate(String dateString){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         Date date = new Date();
         try {
             date = sdf.parse(dateString);
@@ -34,5 +35,15 @@ public class DateConverter {
         return date;
 
     }
+
+
+    public static String dateToString(Date date){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        String dateString = sdf.format(date);
+        return dateString;
+
+    }
+
 
 }

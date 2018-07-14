@@ -38,7 +38,7 @@ public class MainViewModel extends AndroidViewModel{
         });
 
         SyncVolley syncVolley = new SyncVolley();
-        syncVolley.getJSON(application);
+        syncVolley.select(application);
 
         tickets = database.ticketDao().loadAllTickets();
 

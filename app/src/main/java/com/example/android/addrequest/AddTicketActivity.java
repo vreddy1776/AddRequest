@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
+import com.example.android.addrequest.utils.GenerateID;
 
 import java.util.Date;
 
@@ -145,17 +146,19 @@ public class AddTicketActivity extends AppCompatActivity{
     public void onSaveButtonClicked() {
 
         // Set up ticket
+        int id = GenerateID.newID();
         String title = mTitleText.getText().toString();
         String description = mDescriptionText.getText().toString();
         Date date = new Date();
-        TicketEntry ticket = new TicketEntry(title, description, date);
 
         // Execute ticket entry
         if (mTicketId == DEFAULT_TICKET_ID) {
             // insert new ticket
+            TicketEntry ticket = new TicketEntry(id, title, description, date);
             viewModel.addTicket(ticket);
         } else {
             // update ticket
+            TicketEntry ticket = new TicketEntry(title, description, date);
             viewModel.changeTicket(ticket,mTicketId);
         }
         finish();

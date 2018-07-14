@@ -28,11 +28,12 @@ public class SyncVolley {
     private static final String MAIN_URL =
             "http://ec2-18-219-46-19.us-east-2.compute.amazonaws.com/";
 
-    private static final String SELECT =
-            "select.php";
+    private static final String SELECT = "select.php";
 
-    private static final String ADD =
-            "add.php";
+    private static final String ADD = "add.php";
+
+    private static final String UPDATE = "update.php";
+
 
     // Add and Update Parameters
     // URL Params
@@ -103,9 +104,54 @@ public class SyncVolley {
     }
 
 
+    public void update(final Context context, TicketEntry ticket){
+
+        String id = String.valueOf(ticket.getId());
+        String title = ticket.getTitle();
+        String description = ticket.getDescription();
+        String date = DateConverter.dateToString(ticket.getUpdatedAt());
+
+        String URL = getUpdateURL(id, title, description, date);
+        StringRequest request = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Volley - response:  "  + response);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Volley - error:  "  + error.toString());
+                    }
+                }
+        );
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+
+    }
+
+
     private String getAddURL(String id, String title, String description, String date){
 
         String addURL = MAIN_URL + ADD + START +
+                ID + SET + id + AND +
+                TITLE + SET + title + AND +
+                DESCRIPTION + SET + description + AND +
+                DATE + SET + date;
+
+        Log.d(TAG, "Add URL is:  "  + addURL);
+
+        return addURL;
+
+    }
+
+
+    private String getUpdateURL(String id, String title, String description, String date){
+
+        String addURL = MAIN_URL + UPDATE + START +
                 ID + SET + id + AND +
                 TITLE + SET + title + AND +
                 DESCRIPTION + SET + description + AND +

@@ -85,15 +85,19 @@ public class AddTicketViewModel extends AndroidViewModel {
      */
     public void changeTicket(final TicketEntry newTicket, final int mTicketId){
 
-        Log.d(TAG, "Test - Ticked ID:  " + newTicket.getId());
+        Log.d(TAG, "Test - Ticket ID:  " + newTicket.getId());
+
+        newTicket.setId(mTicketId);
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                newTicket.setId(mTicketId);
                 database.ticketDao().updateTicket(newTicket);
             }
         });
+
+        SyncVolley syncVolley = new SyncVolley();
+        syncVolley.update(application, newTicket);
 
     }
 

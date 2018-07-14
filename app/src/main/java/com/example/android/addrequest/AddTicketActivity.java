@@ -151,6 +151,8 @@ public class AddTicketActivity extends AppCompatActivity{
         String description = mDescriptionText.getText().toString();
         Date date = new Date();
 
+        Log.d(TAG, "Test - Ticked ID:  " + mTicketId);
+
         // Execute ticket entry
         if (mTicketId == DEFAULT_TICKET_ID) {
             // insert new ticket

@@ -22,7 +22,7 @@ public class SyncVolley {
     private static final String MAIN_URL =
             "http://ec2-18-191-155-187.us-east-2.compute.amazonaws.com/requests/";
 
-    public static void getJSON(Context context){
+    public void getJSON(final Context context){
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, MAIN_URL, new JSONArray(),
                 new Response.Listener<JSONArray>() {
@@ -30,7 +30,8 @@ public class SyncVolley {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, "Volley - rawJSON:  "  + response.toString());
-                        SyncBulk.bulkPopulate(response);
+                        SyncBulk syncBulk = new SyncBulk();
+                        syncBulk.bulkPopulate(context,response);
                     }
                 },
                 new Response.ErrorListener() {

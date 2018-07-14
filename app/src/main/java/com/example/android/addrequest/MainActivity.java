@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         // Set Actionbar Title
         getSupportActionBar().setTitle(R.string.main_activity_name);
 
-        // Make JSON query
-        SyncVolley.getJSON(this);
-
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);
 

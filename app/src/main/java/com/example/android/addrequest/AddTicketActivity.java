@@ -29,12 +29,9 @@ public class AddTicketActivity extends AppCompatActivity{
     // Constant for logging
     private static final String TAG = AddTicketActivity.class.getSimpleName();
 
-    // Extra for the ticket ID to be received in the intent
-    public static final String EXTRA_TICKET_ID = "extraTicketId";
-    // Extra for the ticket ID to be received after rotation
-    public static final String INSTANCE_TICKET_ID = "instanceTicketId";
     // Ticket ID parameter string
     public static final String TICKET_ID = "TicketId";
+
     // Constant for default ticket id to be used when not in update mode
     private static final int DEFAULT_TICKET_ID = -1;
 
@@ -54,9 +51,31 @@ public class AddTicketActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
 
-        // populate the UI
+        // Get ticket ID
+        receiveTicketID();
+
+        // Setup ViewModels for each instance
+        setupViewModelFactory();
+
+        // Initialize views
+        initViews();
+
+    }
+
+
+    /**
+     * Get ticket ID from MainActivity
+     */
+    private void receiveTicketID(){
         Intent intent = getIntent();
         mTicketId = intent.getIntExtra(TICKET_ID, DEFAULT_TICKET_ID);
+    }
+
+
+    /**
+     * Set up ViewModelFactory for each instance of AddTicketActivity
+     */
+    private void setupViewModelFactory(){
 
         // Declare a AddTicketViewModelFactory using mDb and mTicketId
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
@@ -73,10 +92,6 @@ public class AddTicketActivity extends AppCompatActivity{
                 populateUI(ticketEntry);
             }
         });
-
-        // Initialize views
-        initViews();
-
     }
 
 

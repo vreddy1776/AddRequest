@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
     public void onItemClickListener(int itemId) {
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
-        intent.putExtra(AddTicketActivity.EXTRA_TICKET_ID, itemId);
+        intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
         startActivity(intent);
     }
 

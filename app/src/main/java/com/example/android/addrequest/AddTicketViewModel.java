@@ -19,6 +19,8 @@ public class AddTicketViewModel extends AndroidViewModel {
     // Ticket member variable for the TicketEntry object wrapped in a LiveData.
     private LiveData<TicketEntry> ticket;
 
+    private int ticketID;
+
     // Initialize database
     private AppDatabase database;
 
@@ -29,6 +31,7 @@ public class AddTicketViewModel extends AndroidViewModel {
     public AddTicketViewModel(Application application, int ticketId) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
+        this.ticketID = ticketId;
         loadTicket(ticketId);
 
     }
@@ -77,6 +80,14 @@ public class AddTicketViewModel extends AndroidViewModel {
      */
     public LiveData<TicketEntry> getTicket() {
         return ticket;
+    }
+
+
+    /**
+     * Getter for the ticket ID.
+     */
+    public int getTicketID() {
+        return ticketID;
     }
 
 

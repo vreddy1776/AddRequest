@@ -33,6 +33,8 @@ public class AddTicketActivity extends AppCompatActivity{
     public static final String EXTRA_TICKET_ID = "extraTicketId";
     // Extra for the ticket ID to be received after rotation
     public static final String INSTANCE_TICKET_ID = "instanceTicketId";
+    // Ticket ID parameter string
+    public static final String TICKET_ID = "TicketId";
     // Constant for default ticket id to be used when not in update mode
     private static final int DEFAULT_TICKET_ID = -1;
 
@@ -52,19 +54,9 @@ public class AddTicketActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
 
-        initViews();
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TICKET_ID)) {
-            mTicketId = savedInstanceState.getInt(INSTANCE_TICKET_ID, DEFAULT_TICKET_ID);
-        }
-
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_TICKET_ID)) {
-            mButton.setText(R.string.update_button);
-        }
-
         // populate the UI
-        mTicketId = intent.getIntExtra(EXTRA_TICKET_ID, DEFAULT_TICKET_ID);
+        Intent intent = getIntent();
+        mTicketId = intent.getIntExtra(TICKET_ID, DEFAULT_TICKET_ID);
 
         // Declare a AddTicketViewModelFactory using mDb and mTicketId
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
@@ -82,6 +74,9 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         });
 
+        // Initialize views
+        initViews();
+
     }
 
 
@@ -90,8 +85,8 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(INSTANCE_TICKET_ID, mTicketId);
         super.onSaveInstanceState(outState);
+        mTicketId = viewModel.getTicketID();
     }
 
 
@@ -104,6 +99,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
 
         mButton = findViewById(R.id.saveButton);
+        if( mTicketId != DEFAULT_TICKET_ID ){ mButton.setText(R.string.update_button); }
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

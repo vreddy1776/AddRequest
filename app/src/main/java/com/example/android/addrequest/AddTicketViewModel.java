@@ -11,6 +11,7 @@ import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
 import com.example.android.addrequest.utils.GenerateID;
+import com.example.android.addrequest.utils.S3bucket;
 
 import java.util.Date;
 
@@ -47,6 +48,9 @@ public class AddTicketViewModel extends AndroidViewModel {
         loadTicket(ticketId);
 
         this.application = application;
+
+        S3bucket s3 = new S3bucket();
+        s3.accessS3bucket(application);
 
     }
 

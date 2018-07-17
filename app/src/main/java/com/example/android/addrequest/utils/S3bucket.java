@@ -53,7 +53,7 @@ public class S3bucket {
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
                     // Handle a completed upload.
-                    Log.d("YourActivity", "complete");
+                    Log.d("AddTicket", "complete");
 
                 }
             }
@@ -63,14 +63,14 @@ public class S3bucket {
                 float percentDonef = ((float) bytesCurrent / (float) bytesTotal) * 100;
                 int percentDone = (int)percentDonef;
 
-                Log.d("YourActivity", "ID:" + id + " bytesCurrent: " + bytesCurrent
+                Log.d("AddTicket", "ID:" + id + " bytesCurrent: " + bytesCurrent
                         + " bytesTotal: " + bytesTotal + " " + percentDone + "%");
             }
 
             @Override
             public void onError(int id, Exception ex) {
                 // Handle errors
-                Log.d("YourActivity", "error:  " + ex);
+                Log.d("AddTicket", "error:  " + ex);
             }
 
         });
@@ -81,8 +81,8 @@ public class S3bucket {
             // Handle a completed upload.
         }
 
-        Log.d("YourActivity", "Bytes Transferrred: " + uploadObserver.getBytesTransferred());
-        Log.d("YourActivity", "Bytes Total: " + uploadObserver.getBytesTotal());
+        Log.d("AddTicket", "Bytes Transferrred: " + uploadObserver.getBytesTransferred());
+        Log.d("AddTicket", "Bytes Total: " + uploadObserver.getBytesTotal());
     }
 
 

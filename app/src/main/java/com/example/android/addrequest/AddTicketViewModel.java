@@ -72,7 +72,7 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Add ticket.
      */
-    public void addTicket(final TicketEntry newTicket){
+    public void addTicket(final TicketEntry newTicket , boolean boolVideoPost){
 
         Log.d(TAG, "Test - Ticket ID:  " + newTicket.getId());
 
@@ -87,13 +87,17 @@ public class AddTicketViewModel extends AndroidViewModel {
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.add(application, newTicket);
 
+        if(boolVideoPost){
+            postVideo(String.valueOf(newTicket.getId()));
+        }
+
     }
 
 
     /**
      * Change ticket.
      */
-    public void changeTicket(final TicketEntry newTicket, final int mTicketId){
+    public void changeTicket(final TicketEntry newTicket, final int mTicketId , boolean boolVideoPost){
 
         Log.d(TAG, "Test - Ticket ID:  " + newTicket.getId());
 
@@ -109,22 +113,26 @@ public class AddTicketViewModel extends AndroidViewModel {
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.update(application, newTicket);
 
+        if(boolVideoPost){
+            postVideo(String.valueOf(newTicket.getId()));
+        }
+
     }
 
 
-    public void postVideo() {
-
-        /*
-        Uri capturedVideoUri = data.getData();
-        Video video = new Video();
-        File file = new File(video.getPath(capturedVideoUri));
-        */
+    /**
+     * Store video after camera intent.
+     */
+    private void postVideo(String nameID) {
 
         S3bucket s3 = new S3bucket();
-        s3.accessS3bucket( videoContext , videoFile , videoFile.getName() );
+        s3.accessS3bucket( videoContext , videoFile , nameID );
     }
 
 
+    /**
+     * Store video after camera intent.
+     */
     public void storeVideoInfo(Context context, File file){
         videoContext = context;
         videoFile = file;

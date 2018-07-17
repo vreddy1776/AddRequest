@@ -125,10 +125,16 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Store video after camera intent.
      */
-    private void postVideo(String nameID) {
+    private void postVideo(final String nameID) {
 
-        S3bucket s3 = new S3bucket();
-        s3.accessS3bucket( videoContext , videoFile , nameID );
+        // Run thread to create video file
+        AppExecuters.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                S3bucket s3 = new S3bucket();
+                s3.accessS3bucket( videoContext , videoFile , nameID );
+            }
+        });
     }
 
 

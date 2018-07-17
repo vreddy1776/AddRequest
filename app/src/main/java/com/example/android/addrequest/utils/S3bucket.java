@@ -19,15 +19,15 @@ import java.io.File;
 public class S3bucket {
 
 
-    public void accessS3bucket(Context context) {
+    public void accessS3bucket(Context context, File file, String fileID) {
 
         AWSMobileClient.getInstance().initialize(context).execute();
-        uploadWithTransferUtility(context);
+        uploadWithTransferUtility(context,file, fileID);
 
     }
 
 
-    private void uploadWithTransferUtility(Context context) {
+    private void uploadWithTransferUtility(Context context, File file, String fileID) {
 
         String OLD_PATHNAME = "/path/to/file/localFile.txt";
         String FILENAME = "GKU000097.mp4";
@@ -43,8 +43,8 @@ public class S3bucket {
         TransferObserver uploadObserver =
                 transferUtility.upload(
                         "addrequest-deployments-mobilehub-1269242402",
-                        FILENAME,
-                        new File(PATHNAME));
+                        fileID,
+                        file);
 
         // Attach a listener to the observer to get state update and progress notifications
         uploadObserver.setTransferListener(new TransferListener() {

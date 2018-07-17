@@ -49,9 +49,6 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         this.application = application;
 
-        S3bucket s3 = new S3bucket();
-        s3.accessS3bucket(application);
-
     }
 
 

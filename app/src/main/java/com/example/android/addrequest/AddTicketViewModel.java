@@ -6,7 +6,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.example.android.addrequest.database.AppDatabase;
@@ -133,9 +135,21 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Store video after camera intent.
      */
-    public void storeVideoInfo(Context context, File file){
+    public void storeVideo(Context context, final String filePath){
+
+        // Store AddTicketActivity context for S3 posting when saved
         videoContext = context;
-        videoFile = file;
+
+        // Run thread to create video file
+        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                File file = new File(filePath);
+                videoFile = file;
+            }
+        });
+
+
     }
 
 
@@ -153,6 +167,5 @@ public class AddTicketViewModel extends AndroidViewModel {
     public int getTicketID() {
         return ticketID;
     }
-
 
 }

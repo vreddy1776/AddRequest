@@ -233,8 +233,8 @@ public class AddTicketActivity extends AppCompatActivity{
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
             Uri capturedVideoUri = data.getData();
-            File file = new File(getPath(capturedVideoUri));
-            viewModel.storeVideoInfo(this,file);
+            String filePath = getPath(capturedVideoUri);
+            viewModel.storeVideo(this,filePath);
         }
 
     }
@@ -250,7 +250,7 @@ public class AddTicketActivity extends AppCompatActivity{
         if (cursor == null) return null;
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
         cursor.moveToFirst();
-        String s=cursor.getString(column_index);
+        String s = cursor.getString(column_index);
         cursor.close();
         return s;
     }

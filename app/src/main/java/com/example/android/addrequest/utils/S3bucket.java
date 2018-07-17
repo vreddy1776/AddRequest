@@ -29,10 +29,6 @@ public class S3bucket {
 
     private void uploadWithTransferUtility(Context context, File file, String fileID) {
 
-        String OLD_PATHNAME = "/path/to/file/localFile.txt";
-        String FILENAME = "GKU000097.mp4";
-        String PATHNAME = Environment.getExternalStorageDirectory().toString() + "/DCIM/Camera/" + FILENAME;
-
         TransferUtility transferUtility =
                 TransferUtility.builder()
                         .context(context)

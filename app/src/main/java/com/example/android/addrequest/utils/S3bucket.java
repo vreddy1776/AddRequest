@@ -22,7 +22,7 @@ public class S3bucket {
     public void accessS3bucket(Context context, File file, String fileID) {
 
         AWSMobileClient.getInstance().initialize(context).execute();
-        uploadWithTransferUtility(context,file, fileID);
+        uploadWithTransferUtility(context,file,fileID);
 
     }
 

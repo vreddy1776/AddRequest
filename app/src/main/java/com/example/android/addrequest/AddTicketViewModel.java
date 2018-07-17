@@ -5,6 +5,8 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.android.addrequest.database.AppDatabase;
@@ -12,7 +14,9 @@ import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
 import com.example.android.addrequest.utils.GenerateID;
 import com.example.android.addrequest.utils.S3bucket;
+import com.example.android.addrequest.utils.Video;
 
+import java.io.File;
 import java.util.Date;
 
 public class AddTicketViewModel extends AndroidViewModel {
@@ -35,6 +39,11 @@ public class AddTicketViewModel extends AndroidViewModel {
 
     // Viewmodel Application context
     private Application application;
+
+    // Video Parameters
+    private Context videoContext;
+    private File videoFile;
+
 
 
     /**
@@ -103,9 +112,28 @@ public class AddTicketViewModel extends AndroidViewModel {
     }
 
 
+    public void postVideo() {
+
+        /*
+        Uri capturedVideoUri = data.getData();
+        Video video = new Video();
+        File file = new File(video.getPath(capturedVideoUri));
+        */
+
+        S3bucket s3 = new S3bucket();
+        s3.accessS3bucket( videoContext , videoFile , videoFile.getName() );
+    }
+
+
+    public void storeVideoInfo(Context context, File file){
+        videoContext = context;
+        videoFile = file;
+    }
+
+
     /**
-     * Getter for the ticket variable.
-     */
+    * Getter for the ticket variable.
+    */
     public LiveData<TicketEntry> getTicket() {
         return ticket;
     }

@@ -190,6 +190,7 @@ public class AddTicketActivity extends AppCompatActivity{
             TicketEntry ticket = new TicketEntry(title, description, date);
             viewModel.changeTicket(ticket,mTicketId);
         }
+        viewModel.postVideo();
         finish();
 
     }
@@ -207,14 +208,18 @@ public class AddTicketActivity extends AppCompatActivity{
     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         Log.d(TAG, "requestCode: " + requestCode + "  ;  resultCode: " + resultCode);
-        Log.d(TAG, "data: " + data);
 
         Uri capturedVideoUri = data.getData();
         File file = new File(getPath(capturedVideoUri));
 
+        viewModel.storeVideoInfo(this,file);
+
+        /*
         S3bucket s3 = new S3bucket();
         s3.accessS3bucket(this, file, String.valueOf(mTicketId));
+        */
 
     }
 

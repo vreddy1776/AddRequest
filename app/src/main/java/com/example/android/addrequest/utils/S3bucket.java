@@ -27,7 +27,7 @@ public class S3bucket {
     }
 
 
-    private void uploadWithTransferUtility(Context context, File file, String fileID) {
+    private void uploadWithTransferUtility(final Context context, File file, final String fileID) {
 
         TransferUtility transferUtility =
                 TransferUtility.builder()
@@ -50,6 +50,7 @@ public class S3bucket {
                 if (TransferState.COMPLETED == state) {
                     // Handle a completed upload.
                     Log.d("AddTicket", "complete");
+                    NotificationUtils.remindUserBecauseCharging(context , Integer.parseInt(fileID));
 
                 }
             }

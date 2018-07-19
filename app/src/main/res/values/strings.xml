@@ -10,9 +10,14 @@
     <string name="update_button">Update</string>
     <string name="video_button">Video</string>
 
-
     <!-- Strings for AddTicketActivity -->
     <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
     <string name="edit_ticket_description">Describe your request&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
+
+    <!-- Strings for Notifications and Toasts -->
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="posting_reminder_notification_title">Request Added</string>
+    <string name="posting_reminder_notification_body">Your request has been added!</string>
+
 
 </resources>

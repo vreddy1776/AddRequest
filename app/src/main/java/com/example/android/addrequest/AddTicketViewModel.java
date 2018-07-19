@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.example.android.addrequest.DynamoAWS.DynamoDB;
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
@@ -74,7 +75,7 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Add ticket.
      */
-    public void addTicket(final TicketEntry newTicket , boolean boolVideoPost){
+    public void addTicket(Context context, final TicketEntry newTicket , boolean boolVideoPost){
 
         Log.d(TAG, "Test - Ticket ID:  " + newTicket.getId());
 
@@ -86,8 +87,20 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         });
 
+        /*
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.add(application, newTicket);
+        */
+
+        int id = newTicket.getId();
+        String title = newTicket.getTitle();
+        String description = newTicket.getDescription();
+        String date = String.valueOf(newTicket.getUpdatedAt());
+
+
+        DynamoDB db = new DynamoDB();
+        db.accessDynamoDB(context);
+        db.createTicket(id, title, description, date);
 
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getId()));

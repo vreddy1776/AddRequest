@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
      */
     private void setupViewModel() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.updateDB(this);
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
             public void onChanged(@Nullable List<TicketEntry> ticketEntries) {

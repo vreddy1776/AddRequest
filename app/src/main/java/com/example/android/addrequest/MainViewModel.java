@@ -3,8 +3,10 @@ package com.example.android.addrequest;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.util.Log;
 
+import com.example.android.addrequest.DynamoAWS.DynamoDB;
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
@@ -26,6 +28,8 @@ public class MainViewModel extends AndroidViewModel{
 
     private Application application;
 
+    private Context mContext;
+
     public MainViewModel(Application application) {
         super(application);
 
@@ -41,13 +45,27 @@ public class MainViewModel extends AndroidViewModel{
             }
         });
 
+        /*
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.select(application);
+        */
 
-        tickets = database.ticketDao().loadAllTickets();
+
 
 
     }
+
+
+    public void updateDB(Context context){
+
+        DynamoDB db = new DynamoDB();
+        db.accessDynamoDB(context);
+        db.queryNews();
+
+        tickets = database.ticketDao().loadAllTickets();
+
+    }
+
 
     public void swipeTicket(final int position, final List<TicketEntry> tickets){
 

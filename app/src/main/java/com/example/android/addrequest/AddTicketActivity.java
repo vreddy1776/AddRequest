@@ -199,7 +199,7 @@ public class AddTicketActivity extends AppCompatActivity{
         if (mTicketId == DEFAULT_TICKET_ID) {
             // insert new ticket
             TicketEntry ticket = new TicketEntry(id, title, description, date);
-            viewModel.addTicket(ticket,boolVideoPost);
+            viewModel.addTicket(this,ticket,boolVideoPost);
         } else {
             // update ticket
             TicketEntry ticket = new TicketEntry(title, description, date);

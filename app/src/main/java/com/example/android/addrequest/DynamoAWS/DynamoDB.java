@@ -18,6 +18,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.example.android.addrequest.AddTicketActivity;
+import com.example.android.addrequest.sync.SyncBulk;
 import com.google.gson.Gson;
 
 
@@ -102,7 +103,7 @@ public class DynamoDB {
     }
 
 
-    public void queryNews() {
+    public void scanTickets(final Context context) {
 
         new Thread(new Runnable() {
             @Override
@@ -130,19 +131,66 @@ public class DynamoDB {
 
                 Gson gson = new Gson();
                 StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[");
 
+                int length = result.size();
                 // Loop through query results
-                for (int i = 0; i < result.size(); i++) {
+                for (int i = 0; i < length; i++) {
                     String jsonFormOfItem = gson.toJson(result.get(i));
-                    stringBuilder.append(jsonFormOfItem + "\n\n");
+                    stringBuilder.append(jsonFormOfItem);
+                    if (i < length - 1){
+                        stringBuilder.append(",");
+                    }
                 }
+                stringBuilder.append("]");
+
 
                 // Add your code here to deal with the data result
                 Log.d(TAG, stringBuilder.toString());
 
+                DynamoSyncBulk syncBulk = new DynamoSyncBulk();
+                syncBulk.bulkPopulate(context,stringBuilder.toString());
+
                 if (result.isEmpty()) {
                     // There were no items matching your query.
                 }
+            }
+        }).start();
+    }
+
+
+    public void deleteTicket(final int id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                RequestsDO ticket = new RequestsDO();
+
+                ticket.setId((double) id);    //partition key
+
+                dynamoDBMapper.delete(ticket);
+
+                // Item deleted
+            }
+        }).start();
+    }
+
+
+    public void updateTicket(int id, String title, String description, String date) {
+        final RequestsDO ticket = new RequestsDO();
+
+        ticket.setId((double) id);
+        ticket.setTitle(title);
+        ticket.setDescription(description);
+        ticket.setDate(date);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                dynamoDBMapper.save(ticket);
+
+                // Item updated
             }
         }).start();
     }

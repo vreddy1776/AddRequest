@@ -112,7 +112,7 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Change ticket.
      */
-    public void changeTicket(final TicketEntry newTicket, final int mTicketId , boolean boolVideoPost){
+    public void changeTicket(Context context, final TicketEntry newTicket, final int mTicketId , boolean boolVideoPost){
 
         Log.d(TAG, "Test - Ticket ID:  " + newTicket.getId());
 
@@ -125,8 +125,19 @@ public class AddTicketViewModel extends AndroidViewModel {
             }
         });
 
+        /*
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.update(application, newTicket);
+        */
+
+        int id = newTicket.getId();
+        String title = newTicket.getTitle();
+        String description = newTicket.getDescription();
+        String date = String.valueOf(newTicket.getUpdatedAt());
+
+        DynamoDB db = new DynamoDB();
+        db.accessDynamoDB(context);
+        db.updateTicket(id, title, description, date);
 
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getId()));

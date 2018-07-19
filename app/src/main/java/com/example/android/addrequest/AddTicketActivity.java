@@ -203,7 +203,7 @@ public class AddTicketActivity extends AppCompatActivity{
         } else {
             // update ticket
             TicketEntry ticket = new TicketEntry(title, description, date);
-            viewModel.changeTicket(ticket,mTicketId,boolVideoPost);
+            viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
         }
 
         // Close Activity

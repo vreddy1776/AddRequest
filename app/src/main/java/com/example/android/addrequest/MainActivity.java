@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
                 // Here is where you'll implement swipe to delete
                 int position = viewHolder.getAdapterPosition();
                 List<TicketEntry> tickets = mAdapter.getTickets();
-                viewModel.swipeTicket(position,tickets);
+                viewModel.swipeTicket(getBaseContext(),position,tickets);
 
             }
         }).attachToRecyclerView(mRecyclerView);

@@ -28,8 +28,6 @@ public class MainViewModel extends AndroidViewModel{
 
     private Application application;
 
-    private Context mContext;
-
     public MainViewModel(Application application) {
         super(application);
 
@@ -60,14 +58,14 @@ public class MainViewModel extends AndroidViewModel{
 
         DynamoDB db = new DynamoDB();
         db.accessDynamoDB(context);
-        db.queryNews();
+        db.scanTickets(context);
 
         tickets = database.ticketDao().loadAllTickets();
 
     }
 
 
-    public void swipeTicket(final int position, final List<TicketEntry> tickets){
+    public void swipeTicket(Context context, final int position, final List<TicketEntry> tickets){
 
         TicketEntry ticket = tickets.get(position);
         int id = ticket.getId();
@@ -80,8 +78,14 @@ public class MainViewModel extends AndroidViewModel{
             }
         });
 
+        /*
         SyncVolley syncVolley = new SyncVolley();
         syncVolley.delete(application,id);
+        */
+
+        DynamoDB db = new DynamoDB();
+        db.accessDynamoDB(context);
+        db.deleteTicket(id);
 
     }
 

@@ -2,6 +2,7 @@ package com.example.android.addrequest;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         // Setup ViewModel
         setupViewModel();
 
+        final Context context = this;
+
         /*
          Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
                 // Here is where you'll implement swipe to delete
                 int position = viewHolder.getAdapterPosition();
                 List<TicketEntry> tickets = mAdapter.getTickets();
-                viewModel.swipeTicket(getBaseContext(),position,tickets);
+                viewModel.swipeTicket(context,position,tickets);
 
             }
         }).attachToRecyclerView(mRecyclerView);

@@ -41,6 +41,9 @@ dependencies {
     // Volley
     compile 'com.android.volley:volley:1.1.0'
 
+    // Exoplayer
+    compile 'com.google.android.exoplayer:exoplayer:r2.5.2'
+
     // AWS
     // S3 Bucket integration
     implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.6.+@aar') { transitive = true }
@@ -62,7 +65,6 @@ dependencies {
         exclude module: 'recyclerview-v7'
 
     }
-
 
     // Anotations
     compile 'com.android.support:support-annotations:25.1.0'

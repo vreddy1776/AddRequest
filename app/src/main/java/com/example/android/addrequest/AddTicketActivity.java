@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.android.addrequest.VideoPlayer.VideoPlayerActivity;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.utils.GenerateID;
 import com.example.android.addrequest.utils.NotificationUtils;
@@ -82,6 +83,10 @@ public class AddTicketActivity extends AppCompatActivity{
 
         // Initialize views
         initViews();
+
+        Intent intent = new Intent(AddTicketActivity.this, VideoPlayerActivity.class);
+        intent.putExtra(TICKET_ID,mTicketId);
+        startActivity(intent);
 
     }
 

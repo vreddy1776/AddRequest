@@ -35,6 +35,10 @@
             android:name="com.example.android.addrequest.AddTicketActivity"
             android:label="@string/add_ticket_activity_name" />
 
+        <!-- VideoActivity -->
+        <activity
+            android:name="com.example.android.addrequest.VideoPlayer.VideoPlayerActivity" />
+
         <!-- AWS S3 bucket access permission -->
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"

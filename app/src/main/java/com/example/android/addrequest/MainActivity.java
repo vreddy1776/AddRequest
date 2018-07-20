@@ -15,6 +15,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.example.android.addrequest.VideoPlayer.VideoPlayerActivity;
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
@@ -132,11 +133,13 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
      */
     @Override
     public void onItemClickListener(int itemId) {
+
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
         intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
+
     }
 
 

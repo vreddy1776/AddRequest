@@ -2,11 +2,16 @@ package com.example.android.addrequest;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.android.addrequest.VideoPlayer.VideoPlayerActivity;
 import com.example.android.addrequest.database.TicketEntry;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +24,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     /**
      * Returns the number of items to display.
      */
+
+    // Constant for logging
+    private static final String TAG = TicketAdapter.class.getSimpleName();
 
     // Constant for date format
     private static final String DATE_FORMAT = "dd/MM/yyy";
@@ -82,6 +90,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
         // Determine the values of the wanted data
         TicketEntry ticketEntry = mTicketEntries.get(position);
+        int id = ticketEntry.getId();
         String title = ticketEntry.getTitle();
         String description = ticketEntry.getDescription();
         String updatedAt = dateFormat.format(ticketEntry.getUpdatedAt());
@@ -90,6 +99,15 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.ticketTitleView.setText(title);
         holder.ticketDescriptionView.setText(description);
         holder.updatedAtView.setText(updatedAt);
+
+        String url = VideoPlayerActivity.MAIN_URL + String.valueOf(id);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.isMemoryCacheable();
+        Log.d(TAG,"url:  " + url);
+        Glide.with(mContext)
+                .load(url)
+                .thumbnail(0.1f)
+                .into(holder.videoThumbnailView);
 
     }
 
@@ -133,6 +151,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         TextView ticketTitleView;
         TextView ticketDescriptionView;
         TextView updatedAtView;
+        ImageView videoThumbnailView;
 
         /**
          * Constructor for the TicketViewHolders.
@@ -146,6 +165,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             ticketTitleView = itemView.findViewById(R.id.ticketTitle);
             ticketDescriptionView = itemView.findViewById(R.id.ticketDescription);
             updatedAtView = itemView.findViewById(R.id.ticketUpdatedAt);
+            videoThumbnailView = itemView.findViewById(R.id.videoThumbnail);
             itemView.setOnClickListener(this);
 
         }

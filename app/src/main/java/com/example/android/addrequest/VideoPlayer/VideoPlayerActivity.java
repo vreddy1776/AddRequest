@@ -43,7 +43,7 @@ public class VideoPlayerActivity extends Activity {
     // Constant for default ticket id to be used when not in update mode
     private static final int DEFAULT_TICKET_ID = -1;
 
-    private static final String MAIN_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
+    public static final String MAIN_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
 
     private static String videoURL;
 

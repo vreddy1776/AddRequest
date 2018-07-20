@@ -84,9 +84,11 @@ public class AddTicketActivity extends AppCompatActivity{
         // Initialize views
         initViews();
 
+        /*
         Intent intent = new Intent(AddTicketActivity.this, VideoPlayerActivity.class);
         intent.putExtra(TICKET_ID,mTicketId);
         startActivity(intent);
+        */
 
     }
 

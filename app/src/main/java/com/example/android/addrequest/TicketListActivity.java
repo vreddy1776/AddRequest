@@ -4,10 +4,10 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,16 +15,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
-import com.example.android.addrequest.VideoPlayer.VideoPlayerActivity;
-import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
-import com.example.android.addrequest.sync.SyncVolley;
 
 import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-public class MainActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
+public class TicketListActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
 
 
     /**
@@ -32,14 +29,14 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
      */
 
     // Constant for logging
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = TicketListActivity.class.getSimpleName();
 
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private TicketAdapter mAdapter;
 
     // ViewModel for Main Activity
-    private MainViewModel viewModel;
+    private TicketListViewModel viewModel;
 
 
     /**
@@ -50,10 +47,6 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, TicketListActivity.class);
-        startActivity(intent);
-
-        /*
         // Set Actionbar Title
         getSupportActionBar().setTitle(R.string.main_activity_name);
 
@@ -75,15 +68,12 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
         setupViewModel();
 
         final Context context = this;
-        */
 
         /*
          Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
          and uses callbacks to signal when a user is performing these actions.
          */
-        /*
-
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -101,27 +91,20 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        */
-
         /*
         Set the Floating Action Button (FAB) to its corresponding View.
         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
         to launch the AddTicketActivity.
         */
-
-        /*
         FloatingActionButton fabButton = findViewById(R.id.fab);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Create a new intent to start an AddTicketActivity
-                Intent addTicketIntent = new Intent(MainActivity.this, AddTicketActivity.class);
+                Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
                 startActivity(addTicketIntent);
             }
         });
-
-        */
-
 
     }
 
@@ -130,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
      * Set up the ViewModel.
      */
     private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
         viewModel.updateDB(this);
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
@@ -149,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements TicketAdapter.Ite
     public void onItemClickListener(int itemId) {
 
         // Launch AddTicketActivity adding the itemId as an extra in the intent
-        Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
+        Intent intent = new Intent(TicketListActivity.this, AddTicketActivity.class);
         intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);

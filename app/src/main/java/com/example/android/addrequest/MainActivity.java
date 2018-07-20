@@ -1,160 +1,91 @@
 package com.example.android.addrequest;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.android.addrequest.VideoPlayer.VideoPlayerActivity;
-import com.example.android.addrequest.database.AppDatabase;
-import com.example.android.addrequest.database.TicketEntry;
-import com.example.android.addrequest.sync.SyncVolley;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 
-import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
+    private ImageView photoImageView;
+    private TextView nameTextView;
+    private TextView idTextView;
 
+    private ProfileTracker profileTracker;
 
-    /**
-     * Initialize values.
-     */
-
-    // Constant for logging
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    // Member variables for the adapter and RecyclerView
-    private RecyclerView mRecyclerView;
-    private TicketAdapter mAdapter;
-
-    // ViewModel for Main Activity
-    private MainViewModel viewModel;
-
-
-    /**
-     * Main Activity created.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, TicketListActivity.class);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+        photoImageView = (ImageView) findViewById(R.id.photoImageView);
+        nameTextView = (TextView) findViewById(R.id.nameTextView);
+        idTextView = (TextView) findViewById(R.id.idTextView);
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged (Profile oldProfile, Profile currentProfile) {
+                if (currentProfile != null) {
+                    displayProfileInfo(currentProfile);
+                }
+            }
+        };
+
+        if (AccessToken.getCurrentAccessToken() == null) {
+            goLoginScreen();
+        } else {
+            Profile profile = Profile.getCurrentProfile();
+            if (profile != null) {
+                displayProfileInfo(profile);
+            } else {
+                Profile.fetchProfileForCurrentAccessToken();
+            }
+        }
+
+    }
+
+    private void goLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
-        /*
-        // Set Actionbar Title
-        getSupportActionBar().setTitle(R.string.main_activity_name);
-
-        // Set the RecyclerView to its corresponding view
-        mRecyclerView = findViewById(R.id.recyclerViewTickets);
-
-        // Set the layout for the RecyclerView to be a linear layout, which measures and
-        // positions items within a RecyclerView into a linear list
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new TicketAdapter(this , this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);
-
-        // Setup ViewModel
-        setupViewModel();
-
-        final Context context = this;
-        */
-
-        /*
-         Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-         and uses callbacks to signal when a user is performing these actions.
-         */
-        /*
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            // Called when a user swipes left or right on a ViewHolder
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
-                int position = viewHolder.getAdapterPosition();
-                List<TicketEntry> tickets = mAdapter.getTickets();
-                viewModel.swipeTicket(context,position,tickets);
-
-            }
-        }).attachToRecyclerView(mRecyclerView);
-
-        */
-
-        /*
-        Set the Floating Action Button (FAB) to its corresponding View.
-        Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-        to launch the AddTicketActivity.
-        */
-
-        /*
-        FloatingActionButton fabButton = findViewById(R.id.fab);
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTicketActivity
-                Intent addTicketIntent = new Intent(MainActivity.this, AddTicketActivity.class);
-                startActivity(addTicketIntent);
-            }
-        });
-
-        */
-
-
     }
 
-
-    /**
-     * Set up the ViewModel.
-     */
-    private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.updateDB(this);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
+    public void logout(View view) {
+        LoginManager.getInstance().logOut();
+        goLoginScreen();
     }
 
+    private void displayProfileInfo(Profile profile) {
+        String id = profile.getId();
+        String name = profile.getName();
+        String photoUrl = profile.getProfilePictureUri(100, 100).toString();
 
-    /**
-     * Intent to AddTicketActivity.
-     */
+        nameTextView.setText(name);
+        idTextView.setText(id);
+
+        Glide.with(getApplicationContext())
+                .load(photoUrl)
+                .into(photoImageView);
+    }
+
     @Override
-    public void onItemClickListener(int itemId) {
+    protected void onDestroy() {
+        super.onDestroy();
 
-        // Launch AddTicketActivity adding the itemId as an extra in the intent
-        Intent intent = new Intent(MainActivity.this, AddTicketActivity.class);
-        intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
-        Log.d(TAG, "Test - Ticked ID:  " + itemId);
-        startActivity(intent);
-
+        profileTracker.stopTracking();
     }
-
-
 }

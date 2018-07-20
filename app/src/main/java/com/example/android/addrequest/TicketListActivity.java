@@ -45,7 +45,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_ticket_list);
 
         // Set Actionbar Title
         getSupportActionBar().setTitle(R.string.main_activity_name);

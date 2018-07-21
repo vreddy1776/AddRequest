@@ -26,6 +26,7 @@ import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 public class MainActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
 
+    // Note:  Rebase to parent: 5dfda53  commit: 41029cbffa6cb59b5cdf6123f2558bb0523147b4  title: Moved MainActivity to TicketListActivity
 
     /**
      * Initialize values.

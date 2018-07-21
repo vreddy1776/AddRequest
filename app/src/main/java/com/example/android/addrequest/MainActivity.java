@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Note:  Rebase to parent: 5dfda53  commit: 41029cbffa6cb59b5cdf6123f2558bb0523147b4  title: Moved MainActivity to TicketListActivity
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

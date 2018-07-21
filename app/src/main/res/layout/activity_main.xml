@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.android.addrequest.MainActivity">
 
-    <!-- RecyclerView that is responsible for holding a listTicketEntry data -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewTickets"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="80dp" />
+    <ImageView
+        android:id="@+id/photoImageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_above="@+id/nameTextView"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent" />
 
-    <!-- Floating action button that launches AddTicketActivity when clicked -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:tint="@android:color/white"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        tools:text="Name" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTextView"
+        android:layout_centerHorizontal="true"
+        tools:text="Id" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="logout"
+        android:text="@string/logout" />
+
+</RelativeLayout>

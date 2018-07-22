@@ -30,6 +30,10 @@
             </intent-filter>
         </activity>
 
+        <!-- LoginActivity -->
+        <activity
+            android:name="com.example.android.addrequest.LoginActivity"
+            android:label="@string/login_activity_name" />
 
         <!-- TicketListActivity -->
         <activity

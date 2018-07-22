@@ -4,6 +4,8 @@
     <string name="app_name">AddRequest</string>
     <string name="main_activity_name">Request List</string>
     <string name="add_ticket_activity_name">Request</string>
+    <string name="login_activity_name">Login</string>
+
 
     <!-- Strings for Button Texts -->
     <string name="add_button">Add</string>
@@ -26,6 +28,9 @@
     <string name="cancel_login">Se canceló la operación</string>
     <string name="error_login">Ocurrió un error al ingresar</string>
     <string name="logout">Cerrar sesión</string>
+
+    <!-- Strings for Login / Logout -->
+    <string name="sign_out">Sign Out</string>
 
 
 </resources>

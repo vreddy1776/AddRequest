@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
 
 import java.util.Date;
@@ -32,14 +33,10 @@ public class AddTicketActivity extends AppCompatActivity{
     // Constant for logging
     private static final String TAG = AddTicketActivity.class.getSimpleName();
 
-    // RequestsDO ID parameter string for Intent
-    public static final String TICKET_ID = "TicketId";
+    // Initialize integer for ticket ID and viewtype
+    private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
+    private int mTicketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
 
-    // Constant for default ticket id to be used when not in update mode
-    private static final int DEFAULT_TICKET_ID = -1;
-
-    // Initialize integer for ticket ID
-    private int mTicketId = DEFAULT_TICKET_ID;
 
     // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
@@ -61,9 +58,10 @@ public class AddTicketActivity extends AppCompatActivity{
     private int resultCode;
 
     // OnSavedInstance Parameter Strings
-    public static final String INSTANCE_TICKET_ID = "instanceTicketId";
-    public static final String INSTANCE_REQUEST_CODE = "instanceRequestCode";
-    public static final String INSTANCE_RESULT_CODE = "instanceResultCode";
+    public static final String INSTANCE_TICKET_VIEWTYPE_KEY = "instanceTicketViewType";
+    public static final String INSTANCE_TICKET_ID_KEY = "instanceTicketId";
+    public static final String INSTANCE_REQUEST_CODE_KEY = "instanceRequestCode";
+    public static final String INSTANCE_RESULT_CODE_KEY = "instanceResultCode";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +77,6 @@ public class AddTicketActivity extends AppCompatActivity{
         // Initialize views
         initViews();
 
-        /*
-        Intent intent = new Intent(AddTicketActivity.this, VideoPlayerActivity.class);
-        intent.putExtra(TICKET_ID,mTicketId);
-        startActivity(intent);
-        */
-
     }
 
 
@@ -93,7 +85,8 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void receiveTicketID(){
         Intent intent = getIntent();
-        mTicketId = intent.getIntExtra(TICKET_ID, DEFAULT_TICKET_ID);
+        mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
+        mTicketViewType = intent.getIntExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.DEFAULT_TICKET_VIEWTYPE);
     }
 
 
@@ -126,9 +119,10 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(INSTANCE_TICKET_ID , mTicketId);
-        outState.putInt(INSTANCE_REQUEST_CODE , requestCode);
-        outState.putInt(INSTANCE_RESULT_CODE , resultCode);
+        outState.putInt(INSTANCE_TICKET_VIEWTYPE_KEY , mTicketViewType);
+        outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
+        outState.putInt(INSTANCE_REQUEST_CODE_KEY , requestCode);
+        outState.putInt(INSTANCE_RESULT_CODE_KEY , resultCode);
         super.onSaveInstanceState(outState);
     }
 
@@ -144,7 +138,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
 
         saveButton = findViewById(R.id.saveButton);
-        if( mTicketId != DEFAULT_TICKET_ID ){ saveButton.setText(R.string.update_button); }
+        if( mTicketId != GlobalConstants.DEFAULT_TICKET_ID ){ saveButton.setText(R.string.update_button); }
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +153,23 @@ public class AddTicketActivity extends AppCompatActivity{
                 onVideoButtonClicked();
             }
         });
+
+        setViewType();
+
+    }
+
+
+    /**
+     * Removed edit privelages if not accessed from personal ticket page
+     */
+    private void setViewType(){
+
+        if(mTicketViewType != GlobalConstants.EDIT_TICKET_VIEWTYPE) {
+            mTitleText.setEnabled(false);
+            mDescriptionText.setEnabled(false);
+            saveButton.setVisibility(View.INVISIBLE);
+            videoButton.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -198,7 +209,7 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
         // Execute ticket entry
-        if (mTicketId == DEFAULT_TICKET_ID) {
+        if (mTicketId == GlobalConstants.DEFAULT_TICKET_ID) {
             // insert new ticket
             TicketEntry ticket = new TicketEntry(id, title, description, date);
             viewModel.addTicket(this,ticket,boolVideoPost);

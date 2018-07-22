@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.Utils.GlobalConstants;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -54,7 +55,7 @@ public class VideoPlayerActivity extends Activity {
         setContentView(R.layout.activity_video_player);
 
         Intent intent = getIntent();
-        int mTicketId = intent.getIntExtra(AddTicketActivity.TICKET_ID, DEFAULT_TICKET_ID);
+        int mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, DEFAULT_TICKET_ID);
         videoURL = MAIN_URL + String.valueOf(mTicketId);
 
         shouldAutoPlay = true;

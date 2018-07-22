@@ -103,14 +103,8 @@ public class DynamoDB {
                         .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
                         .withAttributeValueList(new AttributeValue().withS("Trial"));
 
-                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        //.withHashKeyValues(note)
-                        .withRangeKeyCondition("id", rangeKeyCondition)
-                        .withConsistentRead(false);
-
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
 
-                //PaginatedList<RequestsDO> result = dynamoDBMapper.query(RequestsDO.class, queryExpression);
                 PaginatedList<RequestsDO> result = dynamoDBMapper.scan(RequestsDO.class, scanExpression);
 
 
@@ -154,11 +148,6 @@ public class DynamoDB {
                         .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
                         .withAttributeValueList(new AttributeValue().withS("Trial"));
 
-                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
-                        //.withHashKeyValues(note)
-                        .withRangeKeyCondition("id", rangeKeyCondition)
-                        .withConsistentRead(false);
-
                 Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
                 eav.put(":x", new AttributeValue().withS(userID));
 
@@ -166,7 +155,6 @@ public class DynamoDB {
                         .withFilterExpression("userID = :x")
                         .withExpressionAttributeValues(eav);
 
-                //PaginatedList<RequestsDO> result = dynamoDBMapper.query(RequestsDO.class, queryExpression);
                 PaginatedList<RequestsDO> result = dynamoDBMapper.scan(RequestsDO.class, scanExpression);
 
 

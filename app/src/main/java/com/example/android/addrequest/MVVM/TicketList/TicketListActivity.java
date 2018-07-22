@@ -25,6 +25,7 @@ import com.example.android.addrequest.MVVM.Profile.ProfileActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Database.TicketEntry;
+import com.example.android.addrequest.Utils.GlobalConstants;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.List;
@@ -77,27 +78,6 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         final Context context = this;
 
-        /*
-         Added a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-         and uses callbacks to signal when a user is performing these actions.
-         */
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            // Called when a user swipes left or right on a ViewHolder
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
-                int position = viewHolder.getAdapterPosition();
-                List<TicketEntry> tickets = mAdapter.getTickets();
-                viewModel.swipeTicket(context,position,tickets);
-
-            }
-        }).attachToRecyclerView(mRecyclerView);
 
         /*
         Set the Floating Action Button (FAB) to its corresponding View.
@@ -110,6 +90,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
             public void onClick(View view) {
                 // Create a new intent to start an AddTicketActivity
                 Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
+                addTicketIntent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.EDIT_TICKET_VIEWTYPE);
                 startActivity(addTicketIntent);
             }
         });
@@ -194,7 +175,8 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(TicketListActivity.this, AddTicketActivity.class);
-        intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
+        intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
+        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.DEFAULT_TICKET_VIEWTYPE);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 

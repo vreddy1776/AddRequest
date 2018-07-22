@@ -26,12 +26,8 @@ public class TicketListViewModel extends AndroidViewModel{
 
     private AppDatabase database;
 
-    private Application application;
-
     public TicketListViewModel(Application application) {
         super(application);
-
-        this.application = application;
 
         database = AppDatabase.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving the ticket from the DataBase");
@@ -42,14 +38,6 @@ public class TicketListViewModel extends AndroidViewModel{
                 database.ticketDao().clearAllTickets();
             }
         });
-
-        /*
-        RdsVolley syncVolley = new RdsVolley();
-        syncVolley.select(application);
-        */
-
-
-
 
     }
 
@@ -64,30 +52,6 @@ public class TicketListViewModel extends AndroidViewModel{
 
     }
 
-
-    public void swipeTicket(Context context, final int position, final List<TicketEntry> tickets){
-
-        TicketEntry ticket = tickets.get(position);
-        int id = ticket.getId();
-        Log.d(TAG, "Test - RequestsDO ID:  " + id);
-
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                database.ticketDao().deleteTicket(tickets.get(position));
-            }
-        });
-
-        /*
-        RdsVolley syncVolley = new RdsVolley();
-        syncVolley.delete(application,id);
-        */
-
-        DynamoDB db = new DynamoDB();
-        db.commDynamoDB(context);
-        db.deleteTicket(id);
-
-    }
 
     public LiveData<List<TicketEntry>> getTickets() {
         return tickets;

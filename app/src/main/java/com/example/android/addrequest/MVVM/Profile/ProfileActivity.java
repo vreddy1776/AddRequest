@@ -25,6 +25,7 @@ import com.example.android.addrequest.MVVM.Login.LoginActivity;
 import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
+import com.example.android.addrequest.Utils.GlobalConstants;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements TicketAdapter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ticket_list);
+        setContentView(R.layout.activity_profile);
 
         // Set Actionbar Title
         getSupportActionBar().setTitle(UserProfileSettings.getUsername(this));
@@ -102,20 +103,6 @@ public class ProfileActivity extends AppCompatActivity implements TicketAdapter.
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        /*
-        Set the Floating Action Button (FAB) to its corresponding View.
-        Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-        to launch the AddTicketActivity.
-        */
-        FloatingActionButton fabButton = findViewById(R.id.fab);
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTicketActivity
-                Intent addTicketIntent = new Intent(ProfileActivity.this, AddTicketActivity.class);
-                startActivity(addTicketIntent);
-            }
-        });
 
     }
 
@@ -200,7 +187,8 @@ public class ProfileActivity extends AppCompatActivity implements TicketAdapter.
 
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(ProfileActivity.this, AddTicketActivity.class);
-        intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
+        intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
+        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.EDIT_TICKET_VIEWTYPE);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 

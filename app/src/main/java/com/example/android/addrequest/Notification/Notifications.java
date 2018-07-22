@@ -31,6 +31,7 @@ import android.support.v4.content.ContextCompat;
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Main.MainActivity;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.Utils.GlobalConstants;
 
 
 /**
@@ -132,7 +133,7 @@ public class Notifications {
     private static Action drinkWaterAction(Context context) {
         // COMPLETED (12) Create an Intent to launch WaterReminderIntentService
         Intent incrementWaterCountIntent = new Intent(context, AddTicketActivity.class);
-        incrementWaterCountIntent.putExtra(AddTicketActivity.TICKET_ID, mTicketID);
+        incrementWaterCountIntent.putExtra(GlobalConstants.TICKET_ID_KEY, mTicketID);
         // COMPLETED (13) Set the action of the intent to designate you want to increment the water count
         //incrementWaterCountIntent.setAction(ReminderTasks.ACTION_INCREMENT_WATER_COUNT);
         // COMPLETED (14) Create a PendingIntent from the intent to launch WaterReminderIntentService

@@ -1,4 +1,4 @@
-package com.example.android.addrequest.MVVM.TicketList;
+package com.example.android.addrequest.MVVM.Profile;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -19,19 +19,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android.addrequest.Adapter.TicketAdapter;
+import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Login.LoginActivity;
-import com.example.android.addrequest.MVVM.Profile.ProfileActivity;
+import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
-import com.example.android.addrequest.Database.TicketEntry;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-public class TicketListActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
+public class ProfileActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
 
 
     /**
@@ -39,14 +39,14 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
      */
 
     // Constant for logging
-    private static final String TAG = TicketListActivity.class.getSimpleName();
+    private static final String TAG = ProfileActivity.class.getSimpleName();
 
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private TicketAdapter mAdapter;
 
     // ViewModel for Main Activity
-    private TicketListViewModel viewModel;
+    private ProfileViewModel viewModel;
 
 
 
@@ -57,6 +57,9 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
+
+        // Set Actionbar Title
+        getSupportActionBar().setTitle(UserProfileSettings.getUsername(this));
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);
@@ -109,7 +112,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
             @Override
             public void onClick(View view) {
                 // Create a new intent to start an AddTicketActivity
-                Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
+                Intent addTicketIntent = new Intent(ProfileActivity.this, AddTicketActivity.class);
                 startActivity(addTicketIntent);
             }
         });
@@ -119,15 +122,16 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
 
     /**
-     * Set up Menu.
+     * Sign Out Option.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.username).setTitle(UserProfileSettings.getUsername(this));
+        menu.findItem(R.id.username).setTitle(this.getString(R.string.ticket_list));
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -143,15 +147,17 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     }
 
 
+
     /**
      * Go to user Profile.
      */
     private void goToProfile() {
 
-        Intent addTicketIntent = new Intent(TicketListActivity.this, ProfileActivity.class);
+        Intent addTicketIntent = new Intent(ProfileActivity.this, TicketListActivity.class);
         startActivity(addTicketIntent);
 
     }
+
 
 
     /**
@@ -163,7 +169,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         UserProfileSettings.setUserProfileAtLogout(this);
 
-        Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
+        Intent addTicketIntent = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(addTicketIntent);
 
     }
@@ -174,7 +180,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
      * Set up the ViewModel.
      */
     private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         viewModel.updateDB(this);
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
@@ -193,7 +199,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     public void onItemClickListener(int itemId) {
 
         // Launch AddTicketActivity adding the itemId as an extra in the intent
-        Intent intent = new Intent(TicketListActivity.this, AddTicketActivity.class);
+        Intent intent = new Intent(ProfileActivity.this, AddTicketActivity.class);
         intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);

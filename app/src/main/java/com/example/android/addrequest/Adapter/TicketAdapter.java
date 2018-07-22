@@ -1,4 +1,4 @@
-package com.example.android.addrequest.MVVM.TicketList;
+package com.example.android.addrequest.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

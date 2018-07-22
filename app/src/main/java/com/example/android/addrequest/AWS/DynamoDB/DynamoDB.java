@@ -18,6 +18,9 @@ import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.google.gson.Gson;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DynamoDB {
 
     // Constant for logging
@@ -96,11 +99,6 @@ public class DynamoDB {
             @Override
             public void run() {
 
-                //RequestsDO ticket = new RequestsDO();
-                //ticket.setId((double) id);
-                //ticket.setArticleId("Article1");
-
-
                 Condition rangeKeyCondition = new Condition()
                         .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
                         .withAttributeValueList(new AttributeValue().withS("Trial"));
@@ -111,6 +109,62 @@ public class DynamoDB {
                         .withConsistentRead(false);
 
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+
+                //PaginatedList<RequestsDO> result = dynamoDBMapper.query(RequestsDO.class, queryExpression);
+                PaginatedList<RequestsDO> result = dynamoDBMapper.scan(RequestsDO.class, scanExpression);
+
+
+                Gson gson = new Gson();
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[");
+
+                int length = result.size();
+                // Loop through query results
+                for (int i = 0; i < length; i++) {
+                    String jsonFormOfItem = gson.toJson(result.get(i));
+                    stringBuilder.append(jsonFormOfItem);
+                    if (i < length - 1){
+                        stringBuilder.append(",");
+                    }
+                }
+                stringBuilder.append("]");
+
+
+                // Add your code here to deal with the data result
+                Log.d(TAG, stringBuilder.toString());
+
+                DynamoSyncBulk syncBulk = new DynamoSyncBulk();
+                syncBulk.bulkPopulate(context,stringBuilder.toString());
+
+                if (result.isEmpty()) {
+                    // There were no items matching your query.
+                }
+            }
+        }).start();
+    }
+
+
+    public void scanTicketsWithUserID(final Context context, final String userID) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                Condition rangeKeyCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BEGINS_WITH)
+                        .withAttributeValueList(new AttributeValue().withS("Trial"));
+
+                DynamoDBQueryExpression queryExpression = new DynamoDBQueryExpression()
+                        //.withHashKeyValues(note)
+                        .withRangeKeyCondition("id", rangeKeyCondition)
+                        .withConsistentRead(false);
+
+                Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+                eav.put(":x", new AttributeValue().withS(userID));
+
+                DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                        .withFilterExpression("userID = :x")
+                        .withExpressionAttributeValues(eav);
 
                 //PaginatedList<RequestsDO> result = dynamoDBMapper.query(RequestsDO.class, queryExpression);
                 PaginatedList<RequestsDO> result = dynamoDBMapper.scan(RequestsDO.class, scanExpression);

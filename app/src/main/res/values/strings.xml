@@ -6,6 +6,7 @@
     <string name="add_ticket_activity_name">Request</string>
     <string name="login_activity_name">Login</string>
     <string name="ticket_list_activity_name">Request List</string>
+    <string name="profile_activity_name">My Profile</string>
 
 
     <!-- Strings for Button Texts -->
@@ -36,6 +37,9 @@
     <string name="default_userid">no_user_id</string>
     <string name="default_username">no name</string>
     <string name="sign_out">Sign Out</string>
+    <string name="ticket_list">All Requests</string>
+
+
 
 
 </resources>

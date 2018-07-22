@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android.addrequest.database.TicketEntry;
+import com.example.android.addrequest.utils.GlobalUtils;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.List;
@@ -42,6 +43,10 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     // ViewModel for Main Activity
     private TicketListViewModel viewModel;
 
+    private String uid;
+    private String userName;
+
+
 
     /**
      * Main Activity created.
@@ -50,6 +55,10 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
+
+        Intent intent = getIntent();
+        uid = intent.getStringExtra(GlobalUtils.INTENT_ID);
+        userName = intent.getStringExtra(GlobalUtils.INTENT_USERNAME);
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);
@@ -118,6 +127,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.username).setTitle(userName);
         return true;
     }
     @Override
@@ -160,6 +170,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(TicketListActivity.this, AddTicketActivity.class);
         intent.putExtra(AddTicketActivity.TICKET_ID, itemId);
+        intent.putExtra(GlobalUtils.INTENT_ID, uid);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 

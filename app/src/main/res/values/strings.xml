@@ -32,7 +32,8 @@
     <string name="error_login">Ocurrió un error al ingresar</string>
     <string name="logout">Cerrar sesión</string>
 
-    <!-- Strings for Login / Logout -->
+    <!-- Strings for Menu Items -->
+    <string name="default_username">no name</string>
     <string name="sign_out">Sign Out</string>
 
 

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.utils.GlobalUtils;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,12 +80,11 @@ public class LoginActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
+
                 // Sign-in succeeded, set up the UI
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, TicketListActivity.class);
-                intent.putExtra(GlobalUtils.INTENT_ID, mFirebaseAuth.getCurrentUser().getUid() );
-                intent.putExtra(GlobalUtils.INTENT_USERNAME, mFirebaseAuth.getCurrentUser().getDisplayName() );
-                startActivity(intent);
+                login();
+
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
@@ -113,6 +113,16 @@ public class LoginActivity extends AppCompatActivity{
 
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;
+    }
+
+    private void login(){
+
+        UserProfileSettings.setUserProfileAtLogin(this,
+                mFirebaseAuth.getCurrentUser().getUid(),
+                mFirebaseAuth.getCurrentUser().getDisplayName());
+
+        Intent intent = new Intent(LoginActivity.this, TicketListActivity.class);
+        startActivity(intent);
     }
 
 

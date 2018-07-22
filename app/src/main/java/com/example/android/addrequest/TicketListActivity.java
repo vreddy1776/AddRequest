@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.utils.GlobalUtils;
 import com.firebase.ui.auth.AuthUI;
@@ -127,20 +128,34 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.username).setTitle(userName);
+        menu.findItem(R.id.username).setTitle(UserProfileSettings.getUsername(this));
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
-                AuthUI.getInstance().signOut(this);
-                Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
-                startActivity(addTicketIntent);
+                logout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    /**
+     * Log out.
+     */
+    private void logout() {
+
+        AuthUI.getInstance().signOut(this);
+
+        UserProfileSettings.setUserProfileAtLogout(this);
+
+        Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
+        startActivity(addTicketIntent);
+
     }
 
 

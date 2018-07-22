@@ -49,4 +49,11 @@
         android:text="@string/video_button"
         android:textColor="@android:color/primary_text_dark" />
 
+    <FrameLayout
+        android:id="@+id/stream_video"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerInside"/>
+
+
 </LinearLayout>

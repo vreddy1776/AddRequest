@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
+import com.github.slashrootv200.exoplayerfragment.ExoPlayerFragment;
 
 import java.util.Date;
 
@@ -37,6 +39,7 @@ public class AddTicketActivity extends AppCompatActivity{
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private int mTicketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
 
+    public static final String MAIN_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
 
     // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
@@ -76,6 +79,31 @@ public class AddTicketActivity extends AppCompatActivity{
 
         // Initialize views
         initViews();
+
+
+
+        /*
+        VideoFragment videoFragment = new VideoFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.stream_video,videoFragment)
+                .commit();
+                */
+
+
+        if (savedInstanceState == null) {
+            String URL = MAIN_URL + mTicketId;
+            Uri videoUri = Uri.parse(URL);
+            String videoTitle = mTitleText.toString();
+            ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(videoUri, videoTitle);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
+                    .commit();
+        }
+
+
+
+
 
     }
 

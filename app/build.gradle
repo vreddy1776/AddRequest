@@ -42,7 +42,7 @@ dependencies {
     compile 'com.android.volley:volley:1.1.0'
 
     // Exoplayer
-    compile 'com.google.android.exoplayer:exoplayer:r2.5.2'
+    //compile 'com.google.android.exoplayer:exoplayer:2.7.3'
 
     // AWS
     // S3 Bucket integration
@@ -79,6 +79,9 @@ dependencies {
 
     // FirebaseUI
     compile 'com.firebaseui:firebase-ui-auth:0.6.0'
+
+    // Exoplayer Fragment
+    compile 'com.github.slashrootv200:exo-player-fragment-lib:0.0.3'
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

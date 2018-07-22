@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.example.android.addrequest.DynamoAWS.DynamoDB;
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.database.AppDatabase;
 import com.example.android.addrequest.database.TicketEntry;
 import com.example.android.addrequest.sync.SyncVolley;
@@ -93,6 +94,7 @@ public class AddTicketViewModel extends AndroidViewModel {
         */
 
         int id = newTicket.getId();
+        String userID = UserProfileSettings.getUserID(context);
         String title = newTicket.getTitle();
         String description = newTicket.getDescription();
         String date = String.valueOf(newTicket.getUpdatedAt());
@@ -100,7 +102,7 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         DynamoDB db = new DynamoDB();
         db.accessDynamoDB(context);
-        db.createTicket(id, title, description, date);
+        db.createTicket(id, userID, title, description, date);
 
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getId()));

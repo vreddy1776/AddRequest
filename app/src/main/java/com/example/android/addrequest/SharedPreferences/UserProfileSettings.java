@@ -2,11 +2,9 @@ package com.example.android.addrequest.SharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.example.android.addrequest.R;
-import com.example.android.addrequest.utils.GlobalUtils;
 
 public class UserProfileSettings {
 

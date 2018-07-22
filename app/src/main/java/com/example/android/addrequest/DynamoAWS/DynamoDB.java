@@ -81,11 +81,12 @@ public class DynamoDB {
     }
 
 
-    public void createTicket(int id, String title, String description, String date) {
+    public void createTicket(int id, String userID, String title, String description, String date) {
 
         final RequestsDO ticket = new RequestsDO();
 
         ticket.setId((double) id);
+        ticket.setUserID(userID);
         ticket.setTitle(title);
         ticket.setDescription(description);
         ticket.setDate(date);

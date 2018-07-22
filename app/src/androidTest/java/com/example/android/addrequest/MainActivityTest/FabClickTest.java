@@ -8,8 +8,8 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.addrequest.AddTicketActivity;
-import com.example.android.addrequest.MainActivity;
+import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
+import com.example.android.addrequest.MVVM.Main.MainActivity;
 import com.example.android.addrequest.R;
 
 import org.junit.Before;

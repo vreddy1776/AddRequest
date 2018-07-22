@@ -2,17 +2,15 @@ package com.example.android.addrequest.MainActivityTest;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.addrequest.AddTicketActivity;
-import com.example.android.addrequest.MainActivity;
+import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
+import com.example.android.addrequest.MVVM.Main.MainActivity;
 import com.example.android.addrequest.R;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +25,6 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAct
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtras;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.isInternal;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;

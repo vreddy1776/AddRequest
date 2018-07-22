@@ -13,9 +13,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android.addrequest.database.TicketEntry;
+import com.firebase.ui.auth.AuthUI;
 
 import java.util.List;
 
@@ -46,9 +50,6 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
-
-        // Set Actionbar Title
-        getSupportActionBar().setTitle(R.string.main_activity_name);
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.recyclerViewTickets);
@@ -107,6 +108,31 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         });
 
     }
+
+
+
+    /**
+     * Sign Out Option.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                AuthUI.getInstance().signOut(this);
+                Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
+                startActivity(addTicketIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
     /**

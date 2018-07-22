@@ -2,15 +2,18 @@
 
     <!-- Strings for Activity Names -->
     <string name="app_name">AddRequest</string>
-    <string name="main_activity_name">Request List</string>
+    <string name="main_activity_name">AddRequest</string>
     <string name="add_ticket_activity_name">Request</string>
     <string name="login_activity_name">Login</string>
+    <string name="ticket_list_activity_name">Request List</string>
 
 
     <!-- Strings for Button Texts -->
     <string name="add_button">Add</string>
     <string name="update_button">Update</string>
     <string name="video_button">Video</string>
+    <string name="start_button">Lets get started!</string>
+
 
     <!-- Strings for AddTicketActivity -->
     <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->

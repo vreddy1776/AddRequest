@@ -38,7 +38,7 @@
         <!-- TicketListActivity -->
         <activity
             android:name="com.example.android.addrequest.TicketListActivity"
-            android:label="@string/main_activity_name" />
+            android:label="@string/ticket_list_activity_name" />
 
         <!-- AddTicketActivity -->
         <activity

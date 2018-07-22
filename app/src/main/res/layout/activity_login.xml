@@ -10,15 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.addrequest.LoginActivity">
 
-    <Button
-        android:id="@+id/startButton"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:text="@string/start_button"
-        android:textColor="@android:color/primary_text_dark"
-        android:onClick="goToLogin"/>
-
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

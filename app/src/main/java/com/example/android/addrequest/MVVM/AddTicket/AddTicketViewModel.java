@@ -65,7 +65,7 @@ public class AddTicketViewModel extends AndroidViewModel {
      * Load ticket.
      */
     private void loadTicket(int ticketId){
-        ticket = database.ticketDao().loadTicketById(ticketId);
+        ticket = database.ticketDao().loadTicketById(String.valueOf(ticketId));
     }
 
 
@@ -74,7 +74,7 @@ public class AddTicketViewModel extends AndroidViewModel {
      */
     public void addTicket(Context context, final TicketEntry newTicket , boolean boolVideoPost){
 
-        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getId());
+        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -89,11 +89,11 @@ public class AddTicketViewModel extends AndroidViewModel {
         syncVolley.add(application, newTicket);
         */
 
-        int id = newTicket.getId();
+        int id = Integer.parseInt(newTicket.getTicketId());
         String userID = UserProfileSettings.getUserID(context);
-        String title = newTicket.getTitle();
-        String description = newTicket.getDescription();
-        String date = String.valueOf(newTicket.getUpdatedAt());
+        String title = newTicket.getTicketTitle();
+        String description = newTicket.getTicketDescription();
+        String date = String.valueOf(newTicket.getTicketDate());
 
 
         DynamoDB db = new DynamoDB();
@@ -121,7 +121,7 @@ public class AddTicketViewModel extends AndroidViewModel {
 
 
         if(boolVideoPost){
-            postVideo(String.valueOf(newTicket.getId()));
+            postVideo(String.valueOf(newTicket.getTicketId()));
         }
 
     }
@@ -132,9 +132,9 @@ public class AddTicketViewModel extends AndroidViewModel {
      */
     public void changeTicket(Context context, final TicketEntry newTicket, final int mTicketId , boolean boolVideoPost){
 
-        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getId());
+        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
 
-        newTicket.setId(mTicketId);
+        newTicket.setTicketId(String.valueOf(mTicketId));
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -148,17 +148,17 @@ public class AddTicketViewModel extends AndroidViewModel {
         syncVolley.update(application, newTicket);
         */
 
-        int id = newTicket.getId();
-        String title = newTicket.getTitle();
-        String description = newTicket.getDescription();
-        String date = String.valueOf(newTicket.getUpdatedAt());
+        int id = Integer.parseInt(newTicket.getTicketId());
+        String title = newTicket.getTicketTitle();
+        String description = newTicket.getTicketDescription();
+        String date = String.valueOf(newTicket.getTicketDate());
 
         DynamoDB db = new DynamoDB();
         db.commDynamoDB(context);
         db.updateTicket(id, title, description, date);
 
         if(boolVideoPost){
-            postVideo(String.valueOf(newTicket.getId()));
+            postVideo(String.valueOf(newTicket.getTicketId()));
         }
 
     }

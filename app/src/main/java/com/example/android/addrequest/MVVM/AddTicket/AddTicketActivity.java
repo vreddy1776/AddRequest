@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +20,8 @@ import com.example.android.addrequest.MVVM.Chat.ChatActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
-import com.github.slashrootv200.exoplayerfragment.ExoPlayerFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
 
@@ -95,6 +95,7 @@ public class AddTicketActivity extends AppCompatActivity{
                 */
 
 
+/*
 
         String URL = MAIN_URL + mTicketId;
         boolean urlCheck =  Patterns.WEB_URL.matcher(URL).matches();
@@ -112,6 +113,7 @@ public class AddTicketActivity extends AppCompatActivity{
             streamVideo.setVisibility(View.INVISIBLE);
             Log.d(TAG,"urlCheck:  " + urlCheck);
         }
+        */
 
 
 
@@ -224,8 +226,8 @@ public class AddTicketActivity extends AppCompatActivity{
             return;
         }
 
-        mTitleText.setText(ticket.getTitle());
-        mDescriptionText.setText(ticket.getDescription());
+        mTitleText.setText(ticket.getTicketTitle());
+        mDescriptionText.setText(ticket.getTicketDescription());
     }
 
     
@@ -248,14 +250,38 @@ public class AddTicketActivity extends AppCompatActivity{
             boolVideoPost = true;
         }
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
         // Execute ticket entry
         if (mTicketId == GlobalConstants.DEFAULT_TICKET_ID) {
             // insert new ticket
-            TicketEntry ticket = new TicketEntry(id, title, description, date);
+            //TicketEntry ticket = new TicketEntry(id, title, description, date);
+            // Set up ticket
+
+            TicketEntry ticket = new TicketEntry(
+                    user.getUid(),
+                    user.getDisplayName(),
+                    user.getPhotoUrl().toString(),
+                    Integer.toString(id),
+                    title,
+                    description,
+                    date.toString(),
+                    "none");
+
             viewModel.addTicket(this,ticket,boolVideoPost);
         } else {
             // update ticket
-            TicketEntry ticket = new TicketEntry(title, description, date);
+            //TicketEntry ticket = new TicketEntry(title, description, date);
+            TicketEntry ticket = new TicketEntry(
+                    user.getUid(),
+                    user.getDisplayName(),
+                    user.getPhotoUrl().toString(),
+                    title,
+                    description,
+                    date.toString(),
+                    "none");
+
             viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
         }
 

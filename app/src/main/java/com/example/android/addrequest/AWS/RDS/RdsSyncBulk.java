@@ -6,6 +6,8 @@ import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Utils.DateTime;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.TicketEntry;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +44,18 @@ public class RdsSyncBulk {
                         String dateString = jsonObject.get("date").toString();
 
                         Date date = DateTime.stringToDate(dateString);
-                        final TicketEntry ticket = new TicketEntry(id, title, description, date);
-
+                        //final TicketEntry ticket = new TicketEntry(id, title, description, date);
+                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        TicketEntry ticket = new TicketEntry(
+                                user.getUid(),
+                                user.getDisplayName(),
+                                user.getPhotoUrl().toString(),
+                                Integer.toString(id),
+                                title,
+                                description,
+                                date.toString(),
+                                "none");
                         database.ticketDao().insertTicket(ticket);
 
                     } catch (JSONException e) {

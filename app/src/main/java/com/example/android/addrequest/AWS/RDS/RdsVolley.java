@@ -10,7 +10,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.addrequest.Utils.DateTime;
 import com.example.android.addrequest.Database.TicketEntry;
 
 import org.json.JSONArray;
@@ -75,10 +74,10 @@ public class RdsVolley {
 
     public void add(final Context context, TicketEntry ticket){
 
-        String id = String.valueOf(ticket.getId());
-        String title = ticket.getTitle();
-        String description = ticket.getDescription();
-        String date = DateTime.dateToString(ticket.getUpdatedAt());
+        String id = String.valueOf(ticket.getTicketId());
+        String title = ticket.getTicketTitle();
+        String description = ticket.getTicketDescription();
+        String date = ticket.getTicketDate();
 
         String URL = getAddURL(id, title, description, date);
         StringRequest request = new StringRequest(Request.Method.POST, URL,
@@ -105,10 +104,10 @@ public class RdsVolley {
 
     public void update(final Context context, TicketEntry ticket){
 
-        String id = String.valueOf(ticket.getId());
-        String title = ticket.getTitle();
-        String description = ticket.getDescription();
-        String date = DateTime.dateToString(ticket.getUpdatedAt());
+        String id = String.valueOf(ticket.getTicketId());
+        String title = ticket.getTicketTitle();
+        String description = ticket.getTicketDescription();
+        String date = ticket.getTicketDate();
 
         String URL = getUpdateURL(id, title, description, date);
         StringRequest request = new StringRequest(Request.Method.POST, URL,

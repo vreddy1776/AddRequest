@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android.addrequest.Adapter.TicketAdapter;
+import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Login.LoginActivity;
 import com.example.android.addrequest.MVVM.Profile.ProfileActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
-import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.firebase.ui.auth.AuthUI;
 
@@ -156,6 +155,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
      */
     private void setupViewModel() {
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
+
         viewModel.updateDB(this);
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
@@ -164,6 +164,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
                 mAdapter.setTickets(ticketEntries);
             }
         });
+
     }
 
 

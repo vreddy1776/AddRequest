@@ -28,7 +28,7 @@ public interface TicketDao {
     @Query("DELETE FROM ticket")
     void clearAllTickets();
 
-    @Query("SELECT * FROM ticket WHERE id = :id")
-    LiveData<TicketEntry> loadTicketById(int id);
+    @Query("SELECT * FROM ticket WHERE ticketId = :ticketId")
+    LiveData<TicketEntry> loadTicketById(String ticketId);
 
 }

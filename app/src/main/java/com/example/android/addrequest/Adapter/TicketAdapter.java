@@ -91,10 +91,10 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
         // Determine the values of the wanted data
         TicketEntry ticketEntry = mTicketEntries.get(position);
-        int id = ticketEntry.getId();
-        String title = ticketEntry.getTitle();
-        String description = ticketEntry.getDescription();
-        String updatedAt = dateFormat.format(ticketEntry.getUpdatedAt());
+        int id = Integer.parseInt(ticketEntry.getTicketId());
+        String title = ticketEntry.getTicketTitle();
+        String description = ticketEntry.getTicketDescription();
+        String updatedAt = ticketEntry.getTicketDate();
 
         //Set values
         holder.ticketTitleView.setText(title);
@@ -173,8 +173,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
         @Override
         public void onClick(View v) {
-            int elementId = mTicketEntries.get(getAdapterPosition()).getId();
-            mItemClickListener.onItemClickListener(elementId);
+            String elementId = mTicketEntries.get(getAdapterPosition()).getTicketId();
+            mItemClickListener.onItemClickListener(Integer.parseInt(elementId));
         }
 
     }

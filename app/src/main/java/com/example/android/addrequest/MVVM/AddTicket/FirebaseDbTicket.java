@@ -15,7 +15,15 @@ public class FirebaseDbTicket {
     public FirebaseDbTicket() {
     }
 
-    public FirebaseDbTicket(String userId, String userName, String userPhotoUrl, String ticketId, String ticketTitle, String ticketDescription, String ticketDate, String ticketVideoId) {
+    public FirebaseDbTicket(
+            String userId,
+            String userName,
+            String userPhotoUrl,
+            String ticketId,
+            String ticketTitle,
+            String ticketDescription,
+            String ticketDate,
+            String ticketVideoId) {
         this.userId = userId;
         this.userName = userName;
         this.userPhotoUrl = userPhotoUrl;

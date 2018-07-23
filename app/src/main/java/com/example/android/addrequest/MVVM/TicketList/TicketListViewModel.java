@@ -6,9 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.android.addrequest.AWS.DynamoDB.DynamoDB;
-import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.AppDatabase;
+import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.TicketEntry;
 
 import java.util.List;
@@ -44,9 +43,11 @@ public class TicketListViewModel extends AndroidViewModel{
 
     public void updateDB(Context context){
 
+        /*
         DynamoDB db = new DynamoDB();
         db.commDynamoDB(context);
         db.scanTickets(context);
+        */
 
         tickets = database.ticketDao().loadAllTickets();
 
@@ -56,5 +57,11 @@ public class TicketListViewModel extends AndroidViewModel{
     public LiveData<List<TicketEntry>> getTickets() {
         return tickets;
     }
+
+
+
+
+
+
 
 }

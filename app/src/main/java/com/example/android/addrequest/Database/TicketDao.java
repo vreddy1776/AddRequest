@@ -25,6 +25,9 @@ public interface TicketDao {
     @Delete
     void deleteTicket(TicketEntry ticketEntry);
 
+    @Query("DELETE FROM ticket WHERE ticketId = :ticketId")
+    void deleteTicketById(String ticketId);
+
     @Query("DELETE FROM ticket")
     void clearAllTickets();
 

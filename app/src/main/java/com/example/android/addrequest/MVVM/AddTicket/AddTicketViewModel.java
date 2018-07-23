@@ -76,6 +76,7 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
 
+        /*
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -83,6 +84,7 @@ public class AddTicketViewModel extends AndroidViewModel {
             }
 
         });
+        */
 
         /*
         RdsVolley syncVolley = new RdsVolley();
@@ -96,9 +98,11 @@ public class AddTicketViewModel extends AndroidViewModel {
         String date = String.valueOf(newTicket.getTicketDate());
 
 
+        /*
         DynamoDB db = new DynamoDB();
         db.commDynamoDB(context);
         db.createTicket(id, userID, title, description, date);
+        */
 
 
         // Set up ticket

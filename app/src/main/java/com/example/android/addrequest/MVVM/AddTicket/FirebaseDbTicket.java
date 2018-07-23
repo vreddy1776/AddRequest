@@ -8,19 +8,21 @@ public class FirebaseDbTicket {
     private String ticketId;
     private String ticketTitle;
     private String ticketDescription;
+    private String ticketDate;
     private String ticketVideoId;
 
 
     public FirebaseDbTicket() {
     }
 
-    public FirebaseDbTicket(String userId, String userName, String userPhotoUrl, String ticketId, String ticketTitle, String ticketDescription, String ticketVideoUrl) {
+    public FirebaseDbTicket(String userId, String userName, String userPhotoUrl, String ticketId, String ticketTitle, String ticketDescription, String ticketDate, String ticketVideoId) {
         this.userId = userId;
         this.userName = userName;
         this.userPhotoUrl = userPhotoUrl;
         this.ticketId = ticketId;
         this.ticketTitle = ticketTitle;
         this.ticketDescription = ticketDescription;
+        this.ticketDate = ticketDate;
         this.ticketVideoId = ticketVideoId;
     }
 
@@ -72,6 +74,14 @@ public class FirebaseDbTicket {
 
     public void setTicketDescription(String ticketDescription) {
         this.ticketDescription = ticketDescription;
+    }
+
+    public String getTicketDate() {
+        return ticketDate;
+    }
+
+    public void setTicketDate(String ticketDate) {
+        this.ticketDate = ticketDate;
     }
 
     public String getTicketVideoId() {

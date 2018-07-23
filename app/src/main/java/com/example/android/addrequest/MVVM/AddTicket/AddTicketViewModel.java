@@ -115,6 +115,7 @@ public class AddTicketViewModel extends AndroidViewModel {
                 Integer.toString(id),
                 title,
                 description,
+                date,
                 "none");
         myRef.push().setValue(ticket);
 

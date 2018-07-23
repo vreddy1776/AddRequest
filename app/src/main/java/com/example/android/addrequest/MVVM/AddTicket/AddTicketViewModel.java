@@ -7,11 +7,15 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.android.addrequest.AWS.DynamoDB.DynamoDB;
-import com.example.android.addrequest.Database.AppExecuters;
-import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
-import com.example.android.addrequest.Database.AppDatabase;
-import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.AWS.S3.S3bucket;
+import com.example.android.addrequest.Database.AppDatabase;
+import com.example.android.addrequest.Database.AppExecuters;
+import com.example.android.addrequest.Database.TicketEntry;
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 
@@ -95,6 +99,25 @@ public class AddTicketViewModel extends AndroidViewModel {
         DynamoDB db = new DynamoDB();
         db.commDynamoDB(context);
         db.createTicket(id, userID, title, description, date);
+
+
+        // Set up ticket
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Tickets");
+        FirebaseDbTicket ticket = new FirebaseDbTicket(
+                user.getUid(),
+                user.getDisplayName(),
+                user.getPhotoUrl().toString(),
+                Integer.toString(id),
+                title,
+                description,
+                "none");
+        myRef.push().setValue(ticket);
+
 
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getId()));

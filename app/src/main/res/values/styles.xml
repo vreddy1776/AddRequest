@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Text Input Style -->
+    <style name="TextInputStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/editText</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">@color/editTextBackground</item>
+        <item name="android:radius">10dp</item>
+    </style>
+
 </resources>

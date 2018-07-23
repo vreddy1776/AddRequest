@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+    <!-- Base Application Theme Colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <!-- Edit Text Boxes -->
+    <color name="editTextBackground">#D3D3D3</color>
+    <color name="editText">#505050</color>
+
+
 </resources>

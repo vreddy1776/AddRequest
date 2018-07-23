@@ -17,16 +17,27 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:hint="@string/edit_ticket_title"
-        android:paddingBottom="@dimen/activity_horizontal_margin" />
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        style="@style/TextInputStyle"/>
 
     <!-- EditText for description input -->
     <EditText
         android:id="@+id/editTextTicketDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:gravity="start"
         android:hint="@string/edit_ticket_description"
-        android:paddingBottom="@dimen/activity_horizontal_margin" />
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:textSize="14sp"
+        style="@style/TextInputStyle" />
+
+
+    <FrameLayout
+        android:id="@+id/stream_video"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerInside"/>
+
 
     <!-- Add button -->
     <Button
@@ -44,23 +55,20 @@
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
         android:text="@string/video_button"
         android:textColor="@android:color/primary_text_dark" />
 
-    <FrameLayout
-        android:id="@+id/stream_video"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="centerInside"/>
+
 
     <ImageButton
         android:id="@+id/chatButton"
         android:layout_gravity="end"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@android:drawable/ic_menu_gallery"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:background="@drawable/nav_chat"
         android:onClick="goToChat"/>
 
 

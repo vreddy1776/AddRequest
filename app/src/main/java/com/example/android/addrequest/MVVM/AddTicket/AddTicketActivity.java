@@ -10,9 +10,11 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
@@ -47,6 +49,8 @@ public class AddTicketActivity extends AppCompatActivity{
     // Fields for views
     EditText mTitleText;
     EditText mDescriptionText;
+
+    FrameLayout streamVideo;
 
     // Buttons
     Button saveButton;
@@ -91,17 +95,23 @@ public class AddTicketActivity extends AppCompatActivity{
                 */
 
 
-        if (savedInstanceState == null) {
-            String URL = MAIN_URL + mTicketId;
-            Uri videoUri = Uri.parse(URL);
-            String videoTitle = mTitleText.toString();
-            ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(videoUri, videoTitle);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
-                    .commit();
+
+        String URL = MAIN_URL + mTicketId;
+        boolean urlCheck =  Patterns.WEB_URL.matcher(URL).matches();
+        if( urlCheck ) {
+            Log.d(TAG,"urlCheck:  " + urlCheck);
+            if (savedInstanceState == null) {
+                Uri videoUri = Uri.parse(URL);
+                String videoTitle = mTitleText.toString();
+                ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(videoUri, videoTitle);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
+                        .commit();
+            }
+        } else {
+            streamVideo.setVisibility(View.INVISIBLE);
+            Log.d(TAG,"urlCheck:  " + urlCheck);
         }
-
-
 
 
 
@@ -181,6 +191,8 @@ public class AddTicketActivity extends AppCompatActivity{
                 onVideoButtonClicked();
             }
         });
+
+        streamVideo = findViewById(R.id.stream_video);
 
         setViewType();
 

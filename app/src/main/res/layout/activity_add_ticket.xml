@@ -55,5 +55,13 @@
         android:layout_height="180dp"
         android:scaleType="centerInside"/>
 
+    <ImageButton
+        android:id="@+id/chatButton"
+        android:layout_gravity="end"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@android:drawable/ic_menu_gallery"
+        android:onClick="goToChat"/>
+
 
 </LinearLayout>

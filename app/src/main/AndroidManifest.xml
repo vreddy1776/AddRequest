@@ -32,6 +32,11 @@
 
         <!-- LoginActivity -->
         <activity
+            android:name="com.example.android.addrequest.MVVM.Chat.ChatActivity"
+            android:label="@string/app_name" />
+
+        <!-- LoginActivity -->
+        <activity
             android:name="com.example.android.addrequest.MVVM.Login.LoginActivity"
             android:label="@string/login_activity_name" />
 

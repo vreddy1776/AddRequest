@@ -39,6 +39,8 @@
     <string name="sign_out">Sign Out</string>
     <string name="ticket_list">All Requests</string>
 
+    <!-- Strings for Chat -->
+    <string name="send_button_label">Send</string>
 
 
 

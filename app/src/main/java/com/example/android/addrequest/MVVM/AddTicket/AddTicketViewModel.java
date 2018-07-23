@@ -65,7 +65,7 @@ public class AddTicketViewModel extends AndroidViewModel {
      * Load ticket.
      */
     private void loadTicket(int ticketId){
-        ticket = database.ticketDao().loadTicketById(String.valueOf(ticketId));
+        ticket = database.ticketDao().loadTicketById(ticketId);
     }
 
 
@@ -91,7 +91,7 @@ public class AddTicketViewModel extends AndroidViewModel {
         syncVolley.add(application, newTicket);
         */
 
-        int id = Integer.parseInt(newTicket.getTicketId());
+        int id = newTicket.getTicketId();
         String userID = UserProfileSettings.getUserID(context);
         String title = newTicket.getTicketTitle();
         String description = newTicket.getTicketDescription();
@@ -113,14 +113,14 @@ public class AddTicketViewModel extends AndroidViewModel {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Tickets");
         FirebaseDbTicket ticket = new FirebaseDbTicket(
-                user.getUid(),
-                user.getDisplayName(),
-                user.getPhotoUrl().toString(),
-                Integer.toString(id),
+                id,
                 title,
                 description,
                 date,
-                "none");
+                Integer.toString(id),
+                user.getUid(),
+                user.getDisplayName(),
+                user.getPhotoUrl().toString());
         myRef.push().setValue(ticket);
 
 
@@ -138,7 +138,7 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
 
-        newTicket.setTicketId(String.valueOf(mTicketId));
+        newTicket.setTicketId(mTicketId);
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -152,7 +152,7 @@ public class AddTicketViewModel extends AndroidViewModel {
         syncVolley.update(application, newTicket);
         */
 
-        int id = Integer.parseInt(newTicket.getTicketId());
+        int id = newTicket.getTicketId();
         String title = newTicket.getTicketTitle();
         String description = newTicket.getTicketDescription();
         String date = String.valueOf(newTicket.getTicketDate());

@@ -85,14 +85,14 @@ public class TicketListViewModel extends AndroidViewModel{
 
                     FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
                     final TicketEntry ticket = new TicketEntry(
-                            firebaseDbTicket.getUserId(),
-                            firebaseDbTicket.getUserName(),
-                            firebaseDbTicket.getUserPhotoUrl(),
                             firebaseDbTicket.getTicketId(),
                             firebaseDbTicket.getTicketTitle(),
                             firebaseDbTicket.getTicketDescription(),
                             firebaseDbTicket.getTicketDate(),
-                            firebaseDbTicket.getTicketVideoId());
+                            firebaseDbTicket.getTicketVideoId(),
+                            firebaseDbTicket.getUserId(),
+                            firebaseDbTicket.getUserName(),
+                            firebaseDbTicket.getUserPhotoUrl());
 
                     AppExecuters.getInstance().diskIO().execute(new Runnable() {
                         @Override
@@ -104,16 +104,37 @@ public class TicketListViewModel extends AndroidViewModel{
 
                 }
 
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
                     FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
-                    final String userId = firebaseDbTicket.getTicketId();
+                    final TicketEntry ticket = new TicketEntry(
+                            firebaseDbTicket.getTicketId(),
+                            firebaseDbTicket.getTicketTitle(),
+                            firebaseDbTicket.getTicketDescription(),
+                            firebaseDbTicket.getTicketDate(),
+                            firebaseDbTicket.getTicketVideoId(),
+                            firebaseDbTicket.getUserId(),
+                            firebaseDbTicket.getUserName(),
+                            firebaseDbTicket.getUserPhotoUrl());
 
                     AppExecuters.getInstance().diskIO().execute(new Runnable() {
                         @Override
                         public void run() {
-                            database.ticketDao().deleteTicketById(userId);
+                            database.ticketDao().updateTicket(ticket);
+                        }
+
+                    });
+
+                }
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
+                    final int ticketId = firebaseDbTicket.getTicketId();
+
+                    AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            database.ticketDao().deleteTicketById(ticketId);
                         }
                     });
 

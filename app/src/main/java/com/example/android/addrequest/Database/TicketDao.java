@@ -26,12 +26,12 @@ public interface TicketDao {
     void deleteTicket(TicketEntry ticketEntry);
 
     @Query("DELETE FROM ticket WHERE ticketId = :ticketId")
-    void deleteTicketById(String ticketId);
+    void deleteTicketById(int ticketId);
 
     @Query("DELETE FROM ticket")
     void clearAllTickets();
 
     @Query("SELECT * FROM ticket WHERE ticketId = :ticketId")
-    LiveData<TicketEntry> loadTicketById(String ticketId);
+    LiveData<TicketEntry> loadTicketById(int ticketId);
 
 }

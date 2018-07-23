@@ -3,10 +3,9 @@ package com.example.android.addrequest.AWS.DynamoDB;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.AppDatabase;
+import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Utils.DateTime;
-import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.Utils.ID;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +60,8 @@ public class DynamoSyncBulk {
                         //final TicketEntry ticket = new TicketEntry(id, title, description, date);
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         FirebaseUser user = firebaseAuth.getCurrentUser();
-                        TicketEntry ticket = new TicketEntry(
+                        /*
+                        ticketEntry ticket = new TicketEntry(
                                 user.getUid(),
                                 user.getDisplayName(),
                                 user.getPhotoUrl().toString(),
@@ -70,8 +70,9 @@ public class DynamoSyncBulk {
                                 description,
                                 date.toString(),
                                 "none");
+                                */
 
-                        database.ticketDao().insertTicket(ticket);
+                        //database.ticketDao().insertTicket(ticket);
 
                     } catch (JSONException e) {
                         e.printStackTrace();

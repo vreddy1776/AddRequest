@@ -260,27 +260,27 @@ public class AddTicketActivity extends AppCompatActivity{
             // Set up ticket
 
             TicketEntry ticket = new TicketEntry(
-                    user.getUid(),
-                    user.getDisplayName(),
-                    user.getPhotoUrl().toString(),
-                    Integer.toString(id),
+                    id,
                     title,
                     description,
                     date.toString(),
-                    "none");
+                    Integer.toString(id),
+                    user.getUid(),
+                    user.getDisplayName(),
+                    user.getPhotoUrl().toString());
 
             viewModel.addTicket(this,ticket,boolVideoPost);
         } else {
             // update ticket
             //TicketEntry ticket = new TicketEntry(title, description, date);
             TicketEntry ticket = new TicketEntry(
-                    user.getUid(),
-                    user.getDisplayName(),
-                    user.getPhotoUrl().toString(),
                     title,
                     description,
                     date.toString(),
-                    "none");
+                    Integer.toString(id),
+                    user.getUid(),
+                    user.getDisplayName(),
+                    user.getPhotoUrl().toString());
 
             viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
         }

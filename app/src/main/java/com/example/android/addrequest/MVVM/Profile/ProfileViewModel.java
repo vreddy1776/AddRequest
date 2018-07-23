@@ -69,7 +69,7 @@ public class ProfileViewModel extends AndroidViewModel{
     public void swipeTicket(Context context, final int position, final List<TicketEntry> tickets){
 
         TicketEntry ticket = tickets.get(position);
-        int id = Integer.parseInt(ticket.getTicketId());
+        int id = ticket.getTicketId();
         Log.d(TAG, "Test - RequestsDO ID:  " + id);
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {

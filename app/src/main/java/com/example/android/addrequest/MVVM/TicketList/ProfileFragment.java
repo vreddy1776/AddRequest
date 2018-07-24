@@ -3,6 +3,8 @@ package com.example.android.addrequest.MVVM.TicketList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,8 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
-
-    private ImageView profilePic;
 
     public ProfileFragment() {
     }
@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         // Set the RecyclerView to its corresponding view
-        profilePic = rootView.findViewById(R.id.profilePic);
+        ImageView profilePic = rootView.findViewById(R.id.profilePic);
         Glide.with(getContext())
                 .load(user.getPhotoUrl())
                 .thumbnail(0.1f)
@@ -42,6 +42,20 @@ public class ProfileFragment extends Fragment {
         // Return the rootView
         return rootView;
     }
-    
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.all_tickets_menu).setVisible(true);
+        menu.findItem(R.id.user_name_menu).setVisible(false);
+    }
 
 }

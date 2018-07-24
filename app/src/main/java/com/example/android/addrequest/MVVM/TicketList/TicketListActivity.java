@@ -3,6 +3,7 @@ package com.example.android.addrequest.MVVM.TicketList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -48,7 +49,7 @@ public class TicketListActivity extends AppCompatActivity {
 
         TicketListFragment ticketListFragment = new TicketListFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.ticketlist_fragment_container,ticketListFragment)
+                .add(R.id.ticketlist_fragment_container, ticketListFragment)
                 .commit();
 
 
@@ -79,14 +80,19 @@ public class TicketListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.username).setTitle(UserProfileSettings.getUsername(this));
+        menu.findItem(R.id.all_tickets_menu).setVisible(false);
+        menu.findItem(R.id.user_name_menu).setVisible(true);
+        menu.findItem(R.id.user_name_menu).setTitle(UserProfileSettings.getUsername(this));
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.username:
-                goToProfile();
+            case R.id.user_name_menu:
+                openProfile();
+                return true;
+            case R.id.all_tickets_menu:
+                closeProfile();
                 return true;
             case R.id.sign_out_menu:
                 logout();
@@ -100,12 +106,26 @@ public class TicketListActivity extends AppCompatActivity {
     /**
      * Go to user Profile.
      */
-    private void goToProfile() {
+    private void openProfile() {
 
         ProfileFragment profileFragment = new ProfileFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.profile_fragment_container,profileFragment)
+                .add(R.id.profile_fragment_container,profileFragment,GlobalConstants.PROFILE_FRAGMENT_TAG)
                 .commit();
+
+    }
+
+
+    /**
+     * Go to user Profile.
+     */
+    private void closeProfile() {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(GlobalConstants.PROFILE_FRAGMENT_TAG);
+        if(fragment != null)
+            getSupportFragmentManager().beginTransaction()
+                    .remove(fragment)
+                    .commit();
 
     }
 

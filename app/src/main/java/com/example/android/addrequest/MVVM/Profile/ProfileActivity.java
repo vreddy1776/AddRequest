@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.android.addrequest.Adapter.TicketAdapter;
 import com.example.android.addrequest.Database.TicketEntry;
@@ -115,14 +113,14 @@ public class ProfileActivity extends AppCompatActivity implements TicketAdapter.
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.username).setTitle(this.getString(R.string.ticket_list));
+        menu.findItem(R.id.user_name_menu).setTitle(this.getString(R.string.ticket_list));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.username:
+            case R.id.user_name_menu:
                 goToProfile();
                 return true;
             case R.id.sign_out_menu:

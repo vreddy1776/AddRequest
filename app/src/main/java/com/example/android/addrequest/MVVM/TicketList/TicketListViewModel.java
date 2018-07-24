@@ -18,9 +18,14 @@ public class TicketListViewModel extends AndroidViewModel{
     private LiveData<List<TicketEntry>> tickets;
     private AppDatabase database;
 
+
+
     public TicketListViewModel(Application application) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
+
+
+
     }
 
     public void updateDB(){
@@ -30,5 +35,6 @@ public class TicketListViewModel extends AndroidViewModel{
     public LiveData<List<TicketEntry>> getTickets() {
         return tickets;
     }
+
 
 }

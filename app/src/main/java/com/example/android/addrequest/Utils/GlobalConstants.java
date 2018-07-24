@@ -14,4 +14,8 @@ public class GlobalConstants {
     public static final int EDIT_TICKET_VIEWTYPE = 5;
 
 
+    // Fragment Tags
+    public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
+
+
 }

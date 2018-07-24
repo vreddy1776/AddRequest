@@ -3,7 +3,6 @@ package com.example.android.addrequest.MVVM.TicketList;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.util.Log;
 
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.TicketEntry;
@@ -24,19 +23,17 @@ public class TicketListViewModel extends AndroidViewModel{
     private AppDatabase database;
 
 
-
     public TicketListViewModel(Application application) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
+
     }
 
     public void updateDB(int updateCode){
         if (updateCode == GlobalConstants.LOAD_ALL){
             tickets = database.ticketDao().loadAllTickets();
-            Log.d(TAG," --- Loading all tickets --- ");
         } else if (updateCode == GlobalConstants.LOAD_USER) {
             tickets = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
-            Log.d(TAG," --- Loading user tickets --- ");
         } else {
             // No update to ticket DB
         }
@@ -46,5 +43,16 @@ public class TicketListViewModel extends AndroidViewModel{
         return tickets;
     }
 
+
+    public void deleteTicket(int ticketId){
+
+        /*
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mainRef = database.getReference("Tickets");
+        DatabaseReference deleteRef = mainRef.child("ticketId").equals(ticketId);
+        Query query = mainRef.orderByChild("ticketId").equalTo(ticketId);
+        */
+
+    }
 
 }

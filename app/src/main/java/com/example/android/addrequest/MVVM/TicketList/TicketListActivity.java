@@ -39,11 +39,17 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private FragmentManager fragmentManager;
 
+    TicketListFragment ticketListFragment;
+
     private FloatingActionButton fabButton;
 
     private TicketListViewModel viewModel;
 
     private TicketAdapter mAdapter;
+
+    private int ticketViewType;
+
+
 
 
     // Member variables for the adapter and RecyclerView
@@ -68,7 +74,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
         fragmentManager = getSupportFragmentManager();
 
-        TicketListFragment ticketListFragment = new TicketListFragment();
+        ticketListFragment = new TicketListFragment();
         fragmentManager.beginTransaction()
                 .add(R.id.ticketlist_fragment_container, ticketListFragment)
                 .commit();
@@ -90,7 +96,16 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
             }
         });
 
+
+
+
+
     }
+
+
+
+
+
 
 
 
@@ -129,8 +144,18 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private void profileMode(){
 
         viewModel.updateDB(GlobalConstants.LOAD_USER);
+        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
+                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
+                mAdapter.setTickets(ticketEntries);
+            }
+        });
         fabButton.setVisibility(View.INVISIBLE);
         openProfile();
+
+        ticketViewType = GlobalConstants.EDIT_TICKET_VIEWTYPE;
+        ticketListFragment.setSwipe(ticketViewType);
 
     }
 
@@ -139,8 +164,20 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private void allTicketsMode(){
 
         viewModel.updateDB(GlobalConstants.LOAD_ALL);
+        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
+                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
+                mAdapter.setTickets(ticketEntries);
+            }
+        });
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();
+
+        ticketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
+        ticketListFragment.setSwipe(ticketViewType);
+
+
 
     }
 
@@ -192,8 +229,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
 
 
-
-
     /**
      * Intent to AddTicketActivity.
      */
@@ -203,7 +238,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(this, AddTicketActivity.class);
         intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
-        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.DEFAULT_TICKET_VIEWTYPE);
+        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, ticketViewType);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 
@@ -224,4 +259,9 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     public TicketAdapter getTicketAdapter() {
         return this.mAdapter;
     }
+
+    public void swipeTicket(int ticketId){
+        viewModel.deleteTicket(ticketId);
+    }
+
 }

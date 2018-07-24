@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.android.addrequest.AWS.DynamoDB.DynamoDB;
 import com.example.android.addrequest.AWS.S3.S3bucket;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
@@ -140,12 +139,15 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         newTicket.setTicketId(mTicketId);
 
+        /*
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 database.ticketDao().updateTicket(newTicket);
             }
         });
+
+        */
 
         /*
         RdsVolley syncVolley = new RdsVolley();
@@ -157,9 +159,27 @@ public class AddTicketViewModel extends AndroidViewModel {
         String description = newTicket.getTicketDescription();
         String date = String.valueOf(newTicket.getTicketDate());
 
+        /*
         DynamoDB db = new DynamoDB();
         db.commDynamoDB(context);
         db.updateTicket(id, title, description, date);
+        */
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Tickets");
+        FirebaseDbTicket ticket = new FirebaseDbTicket(
+                id,
+                title,
+                description,
+                date,
+                Integer.toString(id),
+                user.getUid(),
+                user.getDisplayName(),
+                user.getPhotoUrl().toString());
+        myRef.child(String.valueOf(id)).setValue(ticket);
+
 
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getTicketId()));

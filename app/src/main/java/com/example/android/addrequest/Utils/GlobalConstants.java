@@ -18,4 +18,11 @@ public class GlobalConstants {
     public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
 
 
+    // SQLlite Ticket DB update codes
+    public static final int LOAD_ALL = 10;
+    public static final int LOAD_USER = 9;
+
+
+
+
 }

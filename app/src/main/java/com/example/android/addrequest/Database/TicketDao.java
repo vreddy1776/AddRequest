@@ -16,6 +16,9 @@ public interface TicketDao {
     @Query("SELECT * FROM ticket")
     LiveData<List<TicketEntry>> loadAllTickets();
 
+    @Query("SELECT * FROM ticket WHERE userId = :userId")
+    LiveData<List<TicketEntry>> loadUserTickets(String userId);
+
     @Insert
     void insertTicket(TicketEntry ticketEntry);
 

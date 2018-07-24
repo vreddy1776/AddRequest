@@ -2,7 +2,6 @@ package com.example.android.addrequest.MVVM.TicketList;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -75,9 +74,6 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         // Setup ViewModel
         setupViewModel();
-
-        final Context context = this;
-
 
         /*
         Set the Floating Action Button (FAB) to its corresponding View.
@@ -159,8 +155,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
      */
     private void setupViewModel() {
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
-
-        viewModel.updateDB(this);
+        viewModel.updateDB();
         viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
             @Override
             public void onChanged(@Nullable List<TicketEntry> ticketEntries) {

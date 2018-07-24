@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
@@ -36,8 +35,6 @@ public class FirebaseDbListenerService extends Service {
 
     @Override
     public void onCreate() {
-        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
-        Log.d(TAG,"Service Created");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("Tickets");
@@ -55,27 +52,12 @@ public class FirebaseDbListenerService extends Service {
 
         attachDatabaseReadListener();
 
-
-
-    }
-
-    @Override
-    public void onStart(Intent intent, int startid) {
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        Log.d(TAG,"Service Started");
-
     }
 
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
-        Log.d(TAG,"Service Destroyed");
-
         detachDatabaseReadListener();
-
-
-
     }
 
 

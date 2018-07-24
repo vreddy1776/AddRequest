@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Login.LoginActivity;
-import com.example.android.addrequest.MVVM.Profile.ProfileActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Services.FirebaseDbListenerService;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
@@ -29,6 +28,8 @@ public class TicketListActivity extends AppCompatActivity {
     // Constant for logging
     private static final String TAG = TicketListActivity.class.getSimpleName();
 
+    private FragmentManager fragmentManager;
+
     // Member variables for the adapter and RecyclerView
 
     // ViewModel for Main Activity
@@ -43,10 +44,11 @@ public class TicketListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
-        MasterTicketListFragment fragment = new MasterTicketListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
+
+        TicketListFragment ticketListFragment = new TicketListFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.master_fragment_container,fragment)
+                .add(R.id.ticketlist_fragment_container,ticketListFragment)
                 .commit();
 
 
@@ -100,8 +102,10 @@ public class TicketListActivity extends AppCompatActivity {
      */
     private void goToProfile() {
 
-        Intent addTicketIntent = new Intent(TicketListActivity.this, ProfileActivity.class);
-        startActivity(addTicketIntent);
+        ProfileFragment profileFragment = new ProfileFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.profile_fragment_container,profileFragment)
+                .commit();
 
     }
 

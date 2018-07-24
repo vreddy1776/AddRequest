@@ -24,9 +24,9 @@ import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-public class MasterTicketListFragment extends Fragment implements  TicketAdapter.ItemClickListener{
+public class TicketListFragment extends Fragment implements  TicketAdapter.ItemClickListener{
 
-    private static final String TAG = MasterTicketListFragment.class.getSimpleName();
+    private static final String TAG = TicketListFragment.class.getSimpleName();
 
 
     private RecyclerView mRecyclerView;
@@ -36,7 +36,7 @@ public class MasterTicketListFragment extends Fragment implements  TicketAdapter
     private TicketListViewModel viewModel;
 
 
-    public MasterTicketListFragment() {
+    public TicketListFragment() {
     }
 
     /**
@@ -100,5 +100,7 @@ public class MasterTicketListFragment extends Fragment implements  TicketAdapter
         });
 
     }
+
+
 
 }

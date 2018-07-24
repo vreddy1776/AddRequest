@@ -4,10 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Fragment -->
-    <FrameLayout android:id="@+id/master_fragment_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TicketList Fragment -->
+        <FrameLayout android:id="@+id/profile_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- TicketList Fragment -->
+        <FrameLayout android:id="@+id/ticketlist_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
     <!-- Floating action button that launches AddTicketActivity when clicked -->
     <android.support.design.widget.FloatingActionButton

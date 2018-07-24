@@ -1,23 +1,15 @@
 package com.example.android.addrequest.MVVM.TicketList;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.android.addrequest.Adapter.TicketAdapter;
-import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Login.LoginActivity;
 import com.example.android.addrequest.MVVM.Profile.ProfileActivity;
@@ -27,11 +19,7 @@ import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.firebase.ui.auth.AuthUI;
 
-import java.util.List;
-
-import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
-
-public class TicketListActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
+public class TicketListActivity extends AppCompatActivity {
 
 
     /**
@@ -42,11 +30,8 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     private static final String TAG = TicketListActivity.class.getSimpleName();
 
     // Member variables for the adapter and RecyclerView
-    private RecyclerView mRecyclerView;
-    private TicketAdapter mAdapter;
 
     // ViewModel for Main Activity
-    private TicketListViewModel viewModel;
 
 
 
@@ -58,22 +43,12 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
-        // Set the RecyclerView to its corresponding view
-        mRecyclerView = findViewById(R.id.recyclerViewTickets);
+        MasterTicketListFragment fragment = new MasterTicketListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.master_fragment_container,fragment)
+                .commit();
 
-        // Set the layout for the RecyclerView to be a linear layout, which measures and
-        // positions items within a RecyclerView into a linear list
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new TicketAdapter(this , this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);
-
-        // Setup ViewModel
-        setupViewModel();
 
         /*
         Set the Floating Action Button (FAB) to its corresponding View.
@@ -153,34 +128,10 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     /**
      * Set up the ViewModel.
      */
-    private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
-        viewModel.updateDB();
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
-
-    }
 
 
-    /**
-     * Intent to AddTicketActivity.
-     */
-    @Override
-    public void onItemClickListener(int itemId) {
 
-        // Launch AddTicketActivity adding the itemId as an extra in the intent
-        Intent intent = new Intent(TicketListActivity.this, AddTicketActivity.class);
-        intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
-        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.DEFAULT_TICKET_VIEWTYPE);
-        Log.d(TAG, "Test - Ticked ID:  " + itemId);
-        startActivity(intent);
 
-    }
 
 
 }

@@ -82,39 +82,6 @@ public class AddTicketActivity extends AppCompatActivity{
         // Initialize views
         initViews();
 
-
-
-        /*
-        VideoFragment videoFragment = new VideoFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.stream_video,videoFragment)
-                .commit();
-                */
-
-
-/*
-
-        String URL = MAIN_URL + mTicketId;
-        boolean urlCheck =  Patterns.WEB_URL.matcher(URL).matches();
-        if( urlCheck ) {
-            Log.d(TAG,"urlCheck:  " + urlCheck);
-            if (savedInstanceState == null) {
-                Uri videoUri = Uri.parse(URL);
-                String videoTitle = mTitleText.toString();
-                ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(videoUri, videoTitle);
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
-                        .commit();
-            }
-        } else {
-            streamVideo.setVisibility(View.INVISIBLE);
-            Log.d(TAG,"urlCheck:  " + urlCheck);
-        }
-        */
-
-
-
     }
 
 
@@ -234,76 +201,6 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     public void onSaveButtonClicked() {
 
-        // Set up ticket
-
-        /*
-        String description = "dsd";
-        Date date = new Date();
-        Log.d(TAG, "Test - Ticked ID:  " + mTicketId);
-        */
-
-        // Flag to post video if one was saved
-        /*
-        boolean boolVideoPost = false;
-        Log.d(TAG, "requestCode: " + requestCode + "  ;  resultCode: " + resultCode);
-        if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ) {
-            boolVideoPost = true;
-        }
-        */
-
-        /*
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        */
-
-        // insert new ticket
-        //TicketEntry ticket = new TicketEntry(id, title, description, date);
-        // Set up ticket
-
-        /*
-            TicketEntry ticket = new TicketEntry(
-                    ID.newID(),
-                    ticketTitle,
-                    ticketDescription,
-                    date.toString(),
-                    Integer.toString(ticketId),
-                    user.getUid(),
-                    user.getDisplayName(),
-                    user.getPhotoUrl().toString());
-                    */
-
-        // update ticket
-        //TicketEntry ticket = new TicketEntry(title, description, date);
-            /*
-            TicketEntry ticket = new TicketEntry(
-                    title,
-                    description,
-                    date.toString(),
-                    Integer.toString(id),
-                    user.getUid(),
-                    user.getDisplayName(),
-                    user.getPhotoUrl().toString());
-                    */
-
-        //viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
-
-
-        // Close Activity
-
-
-
-        /*
-        if (mTicketId == GlobalConstants.DEFAULT_TICKET_ID) {
-
-        } else {
-
-
-            finish();
-        }
-        */
-
-
-
         int ticketId = generateTicketId(mTicketId);
         String ticketTitle = mTitleText.getText().toString();
         String ticketDescription = mDescriptionText.getText().toString();
@@ -326,6 +223,7 @@ public class AddTicketActivity extends AppCompatActivity{
         finish();
 
     }
+
 
 
     /**

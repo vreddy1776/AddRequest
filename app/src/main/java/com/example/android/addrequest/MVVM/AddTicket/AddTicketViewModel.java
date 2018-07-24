@@ -4,14 +4,11 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
-import android.util.Log;
 
 import com.example.android.addrequest.AWS.S3.S3bucket;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.TicketEntry;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -80,44 +77,6 @@ public class AddTicketViewModel extends AndroidViewModel {
             String userName,
             String userPhotoUrl){
 
-        //Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
-
-        /*
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                database.ticketDao().insertTicket(newTicket);
-            }
-
-        });
-        */
-
-        /*
-        RdsVolley syncVolley = new RdsVolley();
-        syncVolley.add(application, newTicket);
-        */
-
-        /*
-        int id = newTicket.getTicketId();
-        String userID = UserProfileSettings.getUserID(context);
-        String title = newTicket.getTicketTitle();
-        String description = newTicket.getTicketDescription();
-        String date = String.valueOf(newTicket.getTicketDate());
-        */
-
-        /*
-        DynamoDB db = new DynamoDB();
-        db.commDynamoDB(context);
-        db.createTicket(id, userID, title, description, date);
-        */
-
-
-        // Set up ticket
-        /*
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        */
-
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Tickets");
@@ -131,70 +90,6 @@ public class AddTicketViewModel extends AndroidViewModel {
                 userName,
                 userPhotoUrl);
         myRef.child(String.valueOf(ticketId)).setValue(ticket);
-
-        /*
-        if(boolVideoPost){
-            postVideo(String.valueOf(newTicket.getTicketId()));
-        }
-        */
-
-    }
-
-
-    /**
-     * Change ticket.
-     */
-    public void changeTicket(Context context, final TicketEntry newTicket, final int mTicketId , boolean boolVideoPost){
-
-        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
-
-        newTicket.setTicketId(mTicketId);
-
-        /*
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                database.ticketDao().updateTicket(newTicket);
-            }
-        });
-
-        */
-
-        /*
-        RdsVolley syncVolley = new RdsVolley();
-        syncVolley.update(application, newTicket);
-        */
-
-        int id = newTicket.getTicketId();
-        String title = newTicket.getTicketTitle();
-        String description = newTicket.getTicketDescription();
-        String date = String.valueOf(newTicket.getTicketDate());
-
-        /*
-        DynamoDB db = new DynamoDB();
-        db.commDynamoDB(context);
-        db.updateTicket(id, title, description, date);
-        */
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Tickets");
-        FirebaseDbTicket ticket = new FirebaseDbTicket(
-                id,
-                title,
-                description,
-                date,
-                Integer.toString(id),
-                user.getUid(),
-                user.getDisplayName(),
-                user.getPhotoUrl().toString());
-        myRef.child(String.valueOf(id)).setValue(ticket);
-
-
-        if(boolVideoPost){
-            postVideo(String.valueOf(newTicket.getTicketId()));
-        }
 
     }
 

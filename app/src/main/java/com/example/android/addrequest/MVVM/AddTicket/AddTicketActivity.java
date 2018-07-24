@@ -18,13 +18,11 @@ import android.widget.FrameLayout;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Date;
-
 
 
 public class AddTicketActivity extends AppCompatActivity{
@@ -237,30 +235,47 @@ public class AddTicketActivity extends AppCompatActivity{
     public void onSaveButtonClicked() {
 
         // Set up ticket
-        int id = ID.newID();
-        String title = mTitleText.getText().toString();
-        String description = mDescriptionText.getText().toString();
+
+        /*
+        String description = "dsd";
         Date date = new Date();
         Log.d(TAG, "Test - Ticked ID:  " + mTicketId);
+        */
 
         // Flag to post video if one was saved
+        /*
         boolean boolVideoPost = false;
         Log.d(TAG, "requestCode: " + requestCode + "  ;  resultCode: " + resultCode);
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ) {
             boolVideoPost = true;
         }
+        */
 
+        /*
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        */
 
-        // Execute ticket entry
-        if (mTicketId == GlobalConstants.DEFAULT_TICKET_ID) {
-            // insert new ticket
-            //TicketEntry ticket = new TicketEntry(id, title, description, date);
-            // Set up ticket
+        // insert new ticket
+        //TicketEntry ticket = new TicketEntry(id, title, description, date);
+        // Set up ticket
 
+        /*
             TicketEntry ticket = new TicketEntry(
-                    id,
+                    ID.newID(),
+                    ticketTitle,
+                    ticketDescription,
+                    date.toString(),
+                    Integer.toString(ticketId),
+                    user.getUid(),
+                    user.getDisplayName(),
+                    user.getPhotoUrl().toString());
+                    */
+
+        // update ticket
+        //TicketEntry ticket = new TicketEntry(title, description, date);
+            /*
+            TicketEntry ticket = new TicketEntry(
                     title,
                     description,
                     date.toString(),
@@ -268,24 +283,46 @@ public class AddTicketActivity extends AppCompatActivity{
                     user.getUid(),
                     user.getDisplayName(),
                     user.getPhotoUrl().toString());
+                    */
 
-            viewModel.addTicket(this,ticket,boolVideoPost);
-        } else {
-            // update ticket
-            //TicketEntry ticket = new TicketEntry(title, description, date);
-            TicketEntry ticket = new TicketEntry(
-                    title,
-                    description,
-                    date.toString(),
-                    Integer.toString(id),
-                    user.getUid(),
-                    user.getDisplayName(),
-                    user.getPhotoUrl().toString());
+        //viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
 
-            viewModel.changeTicket(this,ticket,mTicketId,boolVideoPost);
-        }
 
         // Close Activity
+
+
+
+        /*
+        if (mTicketId == GlobalConstants.DEFAULT_TICKET_ID) {
+
+        } else {
+
+
+            finish();
+        }
+        */
+
+
+
+        int ticketId = generateTicketId(mTicketId);
+        String ticketTitle = mTitleText.getText().toString();
+        String ticketDescription = mDescriptionText.getText().toString();
+        String ticketDate = new Date().toString();
+        String ticketVideoId = generateVideoId(requestCode,resultCode,ticketId);
+        String userId = UserProfileSettings.getUserID(this);
+        String userName = UserProfileSettings.getUsername(this);
+        String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
+
+        viewModel.addTicket(
+                ticketId,
+                ticketTitle,
+                ticketDescription,
+                ticketDate,
+                ticketVideoId,
+                userId,
+                userName,
+                userPhotoUrl);
+
         finish();
 
     }
@@ -341,5 +378,32 @@ public class AddTicketActivity extends AppCompatActivity{
         intent.putExtra( GlobalConstants.CHAT_ID_KEY , Integer.toString(mTicketId) );
         startActivity(intent);
     }
+
+
+    private int generateTicketId(int ticketId){
+
+        int newTicketId;
+        if (ticketId == GlobalConstants.DEFAULT_TICKET_ID) {
+            newTicketId = ID.newID();
+        } else {
+            newTicketId = ticketId;
+        }
+        return newTicketId;
+    }
+
+
+    private String generateVideoId(int requestCode, int resultCode, int ticketId){
+
+        int ticketVideoId = -1;
+        if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ) {
+            ticketVideoId = ticketId;
+        }
+        String ticketVideoIdString = String.valueOf(ticketVideoId);
+        return ticketVideoIdString;
+
+    }
+
+
+
 
 }

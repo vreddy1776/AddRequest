@@ -118,7 +118,8 @@ public class LoginActivity extends AppCompatActivity{
 
         UserProfileSettings.setUserProfileAtLogin(this,
                 mFirebaseAuth.getCurrentUser().getUid(),
-                mFirebaseAuth.getCurrentUser().getDisplayName());
+                mFirebaseAuth.getCurrentUser().getDisplayName(),
+                mFirebaseAuth.getCurrentUser().getPhotoUrl().toString());
 
         Intent intent = new Intent(LoginActivity.this, TicketListActivity.class);
         startActivity(intent);

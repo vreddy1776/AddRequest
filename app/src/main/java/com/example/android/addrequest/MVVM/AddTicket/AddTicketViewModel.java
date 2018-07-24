@@ -10,7 +10,6 @@ import com.example.android.addrequest.AWS.S3.S3bucket;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.TicketEntry;
-import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -71,9 +70,17 @@ public class AddTicketViewModel extends AndroidViewModel {
     /**
      * Add ticket.
      */
-    public void addTicket(Context context, final TicketEntry newTicket , boolean boolVideoPost){
+    public void addTicket(
+            int ticketId,
+            String ticketTitle,
+            String ticketDescription,
+            String ticketDate,
+            String ticketVideoId,
+            String userId,
+            String userName,
+            String userPhotoUrl){
 
-        Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
+        //Log.d(TAG, "Test - RequestsDO ID:  " + newTicket.getTicketId());
 
         /*
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
@@ -90,12 +97,13 @@ public class AddTicketViewModel extends AndroidViewModel {
         syncVolley.add(application, newTicket);
         */
 
+        /*
         int id = newTicket.getTicketId();
         String userID = UserProfileSettings.getUserID(context);
         String title = newTicket.getTicketTitle();
         String description = newTicket.getTicketDescription();
         String date = String.valueOf(newTicket.getTicketDate());
-
+        */
 
         /*
         DynamoDB db = new DynamoDB();
@@ -105,27 +113,30 @@ public class AddTicketViewModel extends AndroidViewModel {
 
 
         // Set up ticket
+        /*
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        */
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Tickets");
         FirebaseDbTicket ticket = new FirebaseDbTicket(
-                id,
-                title,
-                description,
-                date,
-                Integer.toString(id),
-                user.getUid(),
-                user.getDisplayName(),
-                user.getPhotoUrl().toString());
-        myRef.child(String.valueOf(id)).setValue(ticket);
+                ticketId,
+                ticketTitle,
+                ticketDescription,
+                ticketDate,
+                ticketVideoId,
+                userId,
+                userName,
+                userPhotoUrl);
+        myRef.child(String.valueOf(ticketId)).setValue(ticket);
 
-
+        /*
         if(boolVideoPost){
             postVideo(String.valueOf(newTicket.getTicketId()));
         }
+        */
 
     }
 

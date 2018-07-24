@@ -50,11 +50,6 @@
             android:name=".MVVM.AddTicket.AddTicketActivity"
             android:label="@string/add_ticket_activity_name" />
 
-        <!-- ProfileActivity -->
-        <activity
-            android:name=".MVVM.Profile.ProfileActivity"
-            android:label="@string/profile_activity_name" />
-
         <!-- VideoActivity -->
         <activity
             android:name="com.example.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity" />

@@ -8,6 +8,7 @@ import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -46,12 +47,8 @@ public class TicketListViewModel extends AndroidViewModel{
 
     public void deleteTicket(int ticketId){
 
-        /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mainRef = database.getReference("Tickets");
-        DatabaseReference deleteRef = mainRef.child("ticketId").equals(ticketId);
-        Query query = mainRef.orderByChild("ticketId").equalTo(ticketId);
-        */
+        database.getReference("Tickets").child(String.valueOf(ticketId)).removeValue();
 
     }
 

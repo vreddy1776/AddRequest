@@ -121,7 +121,7 @@ public class AddTicketViewModel extends AndroidViewModel {
                 user.getUid(),
                 user.getDisplayName(),
                 user.getPhotoUrl().toString());
-        myRef.push().setValue(ticket);
+        myRef.child(String.valueOf(id)).setValue(ticket);
 
 
         if(boolVideoPost){

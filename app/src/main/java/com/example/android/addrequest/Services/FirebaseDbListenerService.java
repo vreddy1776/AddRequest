@@ -1,10 +1,11 @@
-package com.example.android.addrequest.MVVM.TicketList;
+package com.example.android.addrequest.Services;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.content.Context;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
@@ -16,58 +17,66 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
+public class FirebaseDbListenerService extends Service {
 
-/**
- * ViewModel for MainActivity.
- */
-
-public class TicketListViewModel extends AndroidViewModel{
-
-    // Constant for logging
-    private static final String TAG = TicketListViewModel.class.getSimpleName();
-
-    private LiveData<List<TicketEntry>> tickets;
-
-    private AppDatabase database;
+    private static final String TAG = FirebaseDbListenerService.class.getSimpleName();
 
     private ChildEventListener mChildEventListener;
-
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
 
-    public TicketListViewModel(Application application) {
-        super(application);
+    private AppDatabase database;
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
+        Log.d(TAG,"Service Created");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("Tickets");
 
         database = AppDatabase.getInstance(this.getApplication());
-        Log.d(TAG, "Actively retrieving the ticket from the DataBase");
 
-        //attachDatabaseReadListener();
+        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.ticketDao().clearAllTickets();
+                Log.d(TAG,"Tickets Cleared");
 
+            }
+        });
+
+        attachDatabaseReadListener();
+
+
+
+    }
+
+    @Override
+    public void onStart(Intent intent, int startid) {
+        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        Log.d(TAG,"Service Started");
 
     }
 
 
-    public void updateDB(Context context){
+    @Override
+    public void onDestroy() {
+        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+        Log.d(TAG,"Service Destroyed");
 
-        /*
-        DynamoDB db = new DynamoDB();
-        db.commDynamoDB(context);
-        db.scanTickets(context);
-        */
+        detachDatabaseReadListener();
 
-        tickets = database.ticketDao().loadAllTickets();
+
 
     }
-
-
-    public LiveData<List<TicketEntry>> getTickets() {
-        return tickets;
-    }
-
 
 
     private void attachDatabaseReadListener() {
@@ -87,15 +96,15 @@ public class TicketListViewModel extends AndroidViewModel{
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());
 
-                    AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             database.ticketDao().insertTicket(ticket);
                         }
-
-                    });
+                    }).start();
 
                 }
+
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -110,28 +119,31 @@ public class TicketListViewModel extends AndroidViewModel{
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());
 
-                    AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             database.ticketDao().updateTicket(ticket);
                         }
-
-                    });
+                    }).start();
 
                 }
+
+
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
 
                     FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
                     final int ticketId = firebaseDbTicket.getTicketId();
 
-                    AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
                             database.ticketDao().deleteTicketById(ticketId);
                         }
-                    });
+                    }).start();
 
                 }
+
+
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                 public void onCancelled(DatabaseError databaseError) {}
             };
@@ -139,6 +151,13 @@ public class TicketListViewModel extends AndroidViewModel{
         }
     }
 
+
+    private void detachDatabaseReadListener() {
+        if (mChildEventListener != null) {
+            mMessagesDatabaseReference.removeEventListener(mChildEventListener);
+            mChildEventListener = null;
+        }
+    }
 
 
 }

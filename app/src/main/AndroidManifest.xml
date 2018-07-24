@@ -64,6 +64,11 @@
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
+        <!-- FirebaseDbListener Service -->
+        <service
+            android:name=".Services.FirebaseDbListenerService"
+            android:enabled="true" />
+
     </application>
 
 </manifest>

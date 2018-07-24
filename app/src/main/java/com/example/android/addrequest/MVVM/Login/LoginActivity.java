@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.android.addrequest.R;
-import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
+import com.example.android.addrequest.R;
+import com.example.android.addrequest.Services.FirebaseDbListenerService;
+import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity{
 
                 // Sign-in succeeded, set up the UI
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+                startService(new Intent(this, FirebaseDbListenerService.class));
                 login();
 
             } else if (resultCode == RESULT_CANCELED) {

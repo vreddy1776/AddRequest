@@ -9,6 +9,7 @@ import com.example.android.addrequest.AWS.S3.S3bucket;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.TicketEntry;
+import com.example.android.addrequest.Utils.GlobalConstants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,13 +28,8 @@ public class AddTicketViewModel extends AndroidViewModel {
     // RequestsDO member variable for the TicketEntry object wrapped in a LiveData.
     private LiveData<TicketEntry> ticket;
 
-    private int ticketID;
-
     // Initialize database
     private AppDatabase database;
-
-    // Viewmodel Application context
-    private Application application;
 
     // Video Parameters
     private Context videoContext;
@@ -48,10 +44,7 @@ public class AddTicketViewModel extends AndroidViewModel {
     public AddTicketViewModel(Application application, int ticketId) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
-        this.ticketID = ticketId;
         loadTicket(ticketId);
-
-        this.application = application;
 
     }
 
@@ -91,22 +84,27 @@ public class AddTicketViewModel extends AndroidViewModel {
                 userPhotoUrl);
         myRef.child(String.valueOf(ticketId)).setValue(ticket);
 
+        if(!ticketVideoId.equals(String.valueOf(GlobalConstants.DEFAULT_VIDEO_ID))){
+            postVideo(ticketVideoId);
+        }
+
     }
 
 
     /**
      * Store video after camera intent.
      */
-    private void postVideo(final String nameID) {
+    private void postVideo(final String ticketVideoId) {
 
         // Run thread to create video file
         AppExecuters.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
                 S3bucket s3 = new S3bucket();
-                s3.accessS3bucket( videoContext , videoFile , nameID );
+                s3.accessS3bucket( videoContext , videoFile , ticketVideoId );
             }
         });
+
     }
 
 
@@ -127,7 +125,6 @@ public class AddTicketViewModel extends AndroidViewModel {
             }
         });
 
-
     }
 
 
@@ -139,11 +136,5 @@ public class AddTicketViewModel extends AndroidViewModel {
     }
 
 
-    /**
-     * Getter for the ticket ID.
-     */
-    public int getTicketID() {
-        return ticketID;
-    }
 
 }

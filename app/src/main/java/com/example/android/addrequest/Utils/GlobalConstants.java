@@ -10,6 +10,7 @@ public class GlobalConstants {
 
     // Default Values
     public static final int DEFAULT_TICKET_ID = -1;
+    public static final int DEFAULT_VIDEO_ID = -1;
     public static final int DEFAULT_TICKET_VIEWTYPE = -1;
     public static final int EDIT_TICKET_VIEWTYPE = 5;
 

@@ -21,6 +21,11 @@ import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
+import com.github.slashrootv200.exoplayerfragment.ExoPlayerFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 
@@ -161,16 +166,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
         streamVideo = findViewById(R.id.stream_video);
 
-        setViewType();
-
-    }
-
-
-    /**
-     * Removed edit privelages if not accessed from personal ticket page
-     */
-    private void setViewType(){
-
+        //  Removed edit privelages if not accessed from personal ticket page
         if(mTicketViewType != GlobalConstants.EDIT_TICKET_VIEWTYPE) {
             mTitleText.setEnabled(false);
             mDescriptionText.setEnabled(false);
@@ -179,6 +175,8 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
     }
+
+
 
 
     /**
@@ -194,6 +192,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTitleText.setText(ticket.getTicketTitle());
         mDescriptionText.setText(ticket.getTicketDescription());
     }
+
 
     
     /**
@@ -250,6 +249,30 @@ public class AddTicketActivity extends AppCompatActivity{
             Uri capturedVideoUri = data.getData();
             String filePath = getPath(capturedVideoUri);
             viewModel.storeVideo(this,filePath);
+
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+            StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
+            StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
+            localVideoRef.putFile(capturedVideoUri)
+                    .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // When the image has successfully uploaded, we get its download URL
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                            // Set the download URL to the message box, so that the user can send it to the database
+                            //FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUrl.toString());
+                            //mMessagesDatabaseReference.push().setValue(friendlyMessage);
+                            Log.d(TAG,"download URL:  " + downloadUrl);
+
+                            //Uri videoUri = Uri.parse("http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8");
+                            String videoTitle = "Sample Video";
+                            ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(downloadUrl, videoTitle);
+                            getSupportFragmentManager().beginTransaction()
+                                    .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
+                                    .commit();
+
+                        }
+                    });
         }
 
     }
@@ -292,7 +315,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
     private String generateVideoId(int requestCode, int resultCode, int ticketId){
 
-        int ticketVideoId = -1;
+        int ticketVideoId = GlobalConstants.DEFAULT_VIDEO_ID;
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ) {
             ticketVideoId = ticketId;
         }

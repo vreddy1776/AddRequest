@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
@@ -21,7 +22,22 @@ import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
-import com.github.slashrootv200.exoplayerfragment.ExoPlayerFragment;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.TransferListener;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -74,6 +90,31 @@ public class AddTicketActivity extends AppCompatActivity{
     public static final String INSTANCE_RESULT_CODE_KEY = "instanceResultCode";
 
 
+
+
+
+
+
+    private SimpleExoPlayerView simpleExoPlayerView;
+    private SimpleExoPlayer player;
+
+    private Timeline.Window window;
+    private DataSource.Factory mediaDataSourceFactory;
+    private DefaultTrackSelector trackSelector;
+    private boolean shouldAutoPlay;
+    private BandwidthMeter bandwidthMeter;
+
+    private ImageView ivHideControllerButton;
+    private boolean playWhenReady;
+    private int currentWindow;
+    private long playbackPosition;
+    private int position;
+
+
+    private Uri videoUri;
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
@@ -86,6 +127,31 @@ public class AddTicketActivity extends AppCompatActivity{
 
         // Initialize views
         initViews();
+
+
+
+
+
+
+
+        if(savedInstanceState == null){
+            playWhenReady = true;
+            currentWindow = 0;
+            playbackPosition = 0;
+        }else {
+            playWhenReady = savedInstanceState.getBoolean("playWhenReady");
+            currentWindow = savedInstanceState.getInt("currentWindow");
+            playbackPosition = savedInstanceState.getLong("playBackPosition");
+        }
+
+        shouldAutoPlay = true;
+        bandwidthMeter = new DefaultBandwidthMeter();
+        mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), (TransferListener<? super DataSource>) bandwidthMeter);
+        window = new Timeline.Window();
+        ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
+
+
+
 
     }
 
@@ -133,6 +199,21 @@ public class AddTicketActivity extends AppCompatActivity{
         outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
         outState.putInt(INSTANCE_REQUEST_CODE_KEY , requestCode);
         outState.putInt(INSTANCE_RESULT_CODE_KEY , resultCode);
+
+
+
+
+        playbackPosition = player.getCurrentPosition();
+        currentWindow = player.getCurrentWindowIndex();
+        playWhenReady = player.getPlayWhenReady();
+
+        outState.putBoolean("playWhenReady", playWhenReady);
+        outState.putInt("currentWindow", currentWindow);
+        outState.putLong("playBackPosition", playbackPosition);
+
+
+
+
         super.onSaveInstanceState(outState);
     }
 
@@ -164,7 +245,7 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         });
 
-        streamVideo = findViewById(R.id.stream_video);
+        //streamVideo = findViewById(R.id.stream_video);
 
         //  Removed edit privelages if not accessed from personal ticket page
         if(mTicketViewType != GlobalConstants.EDIT_TICKET_VIEWTYPE) {
@@ -250,6 +331,11 @@ public class AddTicketActivity extends AppCompatActivity{
             String filePath = getPath(capturedVideoUri);
             viewModel.storeVideo(this,filePath);
 
+
+            videoUri = capturedVideoUri;
+            initializePlayer();
+
+
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
             StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
@@ -265,11 +351,13 @@ public class AddTicketActivity extends AppCompatActivity{
                             Log.d(TAG,"download URL:  " + downloadUrl);
 
                             //Uri videoUri = Uri.parse("http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8");
+                            /*
                             String videoTitle = "Sample Video";
                             ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(downloadUrl, videoTitle);
                             getSupportFragmentManager().beginTransaction()
                                     .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
                                     .commit();
+                                    */
 
                         }
                     });
@@ -327,4 +415,103 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void initializePlayer() {
+
+        simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.stream_video);
+        simpleExoPlayerView.requestFocus();
+
+        TrackSelection.Factory videoTrackSelectionFactory =
+                new AdaptiveTrackSelection.Factory(bandwidthMeter);
+
+        trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
+
+        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+
+        simpleExoPlayerView.setPlayer(player);
+
+        player.setPlayWhenReady(shouldAutoPlay);
+/*        MediaSource mediaSource = new HlsMediaSource(Uri.parse("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"),
+                mediaDataSourceFactory, mainHandler, null);*/
+
+        player.seekTo(currentWindow, playbackPosition);
+
+        DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+        MediaSource mediaSource = new ExtractorMediaSource(videoUri,
+                mediaDataSourceFactory, extractorsFactory, null, null);
+
+        player.prepare(mediaSource, true, false);
+
+        ivHideControllerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simpleExoPlayerView.hideController();
+            }
+        });
+    }
+
+    private void releasePlayer() {
+        if (player != null) {
+            playbackPosition = player.getCurrentPosition();
+            currentWindow = player.getCurrentWindowIndex();
+            playWhenReady = player.getPlayWhenReady();
+            shouldAutoPlay = player.getPlayWhenReady();
+            player.release();
+            player = null;
+            trackSelector = null;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            //initializePlayer();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+
 }
+
+
+
+
+

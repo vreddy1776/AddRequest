@@ -38,10 +38,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 
@@ -59,8 +55,6 @@ public class AddTicketActivity extends AppCompatActivity{
     // Initialize integer for ticket ID and viewtype
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private int mTicketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
-
-    public static final String MAIN_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
 
     // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
@@ -110,8 +104,11 @@ public class AddTicketActivity extends AppCompatActivity{
     private long playbackPosition;
     private int position;
 
-
     private Uri videoUri;
+
+    private int mTicketVideoPostId = GlobalConstants.DEFAULT_VIDEO_POST_ID;
+    private Uri mTicketVideoLocalUri = GlobalConstants.DEFAULT_VIDEO_LOCAL_URI;
+    private Uri mTicketVideoInternetUrl = GlobalConstants.DEFAULT_VIDEO_INTERNET_URL;
 
 
 
@@ -127,11 +124,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
         // Initialize views
         initViews();
-
-
-
-
-
 
 
         if(savedInstanceState == null){
@@ -151,6 +143,13 @@ public class AddTicketActivity extends AppCompatActivity{
         ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
 
 
+        Log.d(TAG,"ticketId:  " + mTicketId);
+        if(mTicketId != GlobalConstants.DEFAULT_VIDEO_POST_ID){
+            String url = GlobalConstants.MAIN_S3_URL + mTicketId;
+            Log.d(TAG,"url:  " + url);
+            videoUri = Uri.parse(url);
+            initializePlayer();
+        }
 
 
     }
@@ -285,7 +284,9 @@ public class AddTicketActivity extends AppCompatActivity{
         String ticketTitle = mTitleText.getText().toString();
         String ticketDescription = mDescriptionText.getText().toString();
         String ticketDate = new Date().toString();
-        String ticketVideoId = generateVideoId(requestCode,resultCode,ticketId);
+        String ticketVideoPostId = generateVideoId(requestCode,resultCode,ticketId);
+        String ticketVideoLocalUri = mTicketVideoLocalUri.toString();
+        String ticketVideoInternetUrl = mTicketVideoInternetUrl.toString();
         String userId = UserProfileSettings.getUserID(this);
         String userName = UserProfileSettings.getUsername(this);
         String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
@@ -295,7 +296,9 @@ public class AddTicketActivity extends AppCompatActivity{
                 ticketTitle,
                 ticketDescription,
                 ticketDate,
-                ticketVideoId,
+                ticketVideoPostId,
+                ticketVideoLocalUri,
+                ticketVideoInternetUrl,
                 userId,
                 userName,
                 userPhotoUrl);
@@ -327,40 +330,41 @@ public class AddTicketActivity extends AppCompatActivity{
         this.resultCode = resultCode;
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
+
+            /*
+            saveButton.setClickable(false);
+            saveButton.setText(getApplicationContext().getString(R.string.loading_button));
+            */
+
             Uri capturedVideoUri = data.getData();
             String filePath = getPath(capturedVideoUri);
             viewModel.storeVideo(this,filePath);
 
-
             videoUri = capturedVideoUri;
+            mTicketVideoLocalUri = videoUri;
             initializePlayer();
 
-
+            /*
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
             StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
             localVideoRef.putFile(capturedVideoUri)
                     .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // When the image has successfully uploaded, we get its download URL
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-                            // Set the download URL to the message box, so that the user can send it to the database
-                            //FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUrl.toString());
-                            //mMessagesDatabaseReference.push().setValue(friendlyMessage);
                             Log.d(TAG,"download URL:  " + downloadUrl);
-
-                            //Uri videoUri = Uri.parse("http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8");
-                            /*
-                            String videoTitle = "Sample Video";
-                            ExoPlayerFragment mExoPlayerFragment = ExoPlayerFragment.newInstance(downloadUrl, videoTitle);
-                            getSupportFragmentManager().beginTransaction()
-                                    .add(R.id.stream_video, mExoPlayerFragment, ExoPlayerFragment.TAG)
-                                    .commit();
-                                    */
-
+                            mTicketVideoInternetUrl = downloadUrl;
+                            saveButton.setClickable(true);
+                            if( mTicketId != GlobalConstants.DEFAULT_TICKET_ID ){
+                                saveButton.setText(R.string.update_button);
+                            } else {
+                                saveButton.setText(R.string.add_button);
+                            }
                         }
                     });
+                    */
+
+
         }
 
     }
@@ -462,6 +466,8 @@ public class AddTicketActivity extends AppCompatActivity{
                 simpleExoPlayerView.hideController();
             }
         });
+
+
     }
 
     private void releasePlayer() {

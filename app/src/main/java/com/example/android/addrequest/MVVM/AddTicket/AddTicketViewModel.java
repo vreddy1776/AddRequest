@@ -65,7 +65,9 @@ public class AddTicketViewModel extends AndroidViewModel {
             String ticketTitle,
             String ticketDescription,
             String ticketDate,
-            String ticketVideoId,
+            String ticketVideoPostId,
+            String ticketVideoLocalUri,
+            String ticketVideoInternetUrl,
             String userId,
             String userName,
             String userPhotoUrl){
@@ -78,14 +80,16 @@ public class AddTicketViewModel extends AndroidViewModel {
                 ticketTitle,
                 ticketDescription,
                 ticketDate,
-                ticketVideoId,
+                ticketVideoPostId,
+                ticketVideoLocalUri,
+                ticketVideoInternetUrl,
                 userId,
                 userName,
                 userPhotoUrl);
         myRef.child(String.valueOf(ticketId)).setValue(ticket);
 
-        if(!ticketVideoId.equals(String.valueOf(GlobalConstants.DEFAULT_VIDEO_ID))){
-            postVideo(ticketVideoId);
+        if(!ticketVideoPostId.equals(String.valueOf(GlobalConstants.DEFAULT_VIDEO_ID))){
+            postVideo(ticketVideoPostId);
         }
 
     }

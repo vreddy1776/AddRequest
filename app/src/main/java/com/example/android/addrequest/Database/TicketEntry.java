@@ -13,7 +13,9 @@ public class TicketEntry {
     private String ticketTitle;
     private String ticketDescription;
     private String ticketDate;
-    private String ticketVideoId;
+    private String ticketVideoPostId;
+    private String ticketVideoLocalUri;
+    private String ticketVideoInternetUrl;
     private String userId;
     private String userName;
     private String userPhotoUrl;
@@ -24,14 +26,18 @@ public class TicketEntry {
             String ticketTitle,
             String ticketDescription,
             String ticketDate,
-            String ticketVideoId,
+            String ticketVideoPostId,
+            String ticketVideoLocalUri,
+            String ticketVideoInternetUrl,
             String userId,
             String userName,
             String userPhotoUrl) {
         this.ticketTitle = ticketTitle;
         this.ticketDescription = ticketDescription;
         this.ticketDate = ticketDate;
-        this.ticketVideoId = ticketVideoId;
+        this.ticketVideoPostId = ticketVideoPostId;
+        this.ticketVideoLocalUri = ticketVideoLocalUri;
+        this.ticketVideoInternetUrl = ticketVideoInternetUrl;
         this.userId = userId;
         this.userName = userName;
         this.userPhotoUrl = userPhotoUrl;
@@ -43,7 +49,9 @@ public class TicketEntry {
             String ticketTitle,
             String ticketDescription,
             String ticketDate,
-            String ticketVideoId,
+            String ticketVideoPostId,
+            String ticketVideoLocalUri,
+            String ticketVideoInternetUrl,
             String userId,
             String userName,
             String userPhotoUrl) {
@@ -51,7 +59,9 @@ public class TicketEntry {
         this.ticketTitle = ticketTitle;
         this.ticketDescription = ticketDescription;
         this.ticketDate = ticketDate;
-        this.ticketVideoId = ticketVideoId;
+        this.ticketVideoPostId = ticketVideoPostId;
+        this.ticketVideoLocalUri = ticketVideoLocalUri;
+        this.ticketVideoInternetUrl = ticketVideoInternetUrl;
         this.userId = userId;
         this.userName = userName;
         this.userPhotoUrl = userPhotoUrl;
@@ -91,12 +101,28 @@ public class TicketEntry {
         this.ticketDate = ticketDate;
     }
 
-    public String getTicketVideoId() {
-        return ticketVideoId;
+    public String getTicketVideoPostId() {
+        return ticketVideoPostId;
     }
 
-    public void setTicketVideoId(String ticketVideoId) {
-        this.ticketVideoId = ticketVideoId;
+    public void setTicketVideoPostId(String ticketVideoPostId) {
+        this.ticketVideoPostId = ticketVideoPostId;
+    }
+
+    public String getTicketVideoLocalUri() {
+        return ticketVideoLocalUri;
+    }
+
+    public void setTicketVideoLocalUri(String ticketVideoLocalUri) {
+        this.ticketVideoLocalUri = ticketVideoLocalUri;
+    }
+
+    public String getTicketVideoInternetUrl() {
+        return ticketVideoInternetUrl;
+    }
+
+    public void setTicketVideoInternetUrl(String ticketVideoInternetUrl) {
+        this.ticketVideoInternetUrl = ticketVideoInternetUrl;
     }
 
     public String getUserId() {

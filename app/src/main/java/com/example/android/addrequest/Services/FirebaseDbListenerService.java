@@ -73,7 +73,9 @@ public class FirebaseDbListenerService extends Service {
                             firebaseDbTicket.getTicketTitle(),
                             firebaseDbTicket.getTicketDescription(),
                             firebaseDbTicket.getTicketDate(),
-                            firebaseDbTicket.getTicketVideoId(),
+                            firebaseDbTicket.getTicketVideoPostId(),
+                            firebaseDbTicket.getTicketVideoLocalUri(),
+                            firebaseDbTicket.getTicketVideoInternetUrl(),
                             firebaseDbTicket.getUserId(),
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());
@@ -96,7 +98,9 @@ public class FirebaseDbListenerService extends Service {
                             firebaseDbTicket.getTicketTitle(),
                             firebaseDbTicket.getTicketDescription(),
                             firebaseDbTicket.getTicketDate(),
-                            firebaseDbTicket.getTicketVideoId(),
+                            firebaseDbTicket.getTicketVideoPostId(),
+                            firebaseDbTicket.getTicketVideoLocalUri(),
+                            firebaseDbTicket.getTicketVideoInternetUrl(),
                             firebaseDbTicket.getUserId(),
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());

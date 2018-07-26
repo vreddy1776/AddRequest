@@ -80,9 +80,9 @@ public class TicketListFragment extends Fragment{
 
 
 
-    public void setSwipe(int ticketViewtype){
+    public void setSwipe(int ticketType){
 
-        if (ticketViewtype == GlobalConstants.EDIT_TICKET_VIEWTYPE){
+        if (ticketType == GlobalConstants.EDIT_TICKET_TYPE){
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
         } else {
             itemTouchHelper.attachToRecyclerView(null);

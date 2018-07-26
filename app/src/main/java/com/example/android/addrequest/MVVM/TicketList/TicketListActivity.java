@@ -47,7 +47,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private TicketAdapter mAdapter;
 
-    private int ticketViewType;
+    private int ticketType;
 
 
 
@@ -91,7 +91,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
             public void onClick(View view) {
                 // Create a new intent to start an AddTicketActivity
                 Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
-                addTicketIntent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, GlobalConstants.EDIT_TICKET_VIEWTYPE);
+                addTicketIntent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.ADD_TICKET_TYPE);
                 startActivity(addTicketIntent);
             }
         });
@@ -154,8 +154,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         fabButton.setVisibility(View.INVISIBLE);
         openProfile();
 
-        ticketViewType = GlobalConstants.EDIT_TICKET_VIEWTYPE;
-        ticketListFragment.setSwipe(ticketViewType);
+        ticketType = GlobalConstants.EDIT_TICKET_TYPE;
+        ticketListFragment.setSwipe(ticketType);
 
     }
 
@@ -174,8 +174,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();
 
-        ticketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
-        ticketListFragment.setSwipe(ticketViewType);
+        ticketType = GlobalConstants.VIEW_TICKET_TYPE;
+        ticketListFragment.setSwipe(ticketType);
 
 
 
@@ -238,7 +238,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(this, AddTicketActivity.class);
         intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
-        intent.putExtra(GlobalConstants.TICKET_VIEWTYPE_KEY, ticketViewType);
+        intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, ticketType);
         Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 

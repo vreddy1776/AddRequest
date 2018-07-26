@@ -6,14 +6,12 @@ public class GlobalConstants {
 
     // Intent Keys
     public static final String TICKET_ID_KEY = "TicketId";
-    public static final String TICKET_VIEWTYPE_KEY = "TicketViewType";
+    public static final String TICKET_TYPE_KEY = "TicketType";
     public static final String CHAT_ID_KEY = "TicketViewType";
 
 
     // Default Values
     public static final int DEFAULT_VIDEO_ID = -1;
-    public static final int DEFAULT_TICKET_VIEWTYPE = -1;
-    public static final int EDIT_TICKET_VIEWTYPE = 5;
 
 
     // Ticket ViewTypes

@@ -11,7 +11,7 @@ import com.firebase.ui.auth.AuthUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Rebase to 1 parent 0676892 commit 9383e433ff031143acbd1a70e826df586cd52592 - "Updating Video Player"
+    // New commit after rebase to 1 parent 0676892 commit 9383e433ff031143acbd1a70e826df586cd52592 - "Updating Video Player"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

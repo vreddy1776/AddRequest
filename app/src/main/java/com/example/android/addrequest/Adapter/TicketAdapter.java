@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.Utils.GlobalConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -95,19 +96,25 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         String ticketDescription = ticket.getTicketDescription();
         String ticketDate = ticket.getTicketDate();
         String ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
+        String ticketVideoPostId = ticket.getTicketVideoPostId();
 
         //Set values
         holder.ticketTitleView.setText(ticketTitle);
         holder.ticketDescriptionView.setText(ticketDescription);
         holder.ticketDateView.setText(ticketDate);
 
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.isMemoryCacheable();
-        Log.d(TAG,"url:  " + ticketVideoInternetUrl);
-        Glide.with(mContext)
-                .load(ticketVideoInternetUrl)
-                .thumbnail(0.1f)
-                .into(holder.ticketVideoThumbnailView);
+        if(ticketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)){
+            holder.ticketVideoThumbnailView.setVisibility(View.INVISIBLE);
+        } else {
+            holder.ticketVideoThumbnailView.setVisibility(View.VISIBLE);
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.isMemoryCacheable();
+            Log.d(TAG,"url:  " + ticketVideoInternetUrl);
+            Glide.with(mContext)
+                    .load(ticketVideoInternetUrl)
+                    .thumbnail(0.1f)
+                    .into(holder.ticketVideoThumbnailView);
+        }
 
     }
 

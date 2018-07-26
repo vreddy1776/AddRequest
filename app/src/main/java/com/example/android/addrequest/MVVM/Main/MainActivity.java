@@ -34,41 +34,23 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        firebaseAuthWithGoogle();
 
-        /*
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        currentUser = mFirebaseAuth.getCurrentUser();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
-                if(currentUser == null){
-                    goToLogin();
-                } else {
-                    goToTicketList();
-                }
-            }
-        }, 5000);
-        */
+    }
 
+
+
+    private void firebaseAuthWithGoogle() {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    login();
+                    gotoTicketList();
                 } else {
                     // User is signed out
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setProviders(
-                                            AuthUI.GOOGLE_PROVIDER)
-                                    .build(),
-                            RC_SIGN_IN);
+                    goToLogin();
                 }
             }
         };
@@ -83,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Sign-in succeeded, set up the UI
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
-                startService(new Intent(this, FirebaseDbListenerService.class));
-                login();
+                gotoTicketList();
 
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
@@ -111,15 +92,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void login(){
+    private void gotoTicketList(){
 
         UserProfileSettings.setUserProfileAtLogin(this,
                 mFirebaseAuth.getCurrentUser().getUid(),
                 mFirebaseAuth.getCurrentUser().getDisplayName(),
                 mFirebaseAuth.getCurrentUser().getPhotoUrl().toString());
 
+        startService(new Intent(this, FirebaseDbListenerService.class));
+
         Intent intent = new Intent(MainActivity.this, TicketListActivity.class);
         startActivity(intent);
+    }
+
+
+    private void goToLogin(){
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setIsSmartLockEnabled(false)
+                                .setProviders(
+                                        AuthUI.GOOGLE_PROVIDER)
+                                .build(),
+                        RC_SIGN_IN);
+            }
+        }, 3000);   //3 second
+
     }
 
 

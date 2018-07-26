@@ -37,7 +37,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private static final String TAG = TicketListActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
-    TicketListFragment ticketListFragment;
+    private TicketListFragment ticketListFragment;
     private FloatingActionButton fabButton;
     private TicketListViewModel viewModel;
     private TicketAdapter mAdapter;
@@ -65,14 +65,20 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         });
 
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
+        viewModel.updateDB(GlobalConstants.LOAD_ALL);
+        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
+                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
+                mAdapter.setTickets(ticketEntries);
+            }
+        });
 
         fragmentManager = getSupportFragmentManager();
         ticketListFragment = new TicketListFragment();
         fragmentManager.beginTransaction()
                 .add(R.id.ticketlist_fragment_container, ticketListFragment)
                 .commit();
-
-        allTicketsMode();
 
     }
 
@@ -129,19 +135,11 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void allTicketsMode(){
 
-        viewModel.updateDB(GlobalConstants.LOAD_ALL);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();
 
         ticketType = GlobalConstants.VIEW_TICKET_TYPE;
-        //ticketListFragment.setSwipe(ticketType);
+        ticketListFragment.setSwipe(ticketType);
 
     }
 
@@ -195,11 +193,9 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     @Override
     public void onItemClickListener(int itemId) {
 
-        // Launch AddTicketActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(this, AddTicketActivity.class);
         intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
         intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, ticketType);
-        Log.d(TAG, "Test - Ticked ID:  " + itemId);
         startActivity(intent);
 
     }

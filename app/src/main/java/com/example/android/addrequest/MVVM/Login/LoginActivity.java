@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity{
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
+    //private static final String TAG = LoginActivity.class.getSimpleName();
 
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;

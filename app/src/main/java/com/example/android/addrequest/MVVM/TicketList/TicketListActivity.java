@@ -19,6 +19,7 @@ import com.example.android.addrequest.Adapter.TicketAdapter;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import com.example.android.addrequest.MVVM.Login.LoginActivity;
+import com.example.android.addrequest.MVVM.Main.MainActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Services.FirebaseDbListenerService;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
@@ -189,10 +190,10 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private void logout() {
 
         stopService(new Intent(this, FirebaseDbListenerService.class));
-        AuthUI.getInstance().signOut(this);
         UserProfileSettings.setUserProfileAtLogout(this);
+        AuthUI.getInstance().signOut(this);
 
-        Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
+        Intent addTicketIntent = new Intent(TicketListActivity.this, MainActivity.class);
         startActivity(addTicketIntent);
 
     }

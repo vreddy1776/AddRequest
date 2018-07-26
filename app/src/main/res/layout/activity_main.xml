@@ -10,15 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.addrequest.MVVM.Login.LoginActivity">
 
-    <Button
-        android:id="@+id/startButton"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:text="@string/start_button"
-        android:textColor="@android:color/primary_text_dark"
-        android:onClick="loginButtonClick"/>
-
 </RelativeLayout>

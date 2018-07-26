@@ -163,6 +163,9 @@ public class AddTicketActivity extends AppCompatActivity{
             initializePlayer();
         }
 
+        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
+            mTicketId = ID.newID();
+        }
 
     }
 
@@ -296,8 +299,6 @@ public class AddTicketActivity extends AppCompatActivity{
         String ticketDescription = mDescriptionText.getText().toString();
         String ticketDate = new Date().toString();
         String ticketVideoPostId = generateVideoId(requestCode,resultCode,ticketId);
-        String ticketVideoLocalUri = mTicketVideoLocalUri.toString();
-        String ticketVideoInternetUrl = mTicketVideoInternetUrl.toString();
         String userId = UserProfileSettings.getUserID(this);
         String userName = UserProfileSettings.getUsername(this);
         String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
@@ -340,26 +341,19 @@ public class AddTicketActivity extends AppCompatActivity{
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
 
-            /*
-            saveButton.setClickable(false);
-            saveButton.setText(getApplicationContext().getString(R.string.loading_button));
-            */
 
             Uri capturedVideoUri = data.getData();
             String filePath = getPath(capturedVideoUri);
             viewModel.storeVideo(this,filePath);
 
+            videoUri = capturedVideoUri;
+            mTicketVideoLocalUri = videoUri.toString();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("Tickets");
-            FirebaseDbTicket ticket = new FirebaseDbTicket();
-            myRef.child(String.valueOf(viewModel.getTicket())).setValue(ticket);
+            myRef.child(String.valueOf(mTicketId)).child("ticketVideoLocalUri").setValue(mTicketVideoLocalUri);
 
-
-            videoUri = capturedVideoUri;
-            mTicketVideoLocalUri = videoUri.toString();
             initializePlayer();
-
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
@@ -370,12 +364,11 @@ public class AddTicketActivity extends AppCompatActivity{
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
                             Log.d(TAG,"download URL:  " + downloadUrl);
                             mTicketVideoInternetUrl = downloadUrl.toString();
-                            saveButton.setClickable(true);
-                            if( mTicketId != GlobalConstants.DEFAULT_TICKET_ID ){
-                                saveButton.setText(R.string.update_button);
-                            } else {
-                                saveButton.setText(R.string.add_button);
-                            }
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("Tickets");
+                            myRef.child(String.valueOf(mTicketId)).child("mTicketVideoInternetUrl").setValue(mTicketVideoInternetUrl);
+
                         }
                     });
 

@@ -52,6 +52,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
+        ticketType = GlobalConstants.VIEW_TICKET_TYPE;
+
         mAdapter = new TicketAdapter( this, this);
 
         fabButton = findViewById(R.id.fab);

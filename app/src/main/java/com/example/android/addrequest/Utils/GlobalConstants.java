@@ -20,6 +20,9 @@ public class GlobalConstants {
     public static final int VIEW_TICKET_TYPE = 15;
 
 
+    // Video Id's
+    public static final String VIDEO_CREATED_TICKET_VIDEO_POST_ID = "video_created";
+
     // Fragment Tags
     public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
 
@@ -44,7 +47,7 @@ public class GlobalConstants {
     /* ticketTitle            */    public static final String DEFAULT_TICKET_TITLE = " -- no title -- ";
     /* ticketDescription      */    public static final String DEFAULT_TICKET_DESCRIPTION = " -- no description -- ";
     /* ticketDate             */    public static final String DEFAULT_TICKET_DATE = "Sun Jan 01 00:00:01 CDT 0001";
-    /* ticketVideoPostId      */    public static final String DEFAULT_TICKET_VIDEO_POST_ID = "-1";
+    /* ticketVideoPostId      */    public static final String DEFAULT_TICKET_VIDEO_POST_ID = "no_video";
     /* ticketVideoLocalUri    */    public static final String DEFAULT_TICKET_VIDEO_LOCAL_URI = "no_video_local_uri";
     /* ticketVideoInternetUrl */    public static final String DEFAULT_TICKET_VIDEO_INTERNET_URL = "no_video_internet_url";
     /* userId                 */    public static final String DEFAULT_USER_ID = "no_user_id";

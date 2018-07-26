@@ -155,6 +155,7 @@ public class AddTicketActivity extends AppCompatActivity{
         ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
 
 
+        /*
         Log.d(TAG,"ticketId:  " + mTicketId);
         if(mTicketId != GlobalConstants.DEFAULT_VIDEO_POST_ID){
             String url = GlobalConstants.MAIN_S3_URL + mTicketId;
@@ -162,6 +163,7 @@ public class AddTicketActivity extends AppCompatActivity{
             videoUri = Uri.parse(url);
             initializePlayer();
         }
+        */
 
 
 
@@ -199,6 +201,7 @@ public class AddTicketActivity extends AppCompatActivity{
             public void onChanged(@Nullable TicketEntry ticketEntry) {
 
                 if(mTicketType != GlobalConstants.ADD_TICKET_TYPE){
+
                     mTicketId = ticketEntry.getTicketId();
                     mTicketTitle = ticketEntry.getTicketTitle();
                     mTicketDescription = ticketEntry.getTicketDescription();
@@ -212,6 +215,12 @@ public class AddTicketActivity extends AppCompatActivity{
 
                     mTitleText.setText(mTicketTitle);
                     mDescriptionText.setText(mTicketDescription);
+
+                    if( (mTicketVideoInternetUrl != null) &&
+                            !mTicketVideoInternetUrl.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL)){
+                        videoUri = Uri.parse(mTicketVideoInternetUrl);
+                        initializePlayer();
+                    }
 
                 }
                     
@@ -316,7 +325,8 @@ public class AddTicketActivity extends AppCompatActivity{
         String ticketTitle = mTicketTitle;
         String ticketDescription = mTicketDescription;
         String ticketDate = mTicketDate;
-        String ticketVideoPostId = generateVideoId(requestCode,resultCode,ticketId);
+        String ticketVideoPostId = mTicketVideoPostId;
+        String ticketVideoLocalUri = mTicketVideoLocalUri;
         String userId = mUserId;
         String userName = mUserName;
         String userPhotoUrl = mUserPhotoUrl;
@@ -327,6 +337,7 @@ public class AddTicketActivity extends AppCompatActivity{
                 ticketDescription,
                 ticketDate,
                 ticketVideoPostId,
+                ticketVideoLocalUri,
                 userId,
                 userName,
                 userPhotoUrl);
@@ -364,11 +375,14 @@ public class AddTicketActivity extends AppCompatActivity{
             viewModel.storeVideo(this,filePath);
 
             videoUri = capturedVideoUri;
+            mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
             mTicketVideoLocalUri = videoUri.toString();
 
+            /*
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("Tickets");
             myRef.child(String.valueOf(mTicketId)).child("ticketVideoLocalUri").setValue(mTicketVideoLocalUri);
+            */
 
             initializePlayer();
 

@@ -321,6 +321,12 @@ public class AddTicketActivity extends AppCompatActivity{
         String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
         */
 
+        mTicketDate = String.valueOf(new Date());
+        mUserId = UserProfileSettings.getUserID(this);
+        mUserName = UserProfileSettings.getUsername(this);
+        mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
+
+
         int ticketId = mTicketId;
         String ticketTitle = mTicketTitle;
         String ticketDescription = mTicketDescription;

@@ -137,6 +137,16 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void allTicketsMode(){
 
+        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
+        viewModel.updateDB(GlobalConstants.LOAD_ALL);
+        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
+                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
+                mAdapter.setTickets(ticketEntries);
+            }
+        });
+
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();
 

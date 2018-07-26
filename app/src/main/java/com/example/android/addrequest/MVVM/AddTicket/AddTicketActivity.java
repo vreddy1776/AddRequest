@@ -1,14 +1,18 @@
 package com.example.android.addrequest.MVVM.AddTicket;
 
+import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -66,6 +70,8 @@ public class AddTicketActivity extends AppCompatActivity{
 
     // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
+
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 4;
 
     // Fields for views
     EditText mTitleText;
@@ -346,8 +352,44 @@ public class AddTicketActivity extends AppCompatActivity{
      * Start Camera Intent when video button is clicked.
      */
     public void onVideoButtonClicked() {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        startActivityForResult(takeVideoIntent,VIDEO_REQUEST);
+        requestReadExternalStoragePermission();
+    }
+
+    private void requestReadExternalStoragePermission(){
+        if (ContextCompat.checkSelfPermission(AddTicketActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(AddTicketActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Optional explanation
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(AddTicketActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+            }
+        } else {
+            // Permission has already been granted
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    startActivityForResult(takeVideoIntent,VIDEO_REQUEST);
+                } else {
+                    // permission denied, boo
+                }
+                return;
+            }
+        }
     }
 
 

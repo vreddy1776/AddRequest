@@ -13,6 +13,14 @@
         android:layout_gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"/>
 
-
+    <TextView
+        android:id="@+id/mainUserNameText"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textAlignment="center"
+        android:textSize="30sp" />
 
 </LinearLayout>

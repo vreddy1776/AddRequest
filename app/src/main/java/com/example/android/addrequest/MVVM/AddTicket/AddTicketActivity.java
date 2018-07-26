@@ -163,6 +163,13 @@ public class AddTicketActivity extends AppCompatActivity{
             initializePlayer();
         }
 
+
+
+
+
+
+
+
         if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
             mTicketId = ID.newID();
         }
@@ -294,6 +301,7 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     public void onSaveButtonClicked() {
 
+        /*
         int ticketId = generateTicketId(mTicketId);
         String ticketTitle = mTitleText.getText().toString();
         String ticketDescription = mDescriptionText.getText().toString();
@@ -302,6 +310,16 @@ public class AddTicketActivity extends AppCompatActivity{
         String userId = UserProfileSettings.getUserID(this);
         String userName = UserProfileSettings.getUsername(this);
         String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
+        */
+
+        int ticketId = mTicketId;
+        String ticketTitle = mTicketTitle;
+        String ticketDescription = mTicketDescription;
+        String ticketDate = mTicketDate;
+        String ticketVideoPostId = generateVideoId(requestCode,resultCode,ticketId);
+        String userId = mUserId;
+        String userName = mUserName;
+        String userPhotoUrl = mUserPhotoUrl;
 
         viewModel.addTicket(
                 ticketId,
@@ -340,7 +358,6 @@ public class AddTicketActivity extends AppCompatActivity{
         this.resultCode = resultCode;
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
-
 
             Uri capturedVideoUri = data.getData();
             String filePath = getPath(capturedVideoUri);

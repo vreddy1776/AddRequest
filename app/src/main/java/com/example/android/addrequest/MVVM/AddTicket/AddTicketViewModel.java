@@ -70,9 +70,19 @@ public class AddTicketViewModel extends AndroidViewModel {
             String userName,
             String userPhotoUrl){
 
-        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Tickets");
+
+        myRef.child(String.valueOf(ticketId)).child("ticketId").setValue(ticketId);
+        myRef.child(String.valueOf(ticketId)).child("ticketTitle").setValue(ticketTitle);
+        myRef.child(String.valueOf(ticketId)).child("ticketDescription").setValue(ticketDescription);
+        myRef.child(String.valueOf(ticketId)).child("ticketDate").setValue(ticketDate);
+        myRef.child(String.valueOf(ticketId)).child("ticketVideoPostId").setValue(ticketVideoPostId);
+        myRef.child(String.valueOf(ticketId)).child("userId").setValue(userId);
+        myRef.child(String.valueOf(ticketId)).child("userName").setValue(userName);
+        myRef.child(String.valueOf(ticketId)).child("userPhotoUrl").setValue(userPhotoUrl);
+
+        /*
         FirebaseDbTicket ticket = new FirebaseDbTicket(
                 ticketId,
                 ticketTitle,
@@ -87,6 +97,7 @@ public class AddTicketViewModel extends AndroidViewModel {
         if(!ticketVideoPostId.equals(String.valueOf(GlobalConstants.DEFAULT_VIDEO_ID))){
             postVideo(ticketVideoPostId);
         }
+        */
 
     }
 

@@ -364,11 +364,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
 
-            Uri capturedVideoUri = data.getData();
-            String filePath = getPath(capturedVideoUri);
-            viewModel.storeVideo(this,filePath);
-
-            videoUri = capturedVideoUri;
+            videoUri = data.getData();
             mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
             mTicketVideoLocalUri = videoUri.toString();
 
@@ -377,8 +373,8 @@ public class AddTicketActivity extends AppCompatActivity{
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
-            StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
-            localVideoRef.putFile(capturedVideoUri)
+            StorageReference localVideoRef = firebaseVideoRef.child(videoUri.getLastPathSegment());
+            localVideoRef.putFile(videoUri)
                     .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
@@ -399,32 +395,11 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
 
-    /**
-     * Use Media Content resolver to convert URI to file.
-     */
-    public String getPath(Uri uri)
-    {
-        String[] projection = { MediaStore.Video.Media.DATA };
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor == null) return null;
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-        cursor.moveToFirst();
-        String s = cursor.getString(column_index);
-        cursor.close();
-        return s;
-    }
-
-
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
         intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );
         startActivity(intent);
     }
-
-
-
-
-
 
 
     private void initializePlayer() {

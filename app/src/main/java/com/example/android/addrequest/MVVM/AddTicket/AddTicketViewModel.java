@@ -66,8 +66,6 @@ public class AddTicketViewModel extends AndroidViewModel {
             String ticketDescription,
             String ticketDate,
             String ticketVideoPostId,
-            String ticketVideoLocalUri,
-            String ticketVideoInternetUrl,
             String userId,
             String userName,
             String userPhotoUrl){
@@ -81,8 +79,6 @@ public class AddTicketViewModel extends AndroidViewModel {
                 ticketDescription,
                 ticketDate,
                 ticketVideoPostId,
-                ticketVideoLocalUri,
-                ticketVideoInternetUrl,
                 userId,
                 userName,
                 userPhotoUrl);

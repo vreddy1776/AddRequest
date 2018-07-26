@@ -38,6 +38,12 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 
@@ -111,6 +117,18 @@ public class AddTicketActivity extends AppCompatActivity{
     private Uri mTicketVideoInternetUrl = GlobalConstants.DEFAULT_VIDEO_INTERNET_URL;
 
 
+    private int ticketId;
+    private String ticketTitle;
+    private String ticketDescription;
+    private String ticketDate;
+    private String ticketVideoPostId;
+    private String ticketVideoLocalUri;
+    private String ticketVideoInternetUrl;
+    private String userId;
+    private String userName;
+    private String userPhotoUrl;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +136,8 @@ public class AddTicketActivity extends AppCompatActivity{
 
         // Get ticket ID
         receiveTicketID();
+
+        initializeTicketValues();
 
         // Setup ViewModels for each instance
         setupViewModelFactory();
@@ -181,11 +201,57 @@ public class AddTicketActivity extends AppCompatActivity{
         viewModel.getTicket().observe(this, new Observer<TicketEntry>() {
             @Override
             public void onChanged(@Nullable TicketEntry ticketEntry) {
-                viewModel.getTicket().removeObserver(this);
-                populateUI(ticketEntry);
+                //viewModel.getTicket().removeObserver(this);
+                //populateTicket(ticketEntry);
+
+
+                ticketId = ticketEntry.getTicketId();
+                ticketTitle = ticketEntry.getTicketTitle();
+                ticketDescription = ticketEntry.getTicketDescription();
+                ticketDate = ticketEntry.getTicketDate();
+                ticketVideoPostId = ticketEntry.getTicketVideoPostId();
+                ticketVideoLocalUri = ticketEntry.getTicketVideoLocalUri();
+                ticketVideoInternetUrl = ticketEntry.getTicketVideoInternetUrl();
+                userId = ticketEntry.getUserId();
+                userName = ticketEntry.getUserName();
+                userPhotoUrl = ticketEntry.getUserPhotoUrl();
+
+                Log.d(TAG,
+                        "tickedId:  " + ticketId + "\n" +
+                                "ticketTitle:  " + ticketTitle + "\n" +
+                                "ticketDescription:  " + ticketDescription + "\n" +
+                                "ticketDate:  " + ticketDate + "\n" +
+                                "ticketVideoPostId:  " + ticketVideoPostId + "\n" +
+                                "ticketVideoLocalUri:  " + ticketVideoLocalUri + "\n" +
+                                "ticketVideoInternetUrl:  " + ticketVideoInternetUrl + "\n" +
+                                "userId:  " + userId + "\n" +
+                                "userName:  " + userName + "\n" +
+                                "userPhotoUrl:  " + userPhotoUrl + "\n");
+
+                mTitleText.setText(ticketTitle);
+                mDescriptionText.setText(ticketDescription);
+
+
             }
         });
     }
+
+
+    private void initializeTicketValues(){
+
+        ticketId = GlobalConstants.DEFAULT_TICKET_ID;
+        ticketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
+        ticketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+        ticketDate = GlobalConstants.DEFAULT_TICKET_DATE;
+        ticketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
+        ticketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
+        ticketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        userId = GlobalConstants.DEFAULT_USER_ID;
+        userName = GlobalConstants.DEFAULT_USER_NAME;
+        userPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
+
+    }
+
 
 
     //Removed for aws testing
@@ -264,13 +330,45 @@ public class AddTicketActivity extends AppCompatActivity{
      *
      * @param ticket the ticketEntry to populate the UI
      */
-    private void populateUI(TicketEntry ticket) {
+    private void populateTicket(TicketEntry ticket) {
         if (ticket == null) {
             return;
         }
 
+
+        ticketId = ticket.getTicketId();
+        ticketTitle = ticket.getTicketTitle();
+        ticketDescription = ticket.getTicketDescription();
+        ticketDate = ticket.getTicketDate();
+        ticketVideoPostId = ticket.getTicketVideoPostId();
+        ticketVideoLocalUri = ticket.getTicketVideoLocalUri();
+        ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
+        userId = ticket.getUserId();
+        userName = ticket.getUserName();
+        userPhotoUrl = ticket.getUserPhotoUrl();
+
+        Log.d(TAG,
+                "tickedId:  " + String.valueOf(ticket.getTicketId()) + "\n" +
+                        "ticketTitle:  " + ticket.getTicketTitle() + "\n" +
+                        "ticketDescription:  " + ticket.getTicketDescription() + "\n" +
+                        "ticketDate:  " + ticket.getTicketDate() + "\n" +
+                        "ticketVideoPostId:  " + ticket.getTicketVideoPostId() + "\n" +
+                        "ticketVideoLocalUri:  " + ticket.getTicketVideoLocalUri() + "\n" +
+                        "ticketVideoInternetUrl:  " + ticket.getTicketVideoInternetUrl() + "\n" +
+                        "userId:  " + ticket.getUserId() + "\n" +
+                        "userName:  " + ticket.getUserName() + "\n" +
+                        "userPhotoUrl:  " + ticket.getUserPhotoUrl() + "\n");
+
+
         mTitleText.setText(ticket.getTicketTitle());
         mDescriptionText.setText(ticket.getTicketDescription());
+    }
+
+
+
+    private void populateUI(){
+        mTitleText.setText(ticketTitle);
+        mDescriptionText.setText(ticketDescription);
     }
 
 
@@ -297,8 +395,6 @@ public class AddTicketActivity extends AppCompatActivity{
                 ticketDescription,
                 ticketDate,
                 ticketVideoPostId,
-                ticketVideoLocalUri,
-                ticketVideoInternetUrl,
                 userId,
                 userName,
                 userPhotoUrl);
@@ -340,11 +436,18 @@ public class AddTicketActivity extends AppCompatActivity{
             String filePath = getPath(capturedVideoUri);
             viewModel.storeVideo(this,filePath);
 
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Tickets");
+            FirebaseDbTicket ticket = new FirebaseDbTicket();
+            myRef.child(String.valueOf(viewModel.getTicket())).setValue(ticket);
+
+
             videoUri = capturedVideoUri;
             mTicketVideoLocalUri = videoUri;
             initializePlayer();
 
-            /*
+
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
             StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
@@ -362,7 +465,7 @@ public class AddTicketActivity extends AppCompatActivity{
                             }
                         }
                     });
-                    */
+
 
 
         }

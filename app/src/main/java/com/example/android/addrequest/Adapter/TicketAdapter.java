@@ -101,7 +101,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.ticketDescriptionView.setText(description);
         holder.updatedAtView.setText(updatedAt);
 
-        String url = VideoPlayerActivity.MAIN_URL + String.valueOf(id);
+        //String url = VideoPlayerActivity.MAIN_URL + String.valueOf(id);
+        String url = ticketEntry.getTicketVideoInternetUrl();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.isMemoryCacheable();
         Log.d(TAG,"url:  " + url);

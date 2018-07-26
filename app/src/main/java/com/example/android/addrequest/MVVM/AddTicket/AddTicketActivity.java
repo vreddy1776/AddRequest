@@ -90,11 +90,6 @@ public class AddTicketActivity extends AppCompatActivity{
     public static final String INSTANCE_RESULT_CODE_KEY = "instanceResultCode";
 
 
-
-
-
-
-
     private SimpleExoPlayerView simpleExoPlayerView;
     private SimpleExoPlayer player;
 
@@ -108,11 +103,8 @@ public class AddTicketActivity extends AppCompatActivity{
     private boolean playWhenReady;
     private int currentWindow;
     private long playbackPosition;
-    private int position;
 
     private Uri videoUri;
-
-
 
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private String mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
@@ -153,23 +145,6 @@ public class AddTicketActivity extends AppCompatActivity{
         mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), (TransferListener<? super DataSource>) bandwidthMeter);
         window = new Timeline.Window();
         ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
-
-
-        /*
-        Log.d(TAG,"ticketId:  " + mTicketId);
-        if(mTicketId != GlobalConstants.DEFAULT_VIDEO_POST_ID){
-            String url = GlobalConstants.MAIN_S3_URL + mTicketId;
-            Log.d(TAG,"url:  " + url);
-            videoUri = Uri.parse(url);
-            initializePlayer();
-        }
-        */
-
-
-
-
-
-
 
 
         if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
@@ -219,6 +194,7 @@ public class AddTicketActivity extends AppCompatActivity{
                     if( (mTicketVideoInternetUrl != null) &&
                             !mTicketVideoInternetUrl.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL)){
                         videoUri = Uri.parse(mTicketVideoInternetUrl);
+                        streamVideo.setVisibility(View.VISIBLE);
                         initializePlayer();
                     }
 
@@ -266,6 +242,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
         saveButton = findViewById(R.id.saveButton);
         videoButton = findViewById(R.id.videoButton);
+        streamVideo = findViewById(R.id.stream_video);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,6 +273,8 @@ public class AddTicketActivity extends AppCompatActivity{
             //do nothing
         }
 
+        streamVideo.setVisibility(View.INVISIBLE);
+
     }
 
 
@@ -310,16 +289,6 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     public void onSaveButtonClicked() {
 
-        /*
-        int ticketId = generateTicketId(mTicketId);
-        String ticketTitle = mTitleText.getText().toString();
-        String ticketDescription = mDescriptionText.getText().toString();
-        String ticketDate = new Date().toString();
-        String ticketVideoPostId = generateVideoId(requestCode,resultCode,ticketId);
-        String userId = UserProfileSettings.getUserID(this);
-        String userName = UserProfileSettings.getUsername(this);
-        String userPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
-        */
 
         mTicketDate = String.valueOf(new Date());
         mUserId = UserProfileSettings.getUserID(this);
@@ -384,12 +353,7 @@ public class AddTicketActivity extends AppCompatActivity{
             mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
             mTicketVideoLocalUri = videoUri.toString();
 
-            /*
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Tickets");
-            myRef.child(String.valueOf(mTicketId)).child("ticketVideoLocalUri").setValue(mTicketVideoLocalUri);
-            */
-
+            streamVideo.setVisibility(View.VISIBLE);
             initializePlayer();
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -439,41 +403,6 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
 
-    private int generateTicketId(int ticketId){
-
-        int newTicketId;
-        if (ticketId == GlobalConstants.DEFAULT_TICKET_ID) {
-            newTicketId = ID.newID();
-        } else {
-            newTicketId = ticketId;
-        }
-        return newTicketId;
-    }
-
-
-    private String generateVideoId(int requestCode, int resultCode, int ticketId){
-
-        int ticketVideoId = GlobalConstants.DEFAULT_VIDEO_ID;
-        if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ) {
-            ticketVideoId = ticketId;
-        }
-        String ticketVideoIdString = String.valueOf(ticketVideoId);
-        return ticketVideoIdString;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -486,24 +415,16 @@ public class AddTicketActivity extends AppCompatActivity{
 
         TrackSelection.Factory videoTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
-
         trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
 
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-
         simpleExoPlayerView.setPlayer(player);
-
         player.setPlayWhenReady(shouldAutoPlay);
-/*        MediaSource mediaSource = new HlsMediaSource(Uri.parse("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"),
-                mediaDataSourceFactory, mainHandler, null);*/
-
         player.seekTo(currentWindow, playbackPosition);
 
         DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
         MediaSource mediaSource = new ExtractorMediaSource(videoUri,
                 mediaDataSourceFactory, extractorsFactory, null, null);
-
         player.prepare(mediaSource, true, false);
 
         ivHideControllerButton.setOnClickListener(new View.OnClickListener() {

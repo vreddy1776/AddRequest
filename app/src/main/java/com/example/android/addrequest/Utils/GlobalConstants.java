@@ -42,6 +42,12 @@ public class GlobalConstants {
     public static final String MAIN_S3_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
 
 
+    // Edit Text Values
+    public static final String BLANK_TICKET_TITLE = "";
+    public static final String BLANK_DESCRIPTION_TITLE = "";
+
+
+
     /* DEFAULT TICKET VALUES  */
     /* ticketId               */    public static final int DEFAULT_TICKET_ID = -1;
     /* ticketTitle            */    public static final String DEFAULT_TICKET_TITLE = " -- no title -- ";

@@ -90,26 +90,24 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     public void onBindViewHolder(TicketViewHolder holder, int position) {
 
         // Determine the values of the wanted data
-        TicketEntry ticketEntry = mTicketEntries.get(position);
-        int id = ticketEntry.getTicketId();
-        String title = ticketEntry.getTicketTitle();
-        String description = ticketEntry.getTicketDescription();
-        String updatedAt = ticketEntry.getTicketDate();
+        TicketEntry ticket = mTicketEntries.get(position);
+        String ticketTitle = ticket.getTicketTitle();
+        String ticketDescription = ticket.getTicketDescription();
+        String ticketDate = ticket.getTicketDate();
+        String ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
 
         //Set values
-        holder.ticketTitleView.setText(title);
-        holder.ticketDescriptionView.setText(description);
-        holder.updatedAtView.setText(updatedAt);
+        holder.ticketTitleView.setText(ticketTitle);
+        holder.ticketDescriptionView.setText(ticketDescription);
+        holder.ticketDateView.setText(ticketDate);
 
-        //String url = VideoPlayerActivity.MAIN_URL + String.valueOf(id);
-        String url = ticketEntry.getTicketVideoInternetUrl();
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.isMemoryCacheable();
-        Log.d(TAG,"url:  " + url);
+        Log.d(TAG,"url:  " + ticketVideoInternetUrl);
         Glide.with(mContext)
-                .load(url)
+                .load(ticketVideoInternetUrl)
                 .thumbnail(0.1f)
-                .into(holder.videoThumbnailView);
+                .into(holder.ticketVideoThumbnailView);
 
     }
 
@@ -152,8 +150,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         // Class variables for the ticket description and priority TextViews
         TextView ticketTitleView;
         TextView ticketDescriptionView;
-        TextView updatedAtView;
-        ImageView videoThumbnailView;
+        TextView ticketDateView;
+        ImageView ticketVideoThumbnailView;
 
         /**
          * Constructor for the TicketViewHolders.
@@ -166,8 +164,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
             ticketTitleView = itemView.findViewById(R.id.ticketTitle);
             ticketDescriptionView = itemView.findViewById(R.id.ticketDescription);
-            updatedAtView = itemView.findViewById(R.id.ticketUpdatedAt);
-            videoThumbnailView = itemView.findViewById(R.id.videoThumbnail);
+            ticketDateView = itemView.findViewById(R.id.ticketUpdatedAt);
+            ticketVideoThumbnailView = itemView.findViewById(R.id.videoThumbnail);
             itemView.setOnClickListener(this);
 
         }

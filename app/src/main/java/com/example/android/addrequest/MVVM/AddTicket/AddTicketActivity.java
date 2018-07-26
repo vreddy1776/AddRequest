@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -107,8 +109,8 @@ public class AddTicketActivity extends AppCompatActivity{
     private Uri videoUri;
 
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
-    private String mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
-    private String mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+    private String mTicketTitle = GlobalConstants.BLANK_TICKET_TITLE;
+    private String mTicketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
     private String mTicketDate = GlobalConstants.DEFAULT_TICKET_DATE;
     private String mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
     private String mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
@@ -265,13 +267,13 @@ public class AddTicketActivity extends AppCompatActivity{
         } else if(mTicketType == GlobalConstants.UPDATE_TICKET_TYPE){
             saveButton.setText(R.string.update_button);
         } else if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-            mTicketTitle = getString(R.string.edit_ticket_title);
-            mTicketDescription = getString(R.string.edit_ticket_description);
-            mTitleText.setText(mTicketTitle);
-            mDescriptionText.setText(mTicketDescription);
+            saveButton.setText(R.string.add_button);
         } else {
             //do nothing
         }
+
+        mTitleText.setText(mTicketTitle);
+        mDescriptionText.setText(mTicketDescription);
 
         streamVideo.setVisibility(View.INVISIBLE);
 
@@ -288,6 +290,23 @@ public class AddTicketActivity extends AppCompatActivity{
      * Add or update entry when SAVE button is clicked.
      */
     public void onSaveButtonClicked() {
+
+
+        String title = mTitleText.getText().toString();
+        if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
+            mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
+        } else {
+            mTicketTitle = title;
+        }
+
+
+        String description = mDescriptionText.getText().toString();
+        if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
+            mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+        } else {
+            mTicketDescription = description;
+        }
+
 
 
         mTicketDate = String.valueOf(new Date());

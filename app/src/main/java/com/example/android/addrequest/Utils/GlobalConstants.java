@@ -11,7 +11,6 @@ public class GlobalConstants {
 
 
     // Default Values
-    public static final int DEFAULT_TICKET_ID = -1;
     public static final int DEFAULT_VIDEO_ID = -1;
     public static final int DEFAULT_TICKET_VIEWTYPE = -1;
     public static final int EDIT_TICKET_VIEWTYPE = 5;
@@ -34,6 +33,21 @@ public class GlobalConstants {
 
     // S3 Bucket
     public static final String MAIN_S3_URL = "https://s3.amazonaws.com/addrequest-deployments-mobilehub-1269242402/";
+
+
+    /* DEFAULT TICKET VALUES  */
+    /* ticketId               */    public static final int DEFAULT_TICKET_ID = -1;
+    /* ticketTitle            */    public static final String DEFAULT_TICKET_TITLE = " -- no title -- ";
+    /* ticketDescription      */    public static final String DEFAULT_TICKET_DESCRIPTION = " -- no description -- ";
+    /* ticketDate             */    public static final String DEFAULT_TICKET_DATE = "Sun Jan 01 00:00:01 CDT 0001";
+    /* ticketVideoPostId      */    public static final String DEFAULT_TICKET_VIDEO_POST_ID = "-1";
+    /* ticketVideoLocalUri    */    public static final String DEFAULT_TICKET_VIDEO_LOCAL_URI = "no_video_local_uri";
+    /* ticketVideoInternetUrl */    public static final String DEFAULT_TICKET_VIDEO_INTERNET_URL = "no_video_internet_url";
+    /* userId                 */    public static final String DEFAULT_USER_ID = "no_user_id";
+    /* userName               */    public static final String DEFAULT_USER_NAME = "anonymous";
+    /* userPhotoUrl           */    public static final String DEFAULT_USER_PHOTO_URL = "no_photo_url";
+
+
 
 
 

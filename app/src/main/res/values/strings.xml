@@ -47,4 +47,16 @@
 
 
 
+    <!-- DEFAULT TICKET VALUES  -->
+    <!-- ticketTitle            -->  <string name="default_ticket_title"> -- no title -- </string>
+    <!-- ticketDescription      -->  <string name="default_ticket_description"> -- no description -- </string>
+    <!-- ticketDate             -->  <string name="default_ticket_date">Sun Jan 01 00:00:01 CDT 0001</string>
+    <!-- ticketVideoPostId      -->  <string name="default_ticket_video_post_id">-1</string>
+    <!-- ticketVideoLocalUri    -->  <string name="default_ticket_video_local_uri">no_video_local_uri</string>
+    <!-- ticketVideoInternetUrl -->  <string name="default_ticket_video_internet_url">no_video_internet_url</string>
+    <!-- userId                 -->  <string name="default_user_id">no_user_id</string>
+    <!-- userName               -->  <string name="default_user_name">anonymous</string>
+    <!-- userPhotoUrl           -->  <string name="default_user_photo_id">no_photo_url</string>
+
+
 </resources>

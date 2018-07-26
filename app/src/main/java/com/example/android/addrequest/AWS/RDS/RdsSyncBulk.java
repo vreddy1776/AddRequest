@@ -42,7 +42,6 @@ public class RdsSyncBulk {
                         String description = jsonObject.get("description").toString();
                         String dateString = jsonObject.get("date").toString();
 
-                        Date date = DateTime.stringToDate(dateString);
                         //final TicketEntry ticket = new TicketEntry(id, title, description, date);
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         FirebaseUser user = firebaseAuth.getCurrentUser();

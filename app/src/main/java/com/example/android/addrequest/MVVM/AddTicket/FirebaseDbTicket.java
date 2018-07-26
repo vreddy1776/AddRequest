@@ -1,7 +1,5 @@
 package com.example.android.addrequest.MVVM.AddTicket;
 
-import android.arch.persistence.room.Ignore;
-
 public class FirebaseDbTicket {
 
 
@@ -18,8 +16,28 @@ public class FirebaseDbTicket {
     private String userPhotoUrl;
 
 
-    @Ignore
     public FirebaseDbTicket() {
+    }
+
+
+
+    public FirebaseDbTicket(
+            int ticketId,
+            String ticketTitle,
+            String ticketDescription,
+            String ticketDate,
+            String ticketVideoPostId,
+            String userId,
+            String userName,
+            String userPhotoUrl) {
+        this.ticketId = ticketId;
+        this.ticketTitle = ticketTitle;
+        this.ticketDescription = ticketDescription;
+        this.ticketDate = ticketDate;
+        this.ticketVideoPostId = ticketVideoPostId;
+        this.userId = userId;
+        this.userName = userName;
+        this.userPhotoUrl = userPhotoUrl;
     }
 
 

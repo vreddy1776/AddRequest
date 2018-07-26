@@ -50,7 +50,7 @@ public class S3bucket {
                 if (TransferState.COMPLETED == state) {
                     // Handle a completed upload.
                     Log.d("AddTicket", "complete");
-                    Notifications.remindUserBecauseCharging(context , Integer.parseInt(fileID));
+                    Notifications.ticketPostedNotification(context , Integer.parseInt(fileID));
 
                 }
             }

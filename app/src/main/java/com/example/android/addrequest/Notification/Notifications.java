@@ -65,7 +65,7 @@ public class Notifications {
         notificationManager.cancelAll();
     }
 
-    public static void remindUserBecauseCharging(Context context, int ticketID) {
+    public static void ticketPostedNotification(Context context, int ticketID) {
 
         mTicketID = ticketID;
 

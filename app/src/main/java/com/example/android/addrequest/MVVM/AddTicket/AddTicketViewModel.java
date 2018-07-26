@@ -1,6 +1,7 @@
 package com.example.android.addrequest.MVVM.AddTicket;
 
 import android.app.Application;
+import android.app.Notification;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
@@ -13,6 +14,7 @@ import com.example.android.addrequest.AWS.S3.S3bucket;
 import com.example.android.addrequest.Database.AppDatabase;
 import com.example.android.addrequest.Database.AppExecuters;
 import com.example.android.addrequest.Database.TicketEntry;
+import com.example.android.addrequest.Notification.Notifications;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -125,9 +127,9 @@ public class AddTicketViewModel extends AndroidViewModel {
 
             String ticketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Tickets");
-            FirebaseDbTicket ticket = new FirebaseDbTicket(
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("Tickets");
+            final FirebaseDbTicket ticket = new FirebaseDbTicket(
                     ticketId,
                     ticketTitle,
                     ticketDescription,
@@ -138,7 +140,17 @@ public class AddTicketViewModel extends AndroidViewModel {
                     userId,
                     userName,
                     userPhotoUrl);
-            myRef.child(String.valueOf(ticketId)).setValue(ticket);
+
+            final Context context = this.getApplication();
+            AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    myRef.child(String.valueOf(ticketId)).setValue(ticket);
+                    Notifications.ticketPostedNotification(context,ticketId);
+                }
+            });
+
+
 
         }
 

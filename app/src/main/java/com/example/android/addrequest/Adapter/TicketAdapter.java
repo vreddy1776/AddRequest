@@ -97,6 +97,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         String ticketDate = ticket.getTicketDate();
         String ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
         String ticketVideoPostId = ticket.getTicketVideoPostId();
+        String userName = ticket.getUserName();
+        String userPhotoUrl = ticket.getUserPhotoUrl();
 
         //Set values
         holder.ticketTitleView.setText(ticketTitle);
@@ -117,6 +119,13 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
                     .thumbnail(0.1f)
                     .into(holder.ticketVideoThumbnailView);
         //}
+
+        Glide.with(mContext)
+                .load(userPhotoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.userProfilePicView);
+
+        holder.userNameTextView.setText(userName);
 
     }
 
@@ -161,6 +170,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         TextView ticketDescriptionView;
         TextView ticketDateView;
         ImageView ticketVideoThumbnailView;
+        ImageView userProfilePicView;
+        TextView userNameTextView;
 
         /**
          * Constructor for the TicketViewHolders.
@@ -175,6 +186,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             ticketDescriptionView = itemView.findViewById(R.id.ticketDescription);
             ticketDateView = itemView.findViewById(R.id.ticketUpdatedAt);
             ticketVideoThumbnailView = itemView.findViewById(R.id.videoThumbnail);
+            userProfilePicView = itemView.findViewById(R.id.ticketUserProfilePic);
+            userNameTextView = itemView.findViewById(R.id.ticketUserNameText);
             itemView.setOnClickListener(this);
 
         }

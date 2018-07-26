@@ -29,7 +29,6 @@ import java.util.List;
 
 public class TicketListActivity extends AppCompatActivity implements  TicketAdapter.ItemClickListener {
 
-
     /**
      * Initialize values.
      */
@@ -38,24 +37,11 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private static final String TAG = TicketListActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
-
     TicketListFragment ticketListFragment;
-
     private FloatingActionButton fabButton;
-
     private TicketListViewModel viewModel;
-
     private TicketAdapter mAdapter;
-
     private int ticketType;
-
-
-
-
-    // Member variables for the adapter and RecyclerView
-
-    // ViewModel for Main Activity
-
 
 
     /**
@@ -66,47 +52,29 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
-
         mAdapter = new TicketAdapter( this, this);
 
-        setupViewModel();
-
-
-        fragmentManager = getSupportFragmentManager();
-
-        ticketListFragment = new TicketListFragment();
-        fragmentManager.beginTransaction()
-                .add(R.id.ticketlist_fragment_container, ticketListFragment)
-                .commit();
-
-
-        /*
-        Set the Floating Action Button (FAB) to its corresponding View.
-        Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-        to launch the AddTicketActivity.
-        */
         fabButton = findViewById(R.id.fab);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create a new intent to start an AddTicketActivity
                 Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
                 addTicketIntent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.ADD_TICKET_TYPE);
                 startActivity(addTicketIntent);
             }
         });
 
+        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
 
+        fragmentManager = getSupportFragmentManager();
+        ticketListFragment = new TicketListFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.ticketlist_fragment_container, ticketListFragment)
+                .commit();
 
-
+        allTicketsMode();
 
     }
-
-
-
-
-
-
 
 
     /**
@@ -139,8 +107,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     }
 
 
-
-
     private void profileMode(){
 
         viewModel.updateDB(GlobalConstants.LOAD_USER);
@@ -154,7 +120,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         fabButton.setVisibility(View.INVISIBLE);
         openProfile();
 
-        ticketType = GlobalConstants.EDIT_TICKET_TYPE;
+        ticketType = GlobalConstants.UPDATE_TICKET_TYPE;
         ticketListFragment.setSwipe(ticketType);
 
     }
@@ -175,12 +141,9 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         closeProfile();
 
         ticketType = GlobalConstants.VIEW_TICKET_TYPE;
-        ticketListFragment.setSwipe(ticketType);
-
-
+        //ticketListFragment.setSwipe(ticketType);
 
     }
-
 
 
     /**
@@ -216,10 +179,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private void logout() {
 
         stopService(new Intent(this, FirebaseDbListenerService.class));
-
-
         AuthUI.getInstance().signOut(this);
-
         UserProfileSettings.setUserProfileAtLogout(this);
 
         Intent addTicketIntent = new Intent(TicketListActivity.this, LoginActivity.class);
@@ -244,17 +204,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     }
 
-    private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
-        viewModel.updateDB(GlobalConstants.LOAD_ALL);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
-    }
 
     public TicketAdapter getTicketAdapter() {
         return this.mAdapter;

@@ -2,6 +2,7 @@ package com.example.android.addrequest.MVVM.AddTicket;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -199,14 +200,11 @@ public class AddTicketActivity extends AppCompatActivity{
                     mUserName = ticketEntry.getUserName();
                     mUserPhotoUrl = ticketEntry.getUserPhotoUrl();
 
+                    mTitleText.setText(mTicketTitle);
+                    mDescriptionText.setText(mTicketDescription);
+
                 }
-
-
-
-                mTitleText.setText(mTicketTitle);
-                mDescriptionText.setText(mTicketDescription);
-
-
+                    
             }
         });
     }
@@ -220,13 +218,11 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+
         outState.putInt(INSTANCE_TICKET_TYPE_KEY , mTicketType);
         outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
         outState.putInt(INSTANCE_REQUEST_CODE_KEY , requestCode);
         outState.putInt(INSTANCE_RESULT_CODE_KEY , resultCode);
-
-
-
 
         playbackPosition = player.getCurrentPosition();
         currentWindow = player.getCurrentWindowIndex();
@@ -235,9 +231,6 @@ public class AddTicketActivity extends AppCompatActivity{
         outState.putBoolean("playWhenReady", playWhenReady);
         outState.putInt("currentWindow", currentWindow);
         outState.putLong("playBackPosition", playbackPosition);
-
-
-
 
         super.onSaveInstanceState(outState);
     }
@@ -252,17 +245,15 @@ public class AddTicketActivity extends AppCompatActivity{
 
         mTitleText = findViewById(R.id.editTextTicketTitle);
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
-
         saveButton = findViewById(R.id.saveButton);
-        if( mTicketId != GlobalConstants.DEFAULT_TICKET_ID ){ saveButton.setText(R.string.update_button); }
+        videoButton = findViewById(R.id.videoButton);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSaveButtonClicked();
             }
         });
-
-        videoButton = findViewById(R.id.videoButton);
         videoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -270,17 +261,21 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         });
 
-        //streamVideo = findViewById(R.id.stream_video);
-
-        //  Removed edit privelages if not accessed from personal ticket page
-        if(mTicketType != GlobalConstants.EDIT_TICKET_TYPE) {
+        if(mTicketType == GlobalConstants.VIEW_TICKET_TYPE) {
             mTitleText.setEnabled(false);
             mDescriptionText.setEnabled(false);
             saveButton.setVisibility(View.INVISIBLE);
             videoButton.setVisibility(View.INVISIBLE);
+        } else if(mTicketType == GlobalConstants.UPDATE_TICKET_TYPE){
+            saveButton.setText(R.string.update_button);
+        } else if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
+            mTicketTitle = getString(R.string.edit_ticket_title);
+            mTicketDescription = getString(R.string.edit_ticket_description);
+            mTitleText.setText(mTicketTitle);
+            mDescriptionText.setText(mTicketDescription);
+        } else {
+            //do nothing
         }
-
-
 
     }
 

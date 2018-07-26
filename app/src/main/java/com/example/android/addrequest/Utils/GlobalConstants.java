@@ -16,7 +16,7 @@ public class GlobalConstants {
 
     // Ticket ViewTypes
     public static final int ADD_TICKET_TYPE = 5;
-    public static final int EDIT_TICKET_TYPE = 10;
+    public static final int UPDATE_TICKET_TYPE = 10;
     public static final int VIEW_TICKET_TYPE = 15;
 
 

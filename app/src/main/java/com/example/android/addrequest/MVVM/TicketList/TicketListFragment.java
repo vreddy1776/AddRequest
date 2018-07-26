@@ -82,7 +82,7 @@ public class TicketListFragment extends Fragment{
 
     public void setSwipe(int ticketType){
 
-        if (ticketType == GlobalConstants.EDIT_TICKET_TYPE){
+        if (ticketType == GlobalConstants.UPDATE_TICKET_TYPE){
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
         } else {
             itemTouchHelper.attachToRecyclerView(null);

@@ -61,6 +61,7 @@ public class AddTicketActivity extends AppCompatActivity{
     // Initialize integer for ticket ID and viewtype
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private int mTicketViewType = GlobalConstants.DEFAULT_TICKET_VIEWTYPE;
+    private int mTicketType = GlobalConstants.VIEW_TICKET_TYPE;
 
     // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
@@ -204,29 +205,32 @@ public class AddTicketActivity extends AppCompatActivity{
                 //viewModel.getTicket().removeObserver(this);
                 //populateTicket(ticketEntry);
 
+                if(mTicketId != GlobalConstants.DEFAULT_TICKET_ID){
+                    ticketId = ticketEntry.getTicketId();
+                    ticketTitle = ticketEntry.getTicketTitle();
+                    ticketDescription = ticketEntry.getTicketDescription();
+                    ticketDate = ticketEntry.getTicketDate();
+                    ticketVideoPostId = ticketEntry.getTicketVideoPostId();
+                    ticketVideoLocalUri = ticketEntry.getTicketVideoLocalUri();
+                    ticketVideoInternetUrl = ticketEntry.getTicketVideoInternetUrl();
+                    userId = ticketEntry.getUserId();
+                    userName = ticketEntry.getUserName();
+                    userPhotoUrl = ticketEntry.getUserPhotoUrl();
 
-                ticketId = ticketEntry.getTicketId();
-                ticketTitle = ticketEntry.getTicketTitle();
-                ticketDescription = ticketEntry.getTicketDescription();
-                ticketDate = ticketEntry.getTicketDate();
-                ticketVideoPostId = ticketEntry.getTicketVideoPostId();
-                ticketVideoLocalUri = ticketEntry.getTicketVideoLocalUri();
-                ticketVideoInternetUrl = ticketEntry.getTicketVideoInternetUrl();
-                userId = ticketEntry.getUserId();
-                userName = ticketEntry.getUserName();
-                userPhotoUrl = ticketEntry.getUserPhotoUrl();
+                    Log.d(TAG,
+                            "tickedId:  " + ticketId + "\n" +
+                                    "ticketTitle:  " + ticketTitle + "\n" +
+                                    "ticketDescription:  " + ticketDescription + "\n" +
+                                    "ticketDate:  " + ticketDate + "\n" +
+                                    "ticketVideoPostId:  " + ticketVideoPostId + "\n" +
+                                    "ticketVideoLocalUri:  " + ticketVideoLocalUri + "\n" +
+                                    "ticketVideoInternetUrl:  " + ticketVideoInternetUrl + "\n" +
+                                    "userId:  " + userId + "\n" +
+                                    "userName:  " + userName + "\n" +
+                                    "userPhotoUrl:  " + userPhotoUrl + "\n");
+                }
 
-                Log.d(TAG,
-                        "tickedId:  " + ticketId + "\n" +
-                                "ticketTitle:  " + ticketTitle + "\n" +
-                                "ticketDescription:  " + ticketDescription + "\n" +
-                                "ticketDate:  " + ticketDate + "\n" +
-                                "ticketVideoPostId:  " + ticketVideoPostId + "\n" +
-                                "ticketVideoLocalUri:  " + ticketVideoLocalUri + "\n" +
-                                "ticketVideoInternetUrl:  " + ticketVideoInternetUrl + "\n" +
-                                "userId:  " + userId + "\n" +
-                                "userName:  " + userName + "\n" +
-                                "userPhotoUrl:  " + userPhotoUrl + "\n");
+
 
                 mTitleText.setText(ticketTitle);
                 mDescriptionText.setText(ticketDescription);

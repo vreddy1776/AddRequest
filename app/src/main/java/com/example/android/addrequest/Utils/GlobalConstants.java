@@ -16,6 +16,12 @@ public class GlobalConstants {
     public static final int EDIT_TICKET_VIEWTYPE = 5;
 
 
+    // Ticket ViewTypes
+    public static final int ADD_TICKET_TYPE = 5;
+    public static final int EDIT_TICKET_TYPE = 10;
+    public static final int VIEW_TICKET_TYPE = 15;
+
+
     // Fragment Tags
     public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
 

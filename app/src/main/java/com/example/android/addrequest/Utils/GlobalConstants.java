@@ -7,7 +7,12 @@ public class GlobalConstants {
     // Intent Keys
     public static final String TICKET_ID_KEY = "TicketId";
     public static final String TICKET_TYPE_KEY = "TicketType";
-    public static final String CHAT_ID_KEY = "TicketViewType";
+
+
+    // Database Child Names
+    public static final String CHILD_NAME_TICKETS = "Tickets";
+    public static final String CHILD_NAME_MESSAGES = "Messages";
+
 
 
     // Default Values

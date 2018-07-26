@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    private String chatID;
+    private String mTicketId;
 
 
 
@@ -69,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         Intent intent = getIntent();
-        chatID = intent.getStringExtra(GlobalConstants.CHAT_ID_KEY);
+        mTicketId = intent.getStringExtra(GlobalConstants.TICKET_ID_KEY);
 
         mUsername = ANONYMOUS;
 
@@ -77,7 +77,10 @@ public class ChatActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child(chatID);
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference()
+                .child(GlobalConstants.CHILD_NAME_TICKETS)
+                .child(mTicketId)
+                .child(GlobalConstants.CHILD_NAME_MESSAGES);
 
         // Initialize references to views
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -150,7 +153,6 @@ public class ChatActivity extends AppCompatActivity {
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
                                     .setProviders(
-                                            AuthUI.EMAIL_PROVIDER,
                                             AuthUI.GOOGLE_PROVIDER)
                                     .build(),
                             RC_SIGN_IN);

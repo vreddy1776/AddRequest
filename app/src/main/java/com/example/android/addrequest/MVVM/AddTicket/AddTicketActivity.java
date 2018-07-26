@@ -417,7 +417,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
-        intent.putExtra( GlobalConstants.CHAT_ID_KEY , Integer.toString(mTicketId) );
+        intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );
         startActivity(intent);
     }
 

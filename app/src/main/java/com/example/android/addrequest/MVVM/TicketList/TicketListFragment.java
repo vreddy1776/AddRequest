@@ -62,10 +62,8 @@ public class TicketListFragment extends Fragment{
                 return false;
             }
 
-            // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
                 int position = viewHolder.getAdapterPosition();
                 List<TicketEntry> tickets = ticketAdapter.getTickets();
                 TicketEntry ticket = tickets.get(position);

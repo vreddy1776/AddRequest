@@ -55,7 +55,7 @@ public class TicketListViewModel extends AndroidViewModel {
                 }
             });
         } else if (updateCode == GlobalConstants.LOAD_USER) {
-            if (profileObserver != null){
+            if (allTicketsObserver != null){
                 Log.d(TAG,"allTicketObserver removed");
                 ticketListLiveData.removeObserver(allTicketsObserver);
             }
@@ -79,5 +79,16 @@ public class TicketListViewModel extends AndroidViewModel {
 
     }
 
-
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (profileObserver != null){
+            Log.d(TAG,"ProfileObserver removed");
+            ticketListLiveData.removeObserver(profileObserver);
+        }
+        if (allTicketsObserver != null){
+            Log.d(TAG,"allTicketObserver removed");
+            ticketListLiveData.removeObserver(allTicketsObserver);
+        }
+    }
 }

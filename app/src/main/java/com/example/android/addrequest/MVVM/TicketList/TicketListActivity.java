@@ -69,8 +69,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         });
 
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
-        viewModel.updateDB(GlobalConstants.LOAD_ALL);
-        viewModel.startTicketListObserver(mAdapter);
+        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
+        //viewModel.startTicketListObserver(mAdapter);
         //mAdapter.setTickets(viewModel.getTicketLiveData().getValue());
 
 
@@ -115,7 +115,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void profileMode(){
 
-        viewModel.updateDB(GlobalConstants.LOAD_USER);
+        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_USER);
 
         fabButton.setVisibility(View.INVISIBLE);
         openProfile();
@@ -129,7 +129,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void allTicketsMode(){
 
-        viewModel.updateDB(GlobalConstants.LOAD_ALL);
+        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
 
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();

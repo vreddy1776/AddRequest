@@ -31,7 +31,10 @@ public class TicketListViewModel extends AndroidViewModel {
     private AppDatabase database;
     private LiveData<List<TicketEntry>> ticketLiveData;
     private List<TicketEntry> ticketList;
-    
+    private Observer<List<TicketEntry>> allTicketObserver;
+    private Observer<List<TicketEntry>> profileObserver;
+
+
 
     public TicketListViewModel(Application application) {
         super(application);
@@ -40,11 +43,32 @@ public class TicketListViewModel extends AndroidViewModel {
         //startTicketListObserver();
     }
 
-    public void updateDB(int updateCode){
+
+    public void updateDB(final TicketAdapter ticketAdapter, int updateCode){
         if (updateCode == GlobalConstants.LOAD_ALL){
+            if (profileObserver != null){
+                Log.d(TAG,"ProfileObserver removed");
+                ticketLiveData.removeObserver(profileObserver);
+            }
             ticketLiveData = database.ticketDao().loadAllTickets();
+            ticketLiveData.observeForever(allTicketObserver = new Observer<List<TicketEntry>>() {
+                @Override
+                public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
+                    ticketAdapter.setTickets(ticketEntryList);
+                }
+            });
         } else if (updateCode == GlobalConstants.LOAD_USER) {
+            if (profileObserver != null){
+                Log.d(TAG,"allTicketObserver removed");
+                ticketLiveData.removeObserver(allTicketObserver);
+            }
             ticketLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
+            ticketLiveData.observeForever(profileObserver = new Observer<List<TicketEntry>>() {
+                @Override
+                public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
+                    ticketAdapter.setTickets(ticketEntryList);
+                }
+            });
         } else {
             // No update to ticket DB
         }
@@ -52,8 +76,8 @@ public class TicketListViewModel extends AndroidViewModel {
 
 
 
+    /*
     public void startTicketListObserver(final TicketAdapter adapter) {
-
 
         ticketLiveData.observeForever(new Observer<List<TicketEntry>>() {
             @Override
@@ -67,7 +91,6 @@ public class TicketListViewModel extends AndroidViewModel {
     }
 
 
-
     public LiveData<List<TicketEntry>> getTicketLiveData() {
         Log.d(TAG, "Getting ticket list" + ticketLiveData.getValue());
         return ticketLiveData;
@@ -78,6 +101,7 @@ public class TicketListViewModel extends AndroidViewModel {
         Log.d(TAG, "Getting ticket list" + ticketList);
         return ticketList;
     }
+    */
 
 
     public void deleteTicket(int ticketId){

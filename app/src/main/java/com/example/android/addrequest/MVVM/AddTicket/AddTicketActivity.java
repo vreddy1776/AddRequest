@@ -371,6 +371,8 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         } else {
             // Permission has already been granted
+            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            startActivityForResult(takeVideoIntent,VIDEO_REQUEST);
         }
     }
 

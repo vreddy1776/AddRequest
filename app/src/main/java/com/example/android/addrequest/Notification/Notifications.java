@@ -53,10 +53,10 @@ public class Notifications {
      * This notification channel id is used to link notifications to this channel
      */
     private static final String WATER_REMINDER_NOTIFICATION_CHANNEL_ID = "reminder_notification_channel";
-    private static final int ACTION_DRINK_PENDING_INTENT_ID = 1;
+    private static final int OPEN_REQUEST = 0;
     private static final int ACTION_IGNORE_PENDING_INTENT_ID = 14;
 
-    private static int mTicketID = -1;
+    private static int mTicketID = GlobalConstants.DEFAULT_TICKET_ID;
 
     //  COMPLETED (1) Create a method to clear all notifications
     public static void clearAllNotifications(Context context) {
@@ -92,7 +92,7 @@ public class Notifications {
                 .setContentIntent(contentIntent(context))
                 // COMPLETED (17) Add the two new actions using the addAction method and your helper methods
 
-                .addAction(drinkWaterAction(context))
+                .addAction(openRequestAction(context))
                 /*
                 .addAction(ignoreReminderAction(context))
                 */
@@ -129,25 +129,24 @@ public class Notifications {
     */
 
 
-    //  COMPLETED (11) Add a static method called drinkWaterAction
-    private static Action drinkWaterAction(Context context) {
-        // COMPLETED (12) Create an Intent to launch WaterReminderIntentService
-        Intent incrementWaterCountIntent = new Intent(context, AddTicketActivity.class);
-        incrementWaterCountIntent.putExtra(GlobalConstants.TICKET_ID_KEY, mTicketID);
-        // COMPLETED (13) Set the action of the intent to designate you want to increment the water count
-        //incrementWaterCountIntent.setAction(ReminderTasks.ACTION_INCREMENT_WATER_COUNT);
-        // COMPLETED (14) Create a PendingIntent from the intent to launch WaterReminderIntentService
-        PendingIntent incrementWaterPendingIntent = PendingIntent.getService(
+    private static Action openRequestAction(Context context) {
+
+        Intent intent = new Intent(context, AddTicketActivity.class);
+        intent.putExtra(GlobalConstants.TICKET_ID_KEY, mTicketID);
+        intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.UPDATE_TICKET_TYPE);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,
-                ACTION_DRINK_PENDING_INTENT_ID,
-                incrementWaterCountIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-        // COMPLETED (15) Create an Action for the user to tell us they've had a glass of water
+                OPEN_REQUEST,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         Action drinkWaterAction = new Action(R.drawable.ic_launcher_foreground,
                 "I did it!",
-                incrementWaterPendingIntent);
-        // COMPLETED (16) Return the action
+                pendingIntent);
+
         return drinkWaterAction;
+
     }
 
 

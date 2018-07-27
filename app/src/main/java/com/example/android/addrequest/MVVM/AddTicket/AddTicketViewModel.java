@@ -80,6 +80,8 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         Log.d(TAG,"ticketVideoPostId:  " + ticketVideoPostId);
 
+        final Context context = this.getApplication();
+
         if (ticketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
             Uri capturedVideoUri = Uri.parse(ticketVideoLocalUri);
@@ -119,6 +121,8 @@ public class AddTicketViewModel extends AndroidViewModel {
                             userName,
                             userPhotoUrl);
                     myRef.child(String.valueOf(ticketId)).setValue(ticket);
+                    Notifications.ticketPostedNotification(context,ticketId);
+
 
                 }
             });
@@ -141,7 +145,6 @@ public class AddTicketViewModel extends AndroidViewModel {
                     userName,
                     userPhotoUrl);
 
-            final Context context = this.getApplication();
             AppExecuters.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {

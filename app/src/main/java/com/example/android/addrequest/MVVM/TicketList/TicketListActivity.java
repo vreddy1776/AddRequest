@@ -2,6 +2,7 @@ package com.example.android.addrequest.MVVM.TicketList;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -69,13 +70,9 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
         viewModel.updateDB(GlobalConstants.LOAD_ALL);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
+        viewModel.startTicketListObserver(mAdapter);
+        //mAdapter.setTickets(viewModel.getTicketLiveData().getValue());
+
 
         fragmentManager = getSupportFragmentManager();
         ticketListFragment = new TicketListFragment();
@@ -119,13 +116,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     private void profileMode(){
 
         viewModel.updateDB(GlobalConstants.LOAD_USER);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
+
         fabButton.setVisibility(View.INVISIBLE);
         openProfile();
 
@@ -138,15 +129,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void allTicketsMode(){
 
-        viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
         viewModel.updateDB(GlobalConstants.LOAD_ALL);
-        viewModel.getTickets().observe(this, new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntries) {
-                Log.d(TAG, "Updating list of tickets from LiveData in ViewModel");
-                mAdapter.setTickets(ticketEntries);
-            }
-        });
 
         fabButton.setVisibility(View.VISIBLE);
         closeProfile();

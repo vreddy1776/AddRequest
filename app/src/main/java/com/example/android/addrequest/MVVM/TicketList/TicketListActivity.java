@@ -70,9 +70,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
-        //viewModel.startTicketListObserver(mAdapter);
-        //mAdapter.setTickets(viewModel.getTicketLiveData().getValue());
-
 
         fragmentManager = getSupportFragmentManager();
         ticketListFragment = new TicketListFragment();
@@ -99,10 +96,10 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_name_menu:
-                profileMode();
+                setProfileMode();
                 return true;
             case R.id.all_tickets_menu:
-                allTicketsMode();
+                setAllTicketsMode();
                 return true;
             case R.id.sign_out_menu:
                 logout();
@@ -113,7 +110,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     }
 
 
-    private void profileMode(){
+    private void setProfileMode(){
 
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_USER);
 
@@ -127,7 +124,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
 
 
-    private void allTicketsMode(){
+    private void setAllTicketsMode(){
 
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
 

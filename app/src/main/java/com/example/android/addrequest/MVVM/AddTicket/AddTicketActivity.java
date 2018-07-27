@@ -1,6 +1,7 @@
 package com.example.android.addrequest.MVVM.AddTicket;
 
 import android.Manifest;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -54,6 +55,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class AddTicketActivity extends AppCompatActivity{
@@ -114,6 +116,9 @@ public class AddTicketActivity extends AppCompatActivity{
     private long playbackPosition;
 
     private Uri videoUri;
+
+    private LiveData<TicketEntry> ticketLiveData;
+    private Observer<TicketEntry> ticketObserver;
 
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private String mTicketTitle = GlobalConstants.BLANK_TICKET_TITLE;
@@ -182,7 +187,8 @@ public class AddTicketActivity extends AppCompatActivity{
 
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
-        viewModel.getTicket().observe(this, new Observer<TicketEntry>() {
+        ticketLiveData = viewModel.getTicket();
+        ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override
             public void onChanged(@Nullable TicketEntry ticketEntry) {
 
@@ -519,6 +525,9 @@ public class AddTicketActivity extends AppCompatActivity{
         super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
+        }
+        if (ticketObserver != null){
+            ticketLiveData.removeObserver(ticketObserver);
         }
     }
 

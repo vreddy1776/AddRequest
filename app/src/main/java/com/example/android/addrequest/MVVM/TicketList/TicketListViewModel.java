@@ -29,9 +29,8 @@ public class TicketListViewModel extends AndroidViewModel {
     private static final String TAG = TicketListViewModel.class.getSimpleName();
 
     private AppDatabase database;
-    private LiveData<List<TicketEntry>> ticketLiveData;
-    private List<TicketEntry> ticketList;
-    private Observer<List<TicketEntry>> allTicketObserver;
+    private LiveData<List<TicketEntry>> ticketListLiveData;
+    private Observer<List<TicketEntry>> allTicketsObserver;
     private Observer<List<TicketEntry>> profileObserver;
 
 
@@ -39,8 +38,6 @@ public class TicketListViewModel extends AndroidViewModel {
     public TicketListViewModel(Application application) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
-        //updateDB(GlobalConstants.LOAD_ALL);
-        //startTicketListObserver();
     }
 
 
@@ -48,10 +45,10 @@ public class TicketListViewModel extends AndroidViewModel {
         if (updateCode == GlobalConstants.LOAD_ALL){
             if (profileObserver != null){
                 Log.d(TAG,"ProfileObserver removed");
-                ticketLiveData.removeObserver(profileObserver);
+                ticketListLiveData.removeObserver(profileObserver);
             }
-            ticketLiveData = database.ticketDao().loadAllTickets();
-            ticketLiveData.observeForever(allTicketObserver = new Observer<List<TicketEntry>>() {
+            ticketListLiveData = database.ticketDao().loadAllTickets();
+            ticketListLiveData.observeForever(allTicketsObserver = new Observer<List<TicketEntry>>() {
                 @Override
                 public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
                     ticketAdapter.setTickets(ticketEntryList);
@@ -60,10 +57,10 @@ public class TicketListViewModel extends AndroidViewModel {
         } else if (updateCode == GlobalConstants.LOAD_USER) {
             if (profileObserver != null){
                 Log.d(TAG,"allTicketObserver removed");
-                ticketLiveData.removeObserver(allTicketObserver);
+                ticketListLiveData.removeObserver(allTicketsObserver);
             }
-            ticketLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
-            ticketLiveData.observeForever(profileObserver = new Observer<List<TicketEntry>>() {
+            ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
+            ticketListLiveData.observeForever(profileObserver = new Observer<List<TicketEntry>>() {
                 @Override
                 public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
                     ticketAdapter.setTickets(ticketEntryList);
@@ -73,35 +70,6 @@ public class TicketListViewModel extends AndroidViewModel {
             // No update to ticket DB
         }
     }
-
-
-
-    /*
-    public void startTicketListObserver(final TicketAdapter adapter) {
-
-        ticketLiveData.observeForever(new Observer<List<TicketEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
-                Log.d(TAG, "Ticket list observer changed");
-                ticketList = ticketEntryList;
-                adapter.setTickets(ticketEntryList);
-            }
-        });
-
-    }
-
-
-    public LiveData<List<TicketEntry>> getTicketLiveData() {
-        Log.d(TAG, "Getting ticket list" + ticketLiveData.getValue());
-        return ticketLiveData;
-    }
-
-
-    public List<TicketEntry> getTicketList() {
-        Log.d(TAG, "Getting ticket list" + ticketList);
-        return ticketList;
-    }
-    */
 
 
     public void deleteTicket(int ticketId){

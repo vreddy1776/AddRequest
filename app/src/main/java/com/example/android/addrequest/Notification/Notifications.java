@@ -29,14 +29,11 @@ import android.support.v4.app.NotificationCompat.Action;
 import android.support.v4.content.ContextCompat;
 
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import com.example.android.addrequest.MVVM.Main.MainActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Utils.GlobalConstants;
 
 
-/**
- * Utility class for creating hydration notifications
- */
+
 public class Notifications {
 
     /*
@@ -44,26 +41,11 @@ public class Notifications {
      * can be handy when we need to cancel the notification, or perhaps update it. This number is
      * arbitrary and can be set to whatever you like. 1138 is in no way significant.
      */
-    private static final int WATER_REMINDER_NOTIFICATION_ID = 1138;
-    /**
-     * This pending intent id is used to uniquely reference the pending intent
-     */
-    private static final int WATER_REMINDER_PENDING_INTENT_ID = 3417;
-    /**
-     * This notification channel id is used to link notifications to this channel
-     */
-    private static final String WATER_REMINDER_NOTIFICATION_CHANNEL_ID = "reminder_notification_channel";
+    private static final int NOTIFICATION_ID = 1138;
+    private static final String MAIN_NOTIFICATION_CHANNEL_ID = "main_notification_channel";
     private static final int OPEN_REQUEST = 0;
-    private static final int ACTION_IGNORE_PENDING_INTENT_ID = 14;
-
     private static int mTicketID = GlobalConstants.DEFAULT_TICKET_ID;
 
-    //  COMPLETED (1) Create a method to clear all notifications
-    public static void clearAllNotifications(Context context) {
-        NotificationManager notificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
-    }
 
     public static void ticketPostedNotification(Context context, int ticketID) {
 
@@ -74,62 +56,34 @@ public class Notifications {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(
-                    WATER_REMINDER_NOTIFICATION_CHANNEL_ID,
+                    MAIN_NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.main_notification_channel_name),
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(mChannel);
             }
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,WATER_REMINDER_NOTIFICATION_CHANNEL_ID)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, MAIN_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setLargeIcon(largeIcon(context))
-                .setContentTitle(context.getString(R.string.posting_reminder_notification_title))
-                .setContentText(context.getString(R.string.posting_reminder_notification_body))
+                .setContentTitle(context.getString(R.string.notification_title))
+                .setContentText(context.getString(R.string.notification_body))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(
-                        context.getString(R.string.posting_reminder_notification_body)))
+                        context.getString(R.string.notification_body)))
                 .setDefaults(android.app.Notification.DEFAULT_VIBRATE)
-                .setContentIntent(contentIntent(context))
-                // COMPLETED (17) Add the two new actions using the addAction method and your helper methods
-
-                .addAction(openRequestAction(context))
-                /*
-                .addAction(ignoreReminderAction(context))
-                */
+                .addAction(openTicketAction(context))
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
         }
-        notificationManager.notify(WATER_REMINDER_NOTIFICATION_ID, notificationBuilder.build());
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
 
     }
 
-    /*
-    //  COMPLETED (5) Add a static method called ignoreReminderAction
-    private static Action ignoreReminderAction(Context context) {
-        // COMPLETED (6) Create an Intent to launch WaterReminderIntentService
-        Intent ignoreReminderIntent = new Intent(context, WaterReminderIntentService.class);
-        // COMPLETED (7) Set the action of the intent to designate you want to dismiss the notification
-        ignoreReminderIntent.setAction(ReminderTasks.ACTION_DISMISS_NOTIFICATION);
-        // COMPLETED (8) Create a PendingIntent from the intent to launch WaterReminderIntentService
-        PendingIntent ignoreReminderPendingIntent = PendingIntent.getService(
-                context,
-                ACTION_IGNORE_PENDING_INTENT_ID,
-                ignoreReminderIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        // COMPLETED (9) Create an Action for the user to ignore the notification (and dismiss it)
-        Action ignoreReminderAction = new Action(R.drawable.ic_cancel_black_24px,
-                "No, thanks.",
-                ignoreReminderPendingIntent);
-        // COMPLETED (10) Return the action
-        return ignoreReminderAction;
-    }
-    */
 
-
-    private static Action openRequestAction(Context context) {
+    private static Action openTicketAction(Context context) {
 
         Intent intent = new Intent(context, AddTicketActivity.class);
         intent.putExtra(GlobalConstants.TICKET_ID_KEY, mTicketID);
@@ -142,7 +96,7 @@ public class Notifications {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Action drinkWaterAction = new Action(R.drawable.ic_launcher_foreground,
-                "I did it!",
+                "Open Request",
                 pendingIntent);
 
         return drinkWaterAction;
@@ -150,14 +104,12 @@ public class Notifications {
     }
 
 
-    private static PendingIntent contentIntent(Context context) {
-        Intent startActivityIntent = new Intent(context, MainActivity.class);
-        return PendingIntent.getActivity(
-                context,
-                WATER_REMINDER_PENDING_INTENT_ID,
-                startActivityIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+    public static void clearAllNotifications(Context context) {
+        NotificationManager notificationManager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
+
 
     private static Bitmap largeIcon(Context context) {
         Resources res = context.getResources();

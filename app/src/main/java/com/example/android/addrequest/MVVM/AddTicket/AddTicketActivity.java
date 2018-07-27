@@ -25,6 +25,7 @@ import android.widget.ImageView;
 
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
+import com.example.android.addrequest.Notification.Notifications;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.GlobalConstants;
@@ -132,6 +133,8 @@ public class AddTicketActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
+
+        Notifications.clearAllNotifications(this);
 
         receiveTicketID();
         setupViewModelFactory();

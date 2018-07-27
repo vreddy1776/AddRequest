@@ -42,11 +42,8 @@ public class TicketListViewModel extends AndroidViewModel {
 
 
     public void updateDB(final TicketAdapter ticketAdapter, int updateCode){
+        removeObservers();
         if (updateCode == GlobalConstants.LOAD_ALL){
-            if (profileObserver != null){
-                Log.d(TAG,"ProfileObserver removed");
-                ticketListLiveData.removeObserver(profileObserver);
-            }
             ticketListLiveData = database.ticketDao().loadAllTickets();
             ticketListLiveData.observeForever(allTicketsObserver = new Observer<List<TicketEntry>>() {
                 @Override
@@ -55,10 +52,6 @@ public class TicketListViewModel extends AndroidViewModel {
                 }
             });
         } else if (updateCode == GlobalConstants.LOAD_USER) {
-            if (allTicketsObserver != null){
-                Log.d(TAG,"allTicketObserver removed");
-                ticketListLiveData.removeObserver(allTicketsObserver);
-            }
             ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
             ticketListLiveData.observeForever(profileObserver = new Observer<List<TicketEntry>>() {
                 @Override
@@ -79,9 +72,8 @@ public class TicketListViewModel extends AndroidViewModel {
 
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
+
+    private void removeObservers(){
         if (profileObserver != null){
             Log.d(TAG,"ProfileObserver removed");
             ticketListLiveData.removeObserver(profileObserver);
@@ -91,4 +83,12 @@ public class TicketListViewModel extends AndroidViewModel {
             ticketListLiveData.removeObserver(allTicketsObserver);
         }
     }
+
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        removeObservers();
+    }
+
 }

@@ -136,8 +136,6 @@ public class AddTicketActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
 
-        setupActionBar();
-
         Notifications.clearAllNotifications(this);
 
         receiveTicketID();
@@ -167,34 +165,6 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
     }
-
-
-    private void setupActionBar(){
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        //getSupportActionBar().setIcon(R.drawable.nav_chat);
-
-        /*
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
-                | ActionBar.DISPLAY_SHOW_CUSTOM);
-        videoButton = new ImageView(actionBar.getThemedContext());
-        videoButton.setScaleType(ImageView.ScaleType.CENTER);
-        videoButton.setImageResource(R.drawable.nav_chat);
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
-                ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT
-                | Gravity.CENTER_VERTICAL);
-        layoutParams.rightMargin = 40;
-        videoButton.setLayoutParams(layoutParams);
-        actionBar.setCustomView(videoButton);
-        */
-    }
-
-
 
 
     /**
@@ -282,6 +252,8 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void initViews() {
 
+        setupActionBar();
+
         mTitleText = findViewById(R.id.editTextTicketTitle);
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
         saveButton = findViewById(R.id.saveButton);
@@ -321,6 +293,13 @@ public class AddTicketActivity extends AppCompatActivity{
 
     }
 
+    private void setupActionBar(){
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+    }
 
 
 

@@ -23,6 +23,6 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textAlignment="center"
         android:textSize="30sp"
-        android:textColor="@color/editText"/>
+        android:textColor="@color/editTextDark"/>
 
 </LinearLayout>

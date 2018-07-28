@@ -20,14 +20,13 @@
 
             <EditText
                 android:id="@+id/editTextTicketTitle"
-                style="@style/TextInputStyle"
                 android:layout_width="171dp"
                 android:layout_height="50dp"
                 android:background="@null"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:hint="@string/edit_ticket_title"
-                android:textColor="@color/editText"
+                android:textColor="@color/editTextLight"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="0dp"/>
@@ -81,18 +80,24 @@
         android:id="@+id/editTextTicketDescription"
         style="@style/TextInputStyle"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="80dp"
         android:layout_below="@id/toolbar"
-        android:gravity="start"
+        android:gravity="top"
         android:hint="@string/edit_ticket_description"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/stream_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/editTextTicketDescription" />
+        android:layout_below="@id/editTextTicketDescription"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
 </RelativeLayout>

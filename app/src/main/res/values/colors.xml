@@ -10,7 +10,9 @@
 
     <!-- Edit Text Boxes -->
     <color name="editTextBackground">#D3D3D3</color>
-    <color name="editText">#FFFFFF</color>
+    <color name="editTextLight">#FFFFFF</color>
+    <color name="editTextDark">	#606060</color>
+
 
 
 </resources>

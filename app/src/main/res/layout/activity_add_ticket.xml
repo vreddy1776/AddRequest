@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,62 +14,80 @@
     <!-- EditText for title input -->
     <EditText
         android:id="@+id/editTextTicketTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextInputStyle"
+        android:layout_width="269dp"
+        android:layout_height="41dp"
         android:gravity="start"
         android:hint="@string/edit_ticket_title"
         android:paddingBottom="@dimen/activity_horizontal_margin"
-        style="@style/TextInputStyle"/>
+        android:textSize="20sp" />
 
     <!-- EditText for description input -->
     <EditText
         android:id="@+id/editTextTicketDescription"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        style="@style/TextInputStyle"
+        android:layout_width="269dp"
+        android:layout_height="81dp"
+        android:layout_below="@id/editTextTicketTitle"
         android:gravity="start"
         android:hint="@string/edit_ticket_description"
         android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:textSize="14sp"
-        style="@style/TextInputStyle" />
+        android:textSize="14sp" />
 
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/stream_video"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/editTextTicketDescription" />
 
 
-    <!-- Add button -->
-    <Button
-        android:id="@+id/saveButton"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:text="@string/add_button"
-        android:textColor="@android:color/primary_text_dark" />
-
-    <Button
-        android:id="@+id/videoButton"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:text="@string/video_button"
-        android:textColor="@android:color/primary_text_dark" />
+    <RelativeLayout
+        android:id="@+id/optionsBar"
+        android:layout_width="100dp"
+        android:layout_height="124dp"
+        android:layout_alignTop="@+id/editTextTicketTitle"
+        android:layout_toEndOf="@+id/editTextTicketTitle">
 
 
+        <!-- Add button -->
 
-    <ImageButton
-        android:id="@+id/chatButton"
-        android:layout_gravity="end"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:background="@drawable/nav_chat"
-        android:onClick="goToChat"/>
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="73dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary"
+            android:text="@string/add_button"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="14sp" />
 
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/videoButton"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="42dp"
+            android:layout_height="44dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_video_icon"
+            android:text="@string/video_button"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="14sp" />
+
+
+        <ImageButton
+            android:id="@+id/chatButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="end"
+            android:background="@drawable/nav_chat"
+            android:onClick="goToChat" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -17,18 +17,17 @@
 
         <RelativeLayout
             android:layout_width="80dp"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/ticketUserProfilePic"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="8dp"/>
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:paddingLeft="14dp"/>
             <TextView
                 android:id="@+id/ticketUserNameText"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="24dp"
                 android:layout_below="@id/ticketUserProfilePic"/>
 
         </RelativeLayout>
@@ -40,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:paddingLeft="12dp">
 
             <!-- TextView that displays the title -->
             <TextView
@@ -49,7 +48,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textColor="@android:color/primary_text_light"
-                tools:text="Title" />
+                tools:text="Title"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingTop="8dp"/>
 
             <!-- TextView that displays the description -->
             <TextView
@@ -69,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/primary_text_light"
                 tools:text="11/11/1111"
-                android:layout_gravity="bottom"/>
+                android:layout_gravity="bottom"
+                android:paddingTop="5dp"/>
 
         </LinearLayout>
 
@@ -78,9 +81,10 @@
             android:id="@+id/videoThumbnail"
             android:layout_toRightOf="@id/ticketInfo"
             android:layout_centerVertical="true"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_toEndOf="@id/ticketInfo" />
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/ticketInfo"
+            android:paddingTop="5dp"/>
 
 
     </LinearLayout>

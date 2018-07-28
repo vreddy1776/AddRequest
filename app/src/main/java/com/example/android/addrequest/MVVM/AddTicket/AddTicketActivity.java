@@ -86,7 +86,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
     // Buttons
     Button saveButton;
-    Button videoButton;
+    ImageView videoButton;
 
     // Video Intent activity codes
     final static int VIDEO_REQUEST = 5;
@@ -170,6 +170,13 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
     }
+
+
+    private void setupActionBar(){
+        
+    }
+
+
 
 
     /**

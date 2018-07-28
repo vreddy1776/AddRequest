@@ -4,10 +4,8 @@ import android.Manifest;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,14 +13,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
@@ -55,9 +52,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 
 
 public class AddTicketActivity extends AppCompatActivity{
@@ -141,6 +136,8 @@ public class AddTicketActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
 
+        setupActionBar();
+
         Notifications.clearAllNotifications(this);
 
         receiveTicketID();
@@ -173,7 +170,28 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
     private void setupActionBar(){
-        
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        //getSupportActionBar().setIcon(R.drawable.nav_chat);
+
+        /*
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(actionBar.getDisplayOptions()
+                | ActionBar.DISPLAY_SHOW_CUSTOM);
+        videoButton = new ImageView(actionBar.getThemedContext());
+        videoButton.setScaleType(ImageView.ScaleType.CENTER);
+        videoButton.setImageResource(R.drawable.nav_chat);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT
+                | Gravity.CENTER_VERTICAL);
+        layoutParams.rightMargin = 40;
+        videoButton.setLayoutParams(layoutParams);
+        actionBar.setCustomView(videoButton);
+        */
     }
 
 

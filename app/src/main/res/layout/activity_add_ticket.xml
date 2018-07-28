@@ -26,6 +26,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:hint="@string/edit_ticket_title"
+                android:maxLines="1"
                 android:textColor="@color/editTextLight"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -72,30 +73,34 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <!-- EditText for title input -->
-
-
-    <!-- EditText for description input -->
-    <EditText
-        android:id="@+id/editTextTicketDescription"
-        style="@style/TextInputStyle"
+    <FrameLayout
+        android:id="@+id/editTextTicketDescriptionWrapper"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="@drawable/rounded_rectangle"
         android:layout_below="@id/toolbar"
-        android:gravity="top"
-        android:hint="@string/edit_ticket_description"
-        android:textSize="14sp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
 
+        <EditText
+            android:id="@+id/editTextTicketDescription"
+            style="@style/TextInputStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="@string/edit_ticket_description"
+            android:textSize="14sp"
+            android:background="@null" />
+
+    </FrameLayout>
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/stream_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/editTextTicketDescription"
+        android:layout_below="@id/editTextTicketDescriptionWrapper"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"/>

@@ -39,7 +39,7 @@ public class DateTime {
 
     public static String dateToString(Date date){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-YYYY  h:mm a");
         String dateString = sdf.format(date);
         return dateString;
 

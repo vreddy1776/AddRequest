@@ -29,6 +29,7 @@ import com.example.android.addrequest.MVVM.Chat.ChatActivity;
 import com.example.android.addrequest.Notification.Notifications;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
+import com.example.android.addrequest.Utils.DateTime;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -54,6 +55,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -324,7 +326,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
 
-        mTicketDate = String.valueOf(new Date());
+        mTicketDate = DateTime.dateToString(new Date());
         mUserId = UserProfileSettings.getUserID(this);
         mUserName = UserProfileSettings.getUsername(this);
         mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);

@@ -1,4 +1,4 @@
-package com.example.android.addrequest.MainActivityTest;
+package com.example.android.addrequest.TicketListActivity;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -8,7 +8,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import com.example.android.addrequest.MVVM.Main.MainActivity;
+import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
 import com.example.android.addrequest.R;
 
 import org.junit.Before;
@@ -42,8 +42,8 @@ public class TicketClickTest {
     private static final String PACKAGE_NAME = InstrumentationRegistry.getTargetContext().getPackageName();
 
     @Rule
-    public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule<>(
-            MainActivity.class);
+    public IntentsTestRule<TicketListActivity> mActivityRule = new IntentsTestRule<>(
+            TicketListActivity.class);
 
     @Before
     public void stubAllExternalIntents() {
@@ -66,7 +66,6 @@ public class TicketClickTest {
             hasComponent(AddTicketActivity.class.getName())));
 
         intended(hasExtraWithKey(TICKET_ID_KEY));
-        //intended(hasExtras(hasEntry(TICKET_ID_KEY, DEFAULT_TICKET_ID)));
     }
 
 }

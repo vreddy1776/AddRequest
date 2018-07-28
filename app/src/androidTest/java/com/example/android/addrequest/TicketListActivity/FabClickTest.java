@@ -1,4 +1,4 @@
-package com.example.android.addrequest.MainActivityTest;
+package com.example.android.addrequest.TicketListActivity;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -9,7 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import com.example.android.addrequest.MVVM.Main.MainActivity;
+import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
 import com.example.android.addrequest.R;
 
 import org.junit.Before;
@@ -34,8 +34,8 @@ public class FabClickTest {
     private static final String PACKAGE_NAME = InstrumentationRegistry.getTargetContext().getPackageName();
 
     @Rule
-    public IntentsTestRule<MainActivity> mActivityRule = new IntentsTestRule<>(
-            MainActivity.class);
+    public IntentsTestRule<TicketListActivity> mActivityRule = new IntentsTestRule<>(
+            TicketListActivity.class);
 
     @Before
     public void stubAllExternalIntents() {

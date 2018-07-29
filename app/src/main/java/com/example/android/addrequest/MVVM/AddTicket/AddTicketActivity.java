@@ -91,15 +91,15 @@ public class AddTicketActivity extends AppCompatActivity{
     final static int VIDEO_REQUEST = 5;
     final static int RESULT_OK = -1;
 
-    // Video codes
-    private int requestCode;
-    private int resultCode;
 
     // OnSavedInstance Parameter Strings
     public static final String INSTANCE_TICKET_TYPE_KEY = "instanceTicketType";
+
     public static final String INSTANCE_TICKET_ID_KEY = "instanceTicketId";
-    public static final String INSTANCE_REQUEST_CODE_KEY = "instanceRequestCode";
-    public static final String INSTANCE_RESULT_CODE_KEY = "instanceResultCode";
+
+    private static final String INSTANCE_PLAY_WHEN_READY_KEY = "playWhenReady";
+    private static final String INSTANCE_CURRENT_WINDOW_KEY = "currentWindow";
+    private static final String INSTANCE_PLAY_BACK_POSITION_KEY = "playBackPosition";
 
 
     private SimpleExoPlayerView simpleExoPlayerView;
@@ -142,10 +142,23 @@ public class AddTicketActivity extends AppCompatActivity{
 
         Notifications.clearAllNotifications(this);
 
-        receiveTicketID();
+        setupVideoPlayer(savedInstanceState);
+        receiveTicketInfo();
         initViews();
         setupViewModelFactory();
 
+        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
+            mTicketId = ID.newID();
+        }
+
+    }
+
+
+
+    /**
+     * Set up Video Player
+     */
+    private void setupVideoPlayer(Bundle savedInstanceState){
 
         if(savedInstanceState == null){
             playWhenReady = true;
@@ -158,23 +171,19 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
         shouldAutoPlay = true;
+
         bandwidthMeter = new DefaultBandwidthMeter();
         mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), (TransferListener<? super DataSource>) bandwidthMeter);
         window = new Timeline.Window();
+
         ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
-
-
-        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-            mTicketId = ID.newID();
-        }
-
     }
 
 
     /**
      * Get ticket ID from MainActivity
      */
-    private void receiveTicketID(){
+    private void receiveTicketInfo(){
         Intent intent = getIntent();
         mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
         mTicketType = intent.getIntExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.VIEW_TICKET_TYPE);
@@ -248,20 +257,33 @@ public class AddTicketActivity extends AppCompatActivity{
     protected void onSaveInstanceState(Bundle outState) {
 
         outState.putInt(INSTANCE_TICKET_TYPE_KEY , mTicketType);
+
         outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
-        outState.putInt(INSTANCE_REQUEST_CODE_KEY , requestCode);
-        outState.putInt(INSTANCE_RESULT_CODE_KEY , resultCode);
+        outState.putString("mTicketTitle" , mTicketTitle);
+        outState.putString("mTicketDescription" , mTicketDescription);
+        outState.putString("mTicketDate" , mTicketDate);
+        outState.putString("mTicketVideoPostId" , mTicketVideoPostId);
+        outState.putString("mTicketVideoLocalUri" , mTicketVideoLocalUri);
+        outState.putString("mTicketVideoInternetUrl" , mTicketVideoInternetUrl);
+        outState.putString("mUserId" , mUserId);
+        outState.putString("mUserName" , mUserName);
+        outState.putString("mUserPhotoUrl" , mUserPhotoUrl);
+
 
         playbackPosition = player.getCurrentPosition();
         currentWindow = player.getCurrentWindowIndex();
         playWhenReady = player.getPlayWhenReady();
 
-        outState.putBoolean("playWhenReady", playWhenReady);
-        outState.putInt("currentWindow", currentWindow);
-        outState.putLong("playBackPosition", playbackPosition);
+        outState.putBoolean(INSTANCE_PLAY_WHEN_READY_KEY, playWhenReady);
+        outState.putInt(INSTANCE_CURRENT_WINDOW_KEY, currentWindow);
+        outState.putLong(INSTANCE_PLAY_BACK_POSITION_KEY, playbackPosition);
 
         super.onSaveInstanceState(outState);
     }
+
+
+
+
 
 
 
@@ -312,6 +334,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
 
+        releasePlayer();
         streamVideo.setVisibility(View.INVISIBLE);
         videoDeleteButton.setVisibility(View.INVISIBLE);
 
@@ -393,6 +416,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        releasePlayer();
         streamVideo.setVisibility(View.INVISIBLE);
         videoDeleteButton.setVisibility(View.INVISIBLE);
     }
@@ -451,10 +475,6 @@ public class AddTicketActivity extends AppCompatActivity{
     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.d(TAG, "requestCode: " + requestCode + "  ;  resultCode: " + resultCode);
-        this.requestCode = requestCode;
-        this.resultCode = resultCode;
 
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
 

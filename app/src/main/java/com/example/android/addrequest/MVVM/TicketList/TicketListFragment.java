@@ -2,7 +2,7 @@ package com.example.android.addrequest.MVVM.TicketList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -13,11 +13,10 @@ import android.view.ViewGroup;
 import com.example.android.addrequest.Adapter.TicketAdapter;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.R;
+import com.example.android.addrequest.Utils.DividerItemDecorator;
 import com.example.android.addrequest.Utils.GlobalConstants;
 
 import java.util.List;
-
-import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 public class TicketListFragment extends Fragment{
 
@@ -53,8 +52,9 @@ public class TicketListFragment extends Fragment{
         // Initialize the adapter and attach it to the RecyclerView
         mRecyclerView.setAdapter(ticketAdapter);
 
-        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);
+        // Remove divider lines
+        mRecyclerView.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.no_divider)));
+
 
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -88,11 +88,6 @@ public class TicketListFragment extends Fragment{
 
     }
 
-
-
-
-
-
-
-
 }
+
+

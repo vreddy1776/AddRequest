@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
 
@@ -82,6 +83,8 @@ public class AddTicketActivity extends AppCompatActivity{
     // Buttons
     Button saveButton;
     ImageView videoButton;
+    ImageButton chatButton;
+
 
     // Video Intent activity codes
     final static int VIDEO_REQUEST = 5;
@@ -259,6 +262,7 @@ public class AddTicketActivity extends AppCompatActivity{
         saveButton = findViewById(R.id.saveButton);
         videoButton = findViewById(R.id.videoButton);
         streamVideo = findViewById(R.id.stream_video);
+        chatButton = findViewById(R.id.chatButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,6 +286,7 @@ public class AddTicketActivity extends AppCompatActivity{
             saveButton.setText(R.string.update_button);
         } else if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
             saveButton.setText(R.string.add_button);
+            chatButton.setVisibility(View.INVISIBLE);
         } else {
             //do nothing
         }

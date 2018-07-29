@@ -3,9 +3,9 @@
 
 
     <!-- Base Application Theme Colors -->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#1e90ff</color>
+    <color name="colorPrimary">	#696969</color>
+    <color name="colorPrimaryDark">#696969</color>
+    <color name="colorAccent">#696969</color>
 
 
     <!-- Edit Text Boxes -->
@@ -13,6 +13,8 @@
     <color name="editTextLight">#FFFFFF</color>
     <color name="editTextDark">	#606060</color>
 
+
+    <color name="profileBackground">#FFFFFF</color>
 
 
 </resources>

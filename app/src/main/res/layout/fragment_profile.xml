@@ -2,9 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/editTextBackground">
+    android:background="@color/profileBackground"
+    >
 
     <!-- Profile Image -->
     <ImageView
@@ -12,7 +13,10 @@
         android:layout_width="150dp"
         android:layout_height="140dp"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="25dp"/>
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

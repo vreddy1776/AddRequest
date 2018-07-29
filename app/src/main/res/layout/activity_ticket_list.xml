@@ -9,15 +9,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- TicketList Fragment -->
         <FrameLayout android:id="@+id/profile_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!-- TicketList Fragment -->
-        <FrameLayout android:id="@+id/ticketlist_fragment_container"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <FrameLayout android:id="@+id/ticketlist_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gradient_top"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/gradient_bottom"
+                android:layout_gravity="bottom"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 

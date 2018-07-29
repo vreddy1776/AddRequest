@@ -466,25 +466,6 @@ public class AddTicketActivity extends AppCompatActivity{
             videoDeleteButton.setVisibility(View.VISIBLE);
             initializePlayer();
 
-            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-            StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
-            StorageReference localVideoRef = firebaseVideoRef.child(videoUri.getLastPathSegment());
-            localVideoRef.putFile(videoUri)
-                    .addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            Log.d(TAG,"download URL:  " + downloadUrl);
-                            mTicketVideoInternetUrl = downloadUrl.toString();
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("Tickets");
-                            myRef.child(String.valueOf(mTicketId)).child("mTicketVideoInternetUrl").setValue(mTicketVideoInternetUrl);
-
-                        }
-                    });
-
-
-
         }
 
     }

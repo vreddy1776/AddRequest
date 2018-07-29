@@ -15,6 +15,7 @@ import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.Utils.GlobalConstants;
+import com.example.android.addrequest.Utils.Name;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -125,7 +126,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.userProfilePicView);
 
-        holder.userNameTextView.setText(userName);
+        holder.userNameTextView.setText(Name.getFirstName(userName));
 
     }
 

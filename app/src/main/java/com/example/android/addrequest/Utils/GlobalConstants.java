@@ -9,7 +9,7 @@ public class GlobalConstants {
     public static final String TICKET_TYPE_KEY = "TicketType";
 
 
-    // Database Child Names
+    // Database Child Name
     public static final String CHILD_NAME_TICKETS = "Tickets";
     public static final String CHILD_NAME_MESSAGES = "Messages";
 

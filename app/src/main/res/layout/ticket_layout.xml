@@ -21,25 +21,29 @@
         tools:context="com.example.android.addrequest.MVVM.Main.MainActivity">
 
         <LinearLayout
+            android:id="@+id/mainLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="80dp"
-                android:layout_height="wrap_content">
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp">
 
                 <ImageView
                     android:id="@+id/ticketUserProfilePic"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:paddingLeft="14dp"/>
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"/>
                 <TextView
                     android:id="@+id/ticketUserNameText"
-                    android:layout_width="match_parent"
+                    android:layout_width="70dp"
                     android:layout_height="24dp"
+                    android:textAlignment="center"
                     android:textColor="@android:color/primary_text_light"
-                    android:layout_below="@id/ticketUserProfilePic"/>
+                    android:layout_below="@id/ticketUserProfilePic"
+                    android:layout_gravity="bottom"/>
 
             </RelativeLayout>
 
@@ -49,8 +53,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="12dp">
+                android:orientation="vertical">
 
                 <!-- TextView that displays the title -->
                 <TextView
@@ -91,12 +94,9 @@
             <!-- Shows video thumbnail if present -->
             <ImageView
                 android:id="@+id/videoThumbnail"
-                android:layout_toRightOf="@id/ticketInfo"
-                android:layout_centerVertical="true"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:layout_toEndOf="@id/ticketInfo"
-                android:paddingTop="5dp"/>
+                android:layout_gravity="center_vertical"/>
 
 
         </LinearLayout>

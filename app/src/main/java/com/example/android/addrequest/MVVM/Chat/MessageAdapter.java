@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
+import com.example.android.addrequest.Utils.Name;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
             photoImageView.setVisibility(View.GONE);
             messageTextView.setText(message.getText());
         }
-        authorTextView.setText(message.getName());
+        authorTextView.setText(Name.getFirstName(message.getName()));
         Glide.with(getContext())
                 .load(UserProfileSettings.getUserPhotoURL(getContext()))
                 .apply(RequestOptions.circleCropTransform())

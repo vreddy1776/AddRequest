@@ -37,7 +37,8 @@
             android:layout_weight="0"
             android:textAppearance="?android:attr/textAppearanceSmall"
             tools:text="Name"
-            android:layout_toRightOf="@id/messageProfilePic"/>
+            android:layout_toRightOf="@id/messageProfilePic"
+            android:layout_marginLeft="5dp"/>
 
     </RelativeLayout>
 

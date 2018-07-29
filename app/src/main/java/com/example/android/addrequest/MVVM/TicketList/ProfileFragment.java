@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.addrequest.R;
 import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
+import com.example.android.addrequest.Utils.Name;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,8 +32,11 @@ public class ProfileFragment extends Fragment {
         // Inflate the Android-Me fragment layout
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        TextView userNameText = rootView.findViewById(R.id.mainUserNameText);
-        userNameText.setText(UserProfileSettings.getUsername(getContext()));
+        TextView firstNameText = rootView.findViewById(R.id.firstNameText);
+        firstNameText.setText(UserProfileSettings.getFirstname(getContext()));
+
+        TextView lastNameText = rootView.findViewById(R.id.lastNameText);
+        lastNameText.setText(UserProfileSettings.getLastname(getContext()));
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();

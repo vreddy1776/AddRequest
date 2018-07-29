@@ -5,6 +5,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/activity_horizontal_margin"
               android:layout_marginStart="@dimen/activity_horizontal_margin"
+              android:paddingTop="20dp"
               android:orientation="vertical">
 
     <ImageView
@@ -19,11 +20,19 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Message" />
+        tools:text="Message"
+        android:background="@drawable/rounded_rectangle"
+        android:textSize="14sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp">
 
         <ImageView
             android:id="@+id/messageProfilePic"

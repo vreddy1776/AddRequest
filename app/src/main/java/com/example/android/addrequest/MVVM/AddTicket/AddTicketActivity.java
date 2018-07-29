@@ -335,8 +335,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
-
-        releasePlayer();
         streamVideo.setVisibility(View.INVISIBLE);
         videoDeleteButton.setVisibility(View.INVISIBLE);
 
@@ -418,7 +416,6 @@ public class AddTicketActivity extends AppCompatActivity{
         mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-        releasePlayer();
         streamVideo.setVisibility(View.INVISIBLE);
         videoDeleteButton.setVisibility(View.INVISIBLE);
     }
@@ -526,8 +523,10 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         });
 
+        /*
         simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+        */
 
     }
 

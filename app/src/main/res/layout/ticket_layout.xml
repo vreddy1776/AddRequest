@@ -1,94 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?><!-- This linear layout contains a single item displayed in the MainActivity -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.addrequest.MVVM.Main.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="8dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="8dp"
-    tools:context="com.example.android.addrequest.MVVM.Main.MainActivity">
+    android:background="@drawable/rounded_rectangle"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="8dp"
+        tools:context="com.example.android.addrequest.MVVM.Main.MainActivity">
 
-        <RelativeLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ticketUserProfilePic"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:paddingLeft="14dp"/>
-            <TextView
-                android:id="@+id/ticketUserNameText"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:textColor="@android:color/primary_text_light"
-                android:layout_below="@id/ticketUserProfilePic"/>
-
-        </RelativeLayout>
-
-        <!-- Shows ticket info -->
         <LinearLayout
-            android:id="@+id/ticketInfo"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="12dp">
+            android:orientation="horizontal">
 
-            <!-- TextView that displays the title -->
-            <TextView
-                android:id="@+id/ticketTitle"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light"
-                android:maxLines="1"
-                tools:text="Title"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:paddingTop="8dp"/>
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="wrap_content">
 
-            <!-- TextView that displays the description -->
-            <TextView
-                android:id="@+id/ticketDescription"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textColor="@android:color/primary_text_light"
-                android:textSize="14sp"
-                tools:text="Description"/>
+                <ImageView
+                    android:id="@+id/ticketUserProfilePic"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:paddingLeft="14dp"/>
+                <TextView
+                    android:id="@+id/ticketUserNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:textColor="@android:color/primary_text_light"
+                    android:layout_below="@id/ticketUserProfilePic"/>
 
-            <!-- TextView that displays the update date -->
-            <TextView
-                android:id="@+id/ticketUpdatedAt"
-                style="@style/TextAppearance.AppCompat.Small"
-                android:layout_width="match_parent"
+            </RelativeLayout>
+
+            <!-- Shows ticket info -->
+            <LinearLayout
+                android:id="@+id/ticketInfo"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                tools:text="11/11/1111"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="9dp"/>
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="12dp">
+
+                <!-- TextView that displays the title -->
+                <TextView
+                    android:id="@+id/ticketTitle"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/primary_text_light"
+                    android:maxLines="1"
+                    tools:text="Title"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:paddingTop="8dp"/>
+
+                <!-- TextView that displays the description -->
+                <TextView
+                    android:id="@+id/ticketDescription"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="14sp"
+                    tools:text="Description"/>
+
+                <!-- TextView that displays the update date -->
+                <TextView
+                    android:id="@+id/ticketUpdatedAt"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="11/11/1111"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="9dp"/>
+
+            </LinearLayout>
+
+            <!-- Shows video thumbnail if present -->
+            <ImageView
+                android:id="@+id/videoThumbnail"
+                android:layout_toRightOf="@id/ticketInfo"
+                android:layout_centerVertical="true"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_toEndOf="@id/ticketInfo"
+                android:paddingTop="5dp"/>
+
 
         </LinearLayout>
 
-        <!-- Shows video thumbnail if present -->
-        <ImageView
-            android:id="@+id/videoThumbnail"
-            android:layout_toRightOf="@id/ticketInfo"
-            android:layout_centerVertical="true"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_toEndOf="@id/ticketInfo"
-            android:paddingTop="5dp"/>
-
-
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

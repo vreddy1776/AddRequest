@@ -96,13 +96,29 @@
 
     </FrameLayout>
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/stream_video"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/editTextTicketDescriptionWrapper"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/stream_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/videoDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:background="@color/colorAccent"
+            android:tint="@android:color/white"
+            app:srcCompat="@android:drawable/ic_delete"
+            android:onClick="onVideoDeleteButtonClicked"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

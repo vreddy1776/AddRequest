@@ -130,7 +130,7 @@ public class AddTicketViewModel extends AndroidViewModel {
             });
 
         } else {
-            
+
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("Tickets");
             final FirebaseDbTicket ticket = new FirebaseDbTicket(

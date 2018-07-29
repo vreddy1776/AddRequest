@@ -83,6 +83,7 @@ public class AddTicketActivity extends AppCompatActivity{
     // Buttons
     Button saveButton;
     ImageView videoButton;
+    ImageView videoDeleteButton;
     ImageButton chatButton;
 
 
@@ -212,13 +213,20 @@ public class AddTicketActivity extends AppCompatActivity{
                     if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoInternetUrl);
                         streamVideo.setVisibility(View.VISIBLE);
+                        if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
+                            videoDeleteButton.setVisibility(View.VISIBLE);
+                        }
                         initializePlayer();
                     } else if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoLocalUri);
                         streamVideo.setVisibility(View.VISIBLE);
+                        if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
+                            videoDeleteButton.setVisibility(View.VISIBLE);
+                        }
                         initializePlayer();
                     } else if(mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)) {
                         streamVideo.setVisibility(View.INVISIBLE);
+                        videoDeleteButton.setVisibility(View.INVISIBLE);
                     } else{
                         // do nothing
                     }
@@ -269,6 +277,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mDescriptionText = findViewById(R.id.editTextTicketDescription);
         saveButton = findViewById(R.id.saveButton);
         videoButton = findViewById(R.id.videoButton);
+        videoDeleteButton = findViewById(R.id.videoDelete);
         streamVideo = findViewById(R.id.stream_video);
         chatButton = findViewById(R.id.chatButton);
 
@@ -304,6 +313,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mDescriptionText.setText(mTicketDescription);
 
         streamVideo.setVisibility(View.INVISIBLE);
+        videoDeleteButton.setVisibility(View.INVISIBLE);
 
 
     }
@@ -379,6 +389,14 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
 
+    public void onVideoDeleteButtonClicked(View view){
+        mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
+        mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
+        mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        streamVideo.setVisibility(View.INVISIBLE);
+        videoDeleteButton.setVisibility(View.INVISIBLE);
+    }
+
 
     /**
      * Start Camera Intent when video button is clicked.
@@ -445,6 +463,7 @@ public class AddTicketActivity extends AppCompatActivity{
             mTicketVideoLocalUri = videoUri.toString();
 
             streamVideo.setVisibility(View.VISIBLE);
+            videoDeleteButton.setVisibility(View.VISIBLE);
             initializePlayer();
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

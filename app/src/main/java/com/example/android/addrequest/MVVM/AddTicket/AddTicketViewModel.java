@@ -74,6 +74,7 @@ public class AddTicketViewModel extends AndroidViewModel {
             final String ticketDate,
             final String ticketVideoPostId,
             final String ticketVideoLocalUri,
+            final String ticketVideoInternetUrl,
             final String userId,
             final String userName,
             final String userPhotoUrl){
@@ -101,6 +102,7 @@ public class AddTicketViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    String ticketVideoPostId = GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID;
                     String ticketVideoInternetUrl;
 
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();;
@@ -128,9 +130,7 @@ public class AddTicketViewModel extends AndroidViewModel {
             });
 
         } else {
-
-            String ticketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-
+            
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("Tickets");
             final FirebaseDbTicket ticket = new FirebaseDbTicket(

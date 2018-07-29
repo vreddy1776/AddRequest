@@ -27,6 +27,8 @@ public class GlobalConstants {
 
     // Video Id's
     public static final String VIDEO_CREATED_TICKET_VIDEO_POST_ID = "video_created";
+    public static final String VIDEO_EXISTS_TICKET_VIDEO_POST_ID = "video_exists";
+
 
     // Fragment Tags
     public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";

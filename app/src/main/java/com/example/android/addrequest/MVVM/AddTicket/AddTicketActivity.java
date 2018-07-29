@@ -142,8 +142,8 @@ public class AddTicketActivity extends AppCompatActivity{
         Notifications.clearAllNotifications(this);
 
         receiveTicketID();
-        setupViewModelFactory();
         initViews();
+        setupViewModelFactory();
 
 
         if(savedInstanceState == null){
@@ -208,11 +208,19 @@ public class AddTicketActivity extends AppCompatActivity{
                     mTitleText.setText(mTicketTitle);
                     mDescriptionText.setText(mTicketDescription);
 
-                    if( (mTicketVideoInternetUrl != null) &&
-                            !mTicketVideoInternetUrl.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL)){
+
+                    if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoInternetUrl);
                         streamVideo.setVisibility(View.VISIBLE);
                         initializePlayer();
+                    } else if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+                        videoUri = Uri.parse(mTicketVideoLocalUri);
+                        streamVideo.setVisibility(View.VISIBLE);
+                        initializePlayer();
+                    } else if(mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)) {
+                        streamVideo.setVisibility(View.INVISIBLE);
+                    } else{
+                        // do nothing
                     }
 
                 }
@@ -291,10 +299,12 @@ public class AddTicketActivity extends AppCompatActivity{
             //do nothing
         }
 
+
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
 
         streamVideo.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -347,6 +357,7 @@ public class AddTicketActivity extends AppCompatActivity{
         String ticketDate = mTicketDate;
         String ticketVideoPostId = mTicketVideoPostId;
         String ticketVideoLocalUri = mTicketVideoLocalUri;
+        String ticketVideoInternetUrl = mTicketVideoInternetUrl;
         String userId = mUserId;
         String userName = mUserName;
         String userPhotoUrl = mUserPhotoUrl;
@@ -358,6 +369,7 @@ public class AddTicketActivity extends AppCompatActivity{
                 ticketDate,
                 ticketVideoPostId,
                 ticketVideoLocalUri,
+                ticketVideoInternetUrl,
                 userId,
                 userName,
                 userPhotoUrl);

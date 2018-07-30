@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle(R.string.main_activity_name);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         firebaseAuthWithGoogle();

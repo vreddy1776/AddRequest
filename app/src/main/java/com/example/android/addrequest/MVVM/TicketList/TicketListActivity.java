@@ -115,7 +115,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_USER);
 
-        //fabButton.setVisibility(View.INVISIBLE);
         openProfile();
 
         ticketType = GlobalConstants.UPDATE_TICKET_TYPE;
@@ -131,7 +130,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
 
-        //fabButton.setVisibility(View.VISIBLE);
         closeProfile();
 
         ticketType = GlobalConstants.VIEW_TICKET_TYPE;

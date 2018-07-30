@@ -174,8 +174,11 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         UserProfileSettings.setUserProfileAtLogout(this);
         AuthUI.getInstance().signOut(this);
 
-        Intent addTicketIntent = new Intent(TicketListActivity.this, MainActivity.class);
-        startActivity(addTicketIntent);
+        Intent intent = new Intent(TicketListActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+        finish();
 
     }
 
@@ -202,6 +205,12 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     public void swipeTicket(int ticketId){
         viewModel.deleteTicket(ticketId);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //do nothing
     }
 
 }

@@ -5,8 +5,8 @@
     <string name="main_activity_name">AddRequest</string>
     <string name="add_ticket_activity_name">Request</string>
     <string name="login_activity_name">Login</string>
-    <string name="ticket_list_activity_name">Request List</string>
-    <string name="profile_activity_name">My Profile</string>
+    <string name="ticket_list_activity_name">All Requests</string>
+    <string name="profile_activity_name">View / Edit / Delete </string>
 
 
     <!-- Strings for Button Texts -->
@@ -41,6 +41,8 @@
     <string name="default_userphotourl">no_photo</string>
     <string name="sign_out">Sign Out</string>
     <string name="ticket_list">All Requests</string>
+    <string name="my_requests">My Requests</string>
+
 
     <!-- Strings for Chat -->
     <string name="send_button_label">Send</string>

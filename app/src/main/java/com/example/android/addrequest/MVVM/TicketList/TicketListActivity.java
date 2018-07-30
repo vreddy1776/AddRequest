@@ -89,7 +89,6 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.all_tickets_menu).setVisible(false);
         menu.findItem(R.id.user_name_menu).setVisible(true);
-        menu.findItem(R.id.user_name_menu).setTitle(UserProfileSettings.getUsername(this));
         return true;
     }
     @Override
@@ -112,6 +111,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
     private void setProfileMode(){
 
+        getSupportActionBar().setTitle(R.string.profile_activity_name);
+
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_USER);
 
         //fabButton.setVisibility(View.INVISIBLE);
@@ -125,6 +126,8 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
 
 
     private void setAllTicketsMode(){
+
+        getSupportActionBar().setTitle(R.string.ticket_list_activity_name);
 
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
 

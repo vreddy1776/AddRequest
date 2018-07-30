@@ -19,6 +19,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.HashMap;
+
 import io.fabric.sdk.android.Fabric;
 
 import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
@@ -98,15 +100,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void gotoTicketList(){
 
+        final String userId = mFirebaseAuth.getCurrentUser().getUid();
+        final String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
+        final String userPhotoUrl = mFirebaseAuth.getCurrentUser().getPhotoUrl().toString();
+
         UserProfileSettings.setUserProfileAtLogin(this,
-                mFirebaseAuth.getCurrentUser().getUid(),
-                mFirebaseAuth.getCurrentUser().getDisplayName(),
-                mFirebaseAuth.getCurrentUser().getPhotoUrl().toString());
+                userId,
+                userName,
+                userPhotoUrl);
+
+        Appsee.addEvent("User Sign-In", new HashMap<String, Object>() {{
+            put("User Id", userId);
+            put("User Name", userName);
+        }});
 
         startService(new Intent(this, FirebaseDbListenerService.class));
 
         Intent intent = new Intent(MainActivity.this, TicketListActivity.class);
         startActivity(intent);
+
     }
 
 

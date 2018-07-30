@@ -1,11 +1,16 @@
 package com.example.android.addrequest.MVVM.Main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.appsee.Appsee;
@@ -34,16 +39,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        Appsee.start(getString(R.string.com_appsee_apikey));
         setContentView(R.layout.activity_main);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        setupActionBar();
 
+        Fabric.with(this, new Crashlytics());
+        Appsee.start(getString(R.string.com_appsee_apikey));
+        mFirebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthWithGoogle();
 
     }
 
+
+    private void setupActionBar(){
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimary));
+        }
+
+    }
 
 
     private void firebaseAuthWithGoogle() {

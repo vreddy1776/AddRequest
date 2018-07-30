@@ -61,4 +61,5 @@
     <!-- userPhotoUrl           -->  <string name="default_user_photo_id">no_photo_url</string>
 
 
+    <string name="com.appsee.apikey" translatable="false">79d52404afe84abb9ac8d54e658c2a67</string>
 </resources>

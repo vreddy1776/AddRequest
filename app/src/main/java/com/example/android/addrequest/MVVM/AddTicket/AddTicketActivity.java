@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
 
+import com.appsee.Appsee;
 import com.example.android.addrequest.Database.TicketEntry;
 import com.example.android.addrequest.MVVM.Chat.ChatActivity;
 import com.example.android.addrequest.Notification.Notifications;
@@ -60,6 +61,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class AddTicketActivity extends AppCompatActivity{
@@ -395,7 +397,6 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     public void onSaveButtonClicked() {
 
-
         String title = mTitleText.getText().toString();
         if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
             mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
@@ -419,16 +420,32 @@ public class AddTicketActivity extends AppCompatActivity{
         mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
 
 
-        int ticketId = mTicketId;
-        String ticketTitle = mTicketTitle;
+        final int ticketId = mTicketId;
+        final String ticketTitle = mTicketTitle;
         String ticketDescription = mTicketDescription;
         String ticketDate = mTicketDate;
         String ticketVideoPostId = mTicketVideoPostId;
         String ticketVideoLocalUri = mTicketVideoLocalUri;
         String ticketVideoInternetUrl = mTicketVideoInternetUrl;
-        String userId = mUserId;
-        String userName = mUserName;
+        final String userId = mUserId;
+        final String userName = mUserName;
         String userPhotoUrl = mUserPhotoUrl;
+
+        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
+            Appsee.addEvent("Ticket Added", new HashMap<String, Object>() {{
+                put("User Id", userId);
+                put("User Name", userName);
+                put("Ticket Id",ticketId);
+                put("Ticket Title",ticketTitle);
+            }});
+        } else {
+            Appsee.addEvent("Ticket Updated", new HashMap<String, Object>() {{
+                put("User Id", userId);
+                put("User Name", userName);
+                put("Ticket Id",ticketId);
+                put("Ticket Title",ticketTitle);
+            }});
+        }
 
         viewModel.addTicket(
                 ticketId,

@@ -187,6 +187,7 @@ public class TicketListActivity extends AppCompatActivity implements  TicketAdap
     @Override
     public void onItemClickListener(int itemId) {
 
+
         Intent intent = new Intent(this, AddTicketActivity.class);
         intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
         intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, ticketType);

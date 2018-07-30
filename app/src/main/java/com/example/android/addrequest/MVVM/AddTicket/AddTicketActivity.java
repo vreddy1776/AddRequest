@@ -259,6 +259,10 @@ public class AddTicketActivity extends AppCompatActivity{
                         // do nothing
                     }
 
+                } else {
+                    videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
+                    videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_add_video) );
+                    videoButton.setEnabled(true);
                 }
                     
             }

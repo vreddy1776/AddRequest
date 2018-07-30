@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -80,6 +81,7 @@ public class AddTicketActivity extends AppCompatActivity{
     EditText mTitleText;
     EditText mDescriptionText;
 
+    FrameLayout videoWrapper;
     FrameLayout streamVideo;
 
     // Buttons
@@ -238,6 +240,16 @@ public class AddTicketActivity extends AppCompatActivity{
                     } else if(mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)) {
                         streamVideo.setVisibility(View.INVISIBLE);
                         videoDeleteButton.setVisibility(View.INVISIBLE);
+                        videoButton.setVisibility(View.VISIBLE);
+                        if (mTicketType == GlobalConstants.VIEW_TICKET_TYPE){
+                            videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.solid_border) );
+                            videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_no_video) );
+                            videoButton.setEnabled(false);
+                        } else {
+                            videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
+                            videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_add_video) );
+                            videoButton.setEnabled(true);
+                        }
                     } else{
                         // do nothing
                     }
@@ -302,6 +314,7 @@ public class AddTicketActivity extends AppCompatActivity{
         saveButton = findViewById(R.id.saveButton);
         videoButton = findViewById(R.id.videoButton);
         videoDeleteButton = findViewById(R.id.videoDelete);
+        videoWrapper = findViewById(R.id.videoWrapper);
         streamVideo = findViewById(R.id.stream_video);
         chatButton = findViewById(R.id.chatButton);
 

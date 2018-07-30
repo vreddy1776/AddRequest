@@ -226,6 +226,7 @@ public class AddTicketActivity extends AppCompatActivity{
                     if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoInternetUrl);
                         streamVideo.setVisibility(View.VISIBLE);
+                        videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
                         if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
                             videoDeleteButton.setVisibility(View.VISIBLE);
                         }
@@ -233,6 +234,7 @@ public class AddTicketActivity extends AppCompatActivity{
                     } else if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoLocalUri);
                         streamVideo.setVisibility(View.VISIBLE);
+                        videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
                         if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
                             videoDeleteButton.setVisibility(View.VISIBLE);
                         }
@@ -349,6 +351,8 @@ public class AddTicketActivity extends AppCompatActivity{
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
         streamVideo.setVisibility(View.INVISIBLE);
+        videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.solid_border) );
+
         videoDeleteButton.setVisibility(View.INVISIBLE);
 
 
@@ -430,6 +434,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
         streamVideo.setVisibility(View.INVISIBLE);
+        videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
         videoDeleteButton.setVisibility(View.INVISIBLE);
     }
 
@@ -495,6 +500,7 @@ public class AddTicketActivity extends AppCompatActivity{
             mTicketVideoLocalUri = videoUri.toString();
 
             streamVideo.setVisibility(View.VISIBLE);
+            videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
             videoDeleteButton.setVisibility(View.VISIBLE);
             initializePlayer();
 

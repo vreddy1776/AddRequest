@@ -106,20 +106,20 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.ticketDescriptionView.setText(ticketDescription);
         holder.ticketDateView.setText(ticketDate);
 
-        /*
+
         if(ticketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)){
             holder.ticketVideoThumbnailView.setVisibility(View.INVISIBLE);
         } else {
-        */
             holder.ticketVideoThumbnailView.setVisibility(View.VISIBLE);
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.isMemoryCacheable();
-            Log.d(TAG,"url:  " + ticketVideoInternetUrl);
+            Log.d(TAG, "url:  " + ticketVideoInternetUrl);
             Glide.with(mContext)
                     .load(ticketVideoInternetUrl)
                     .thumbnail(0.1f)
                     .into(holder.ticketVideoThumbnailView);
-        //}
+        }
+
 
         Glide.with(mContext)
                 .load(userPhotoUrl)

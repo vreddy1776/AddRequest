@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -60,6 +61,8 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mTicketId;
+    private String mTicketTitle;
+
 
 
 
@@ -70,6 +73,10 @@ public class ChatActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         mTicketId = intent.getStringExtra(GlobalConstants.TICKET_ID_KEY);
+        mTicketTitle = intent.getStringExtra(GlobalConstants.TICKET_TITLE_KEY);
+
+
+        getSupportActionBar().setTitle(mTicketTitle);
 
         mUsername = ANONYMOUS;
 
@@ -192,24 +199,6 @@ public class ChatActivity extends AppCompatActivity {
         }
         mMessageAdapter.clear();
         detachDatabaseReadListener();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sign_out_menu:
-                AuthUI.getInstance().signOut(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void onSignedInInitialize(String username) {

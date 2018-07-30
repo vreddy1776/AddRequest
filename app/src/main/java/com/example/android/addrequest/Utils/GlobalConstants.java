@@ -6,6 +6,7 @@ public class GlobalConstants {
 
     // Intent Keys
     public static final String TICKET_ID_KEY = "TicketId";
+    public static final String TICKET_TITLE_KEY = "TicketTitle";
     public static final String TICKET_TYPE_KEY = "TicketType";
 
 

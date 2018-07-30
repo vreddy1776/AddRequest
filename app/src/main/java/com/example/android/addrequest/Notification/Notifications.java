@@ -96,7 +96,7 @@ public class Notifications {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Action drinkWaterAction = new Action(R.drawable.ic_launcher_foreground,
-                "Open Request",
+                "View Your Request",
                 pendingIntent);
 
         return drinkWaterAction;

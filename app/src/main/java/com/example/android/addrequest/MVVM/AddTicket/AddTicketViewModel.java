@@ -149,7 +149,6 @@ public class AddTicketViewModel extends AndroidViewModel {
                 @Override
                 public void run() {
                     myRef.child(String.valueOf(ticketId)).setValue(ticket);
-                    Notifications.ticketPostedNotification(context,ticketId);
                 }
             });
 

@@ -24,8 +24,8 @@
 
     <!-- Strings for Notifications and Toasts -->
     <string name="main_notification_channel_name">Primary</string>
-    <string name="notification_title">Request Added</string>
-    <string name="notification_body">Your request has been added!</string>
+    <string name="notification_title">Request received!</string>
+    <string name="notification_body">Your video upload request has been received by AddRequest</string>
 
     <!-- Strings for Facebook Login -->
     <string name="facebook_app_id">288678245030695</string>

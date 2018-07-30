@@ -3,7 +3,7 @@
     <corners android:radius="5dp" />
     <solid android:color="@android:color/transparent" />
     <stroke
-        android:color="@color/editTextBackground"
+        android:color="@color/main_foreground"
         android:dashWidth="20px"
         android:dashGap="10px"
         android:width="3dp"/>

@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.support.v7.widget.Toolbar;
 
 import com.appsee.Appsee;
 import com.example.android.addrequest.Database.TicketEntry;
@@ -35,7 +34,6 @@ import com.example.android.addrequest.SharedPreferences.UserProfileSettings;
 import com.example.android.addrequest.Utils.DateTime;
 import com.example.android.addrequest.Utils.GlobalConstants;
 import com.example.android.addrequest.Utils.ID;
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -45,7 +43,6 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -53,12 +50,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -231,7 +222,7 @@ public class AddTicketActivity extends AppCompatActivity{
                     if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoInternetUrl);
                         streamVideo.setVisibility(View.VISIBLE);
-                        videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
+                        videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
                         if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
                             videoDeleteButton.setVisibility(View.VISIBLE);
                         }
@@ -239,7 +230,7 @@ public class AddTicketActivity extends AppCompatActivity{
                     } else if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
                         videoUri = Uri.parse(mTicketVideoLocalUri);
                         streamVideo.setVisibility(View.VISIBLE);
-                        videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
+                        videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
                         if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
                             videoDeleteButton.setVisibility(View.VISIBLE);
                         }
@@ -249,12 +240,12 @@ public class AddTicketActivity extends AppCompatActivity{
                         videoDeleteButton.setVisibility(View.INVISIBLE);
                         videoButton.setVisibility(View.VISIBLE);
                         if (mTicketType == GlobalConstants.VIEW_TICKET_TYPE){
-                            videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.solid_border) );
-                            videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_no_video) );
+                            videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.solid_border) );
+                            videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_no_video) );
                             videoButton.setEnabled(false);
                         } else {
-                            videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
-                            videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_add_video) );
+                            videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
+                            videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
                             videoButton.setEnabled(true);
                         }
                     } else{
@@ -262,8 +253,8 @@ public class AddTicketActivity extends AppCompatActivity{
                     }
 
                 } else {
-                    videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
-                    videoButton.setBackground( (Drawable) getResources().getDrawable(R.drawable.ic_add_video) );
+                    videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
+                    videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
                     videoButton.setEnabled(true);
                 }
                     
@@ -360,7 +351,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
         streamVideo.setVisibility(View.INVISIBLE);
-        videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.solid_border) );
+        videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.solid_border) );
 
         videoDeleteButton.setVisibility(View.INVISIBLE);
 
@@ -469,7 +460,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
         streamVideo.setVisibility(View.INVISIBLE);
-        videoWrapper.setBackground( (Drawable) getResources().getDrawable(R.drawable.dash_border) );
+        videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
         videoDeleteButton.setVisibility(View.INVISIBLE);
     }
 
@@ -535,7 +526,7 @@ public class AddTicketActivity extends AppCompatActivity{
             mTicketVideoLocalUri = videoUri.toString();
 
             streamVideo.setVisibility(View.VISIBLE);
-            videoWrapper.setBackgroundColor(getResources().getColor(R.color.videoBackground));
+            videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
             videoDeleteButton.setVisibility(View.VISIBLE);
             initializePlayer();
 

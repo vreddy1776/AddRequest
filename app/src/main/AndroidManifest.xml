@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.addrequest">
+
+    <!-- Network Access -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Read and Write Files -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <!-- App -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- The manifest entry for the MainActivity -->
+        <activity
+            android:name=".MVVM.Main.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- LoginActivity -->
+        <activity
+            android:name="com.example.android.addrequest.MVVM.Chat.ChatActivity"
+            android:label="@string/app_name" />
+
+        <!-- LoginActivity -->
+        <activity
+            android:name="com.example.android.addrequest.MVVM.Login.LoginActivity"
+            android:label="@string/login_activity_name" />
+
+        <!-- TicketListActivity -->
+        <activity
+            android:name="com.example.android.addrequest.MVVM.TicketList.TicketListActivity"
+            android:label="@string/ticket_list_activity_name" />
+
+        <!-- AddTicketActivity -->
+        <activity
+            android:name=".MVVM.AddTicket.AddTicketActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <!-- VideoActivity -->
+        <activity
+            android:name="com.example.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity" />
+
+        <!-- AWS S3 bucket access permission -->
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <!-- FirebaseDbListener Service -->
+        <service
+            android:name=".Services.FirebaseDbListenerService"
+            android:enabled="true" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1f315c4d2a277d95f70f9787211b4eefa3de8ff0" />
+    </application>
+
+</manifest>

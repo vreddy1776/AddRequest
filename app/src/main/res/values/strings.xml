@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Strings for Activity Name -->
+    <string name="app_name">AddRequest</string>
+    <string name="main_activity_name">AddRequest</string>
+    <string name="add_ticket_activity_name">Request</string>
+    <string name="login_activity_name">Login</string>
+    <string name="ticket_list_activity_name">All Requests</string>
+    <string name="profile_activity_name">View / Edit / Delete </string>
+
+
+    <!-- Strings for Button Texts -->
+    <string name="add_button">Submit</string>
+    <string name="update_button">Update</string>
+    <string name="video_button">Video</string>
+    <string name="start_button">Lets get started!</string>
+    <string name="loading_button">Loading video…</string>
+
+
+
+    <!-- Strings for AddTicketActivity -->
+    <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
+    <string name="edit_ticket_description">Describe your request&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
+
+    <!-- Strings for Notifications and Toasts -->
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="notification_title">Request received!</string>
+    <string name="notification_body">Your video upload request has been received by AddRequest</string>
+
+    <!-- Strings for Facebook Login -->
+    <string name="facebook_app_id">288678245030695</string>
+    <string name="fb_login_protocol_scheme">fb288678245030695</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="cancel_login">Se canceló la operación</string>
+    <string name="error_login">Ocurrió un error al ingresar</string>
+    <string name="logout">Cerrar sesión</string>
+
+    <!-- Strings for Menu & Login Items -->
+    <string name="default_userid">no_user_id</string>
+    <string name="default_username">no name</string>
+    <string name="default_userphotourl">no_photo</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="ticket_list">All Requests</string>
+    <string name="my_requests">My Requests</string>
+
+
+    <!-- Strings for Chat -->
+    <string name="send_button_label">Send</string>
+
+
+
+    <!-- DEFAULT TICKET VALUES  -->
+    <!-- ticketTitle            -->  <string name="default_ticket_title"> -- no title -- </string>
+    <!-- ticketDescription      -->  <string name="default_ticket_description"> -- no description -- </string>
+    <!-- ticketDate             -->  <string name="default_ticket_date">Sun Jan 01 00:00:01 CDT 0001</string>
+    <!-- ticketVideoPostId      -->  <string name="default_ticket_video_post_id">-1</string>
+    <!-- ticketVideoLocalUri    -->  <string name="default_ticket_video_local_uri">no_video_local_uri</string>
+    <!-- ticketVideoInternetUrl -->  <string name="default_ticket_video_internet_url">no_video_internet_url</string>
+    <!-- userId                 -->  <string name="default_user_id">no_user_id</string>
+    <!-- userName               -->  <string name="default_user_name">anonymous</string>
+    <!-- userPhotoUrl           -->  <string name="default_user_photo_id">no_photo_url</string>
+
+
+    <string name="com.appsee.apikey" translatable="false">79d52404afe84abb9ac8d54e658c2a67</string>
+</resources>

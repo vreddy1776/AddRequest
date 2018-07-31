@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editTextTicketTitle"
+                android:layout_width="171dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:hint="@string/edit_ticket_title"
+                android:maxLines="1"
+                android:textColor="@color/editTextLight"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="0dp"/>
+
+            <ImageButton
+                android:id="@+id/chatButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toLeftOf="@id/saveButton"
+                android:layout_centerVertical="true"
+                android:background="@drawable/nav_chat"
+                android:onClick="goToChat"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/saveButton"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="73dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="@string/add_button"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/videoWrapper"
+        android:background="@drawable/dash_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@id/editTextTicketDescriptionWrapper"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/videoButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_add_video"/>
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/stream_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/videoDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:background="@color/colorAccent"
+            android:tint="@android:color/white"
+            app:srcCompat="@android:drawable/ic_delete"
+            android:onClick="onVideoDeleteButtonClicked"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/editTextTicketDescriptionWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/half_rounded_rectangle"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
+
+        <EditText
+            android:id="@+id/editTextTicketDescription"
+            style="@style/TextInputStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="@string/edit_ticket_description"
+            android:textSize="14sp"
+            android:background="@null" />
+
+    </FrameLayout>
+
+</RelativeLayout>

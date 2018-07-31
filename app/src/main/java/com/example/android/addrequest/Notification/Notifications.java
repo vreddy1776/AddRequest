@@ -95,11 +95,11 @@ public class Notifications {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Action drinkWaterAction = new Action(R.drawable.ic_launcher_foreground,
+        Action action = new Action(R.drawable.ic_launcher_foreground,
                 "View Your Request",
                 pendingIntent);
 
-        return drinkWaterAction;
+        return action;
 
     }
 
@@ -113,7 +113,7 @@ public class Notifications {
 
     private static Bitmap largeIcon(Context context) {
         Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_launcher_background);
+        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_launcher_foreground);
         return largeIcon;
     }
 }

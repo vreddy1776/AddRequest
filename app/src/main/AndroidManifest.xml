@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.addrequest">
+    package="project.files.android.addrequest">
 
     <!-- Network Access -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -22,7 +22,7 @@
 
         <!-- The manifest entry for the MainActivity -->
         <activity
-            android:name=".MVVM.Main.MainActivity"
+            android:name="project.files.android.addrequest.MVVM.Main.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">
             <intent-filter>
@@ -33,27 +33,27 @@
 
         <!-- LoginActivity -->
         <activity
-            android:name="com.example.android.addrequest.MVVM.Chat.ChatActivity"
+            android:name="project.files.android.addrequest.MVVM.Chat.ChatActivity"
             android:label="@string/app_name" />
 
         <!-- LoginActivity -->
         <activity
-            android:name="com.example.android.addrequest.MVVM.Login.LoginActivity"
+            android:name="project.files.android.addrequest.MVVM.Login.LoginActivity"
             android:label="@string/login_activity_name" />
 
         <!-- TicketListActivity -->
         <activity
-            android:name="com.example.android.addrequest.MVVM.TicketList.TicketListActivity"
+            android:name="project.files.android.addrequest.MVVM.TicketList.TicketListActivity"
             android:label="@string/ticket_list_activity_name" />
 
         <!-- AddTicketActivity -->
         <activity
-            android:name=".MVVM.AddTicket.AddTicketActivity"
+            android:name="project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <!-- VideoActivity -->
         <activity
-            android:name="com.example.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity" />
+            android:name="project.files.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity" />
 
         <!-- AWS S3 bucket access permission -->
         <service
@@ -62,7 +62,7 @@
 
         <!-- FirebaseDbListener Service -->
         <service
-            android:name=".Services.FirebaseDbListenerService"
+            android:name="project.files.android.addrequest.Services.FirebaseDbListenerService"
             android:enabled="true" />
 
         <meta-data

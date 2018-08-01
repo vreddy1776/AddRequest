@@ -1,4 +1,4 @@
-package project.files.android.addrequest.UtilsTests;
+package project.files.android.addrequest;
 
 import junit.framework.Assert;
 

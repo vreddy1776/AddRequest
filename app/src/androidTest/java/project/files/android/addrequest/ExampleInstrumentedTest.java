@@ -1,4 +1,4 @@
-package com.example.android.addrequest;
+package project.files.android.addrequest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.android.addrequest", appContext.getPackageName());
+        assertEquals("project.files.android.addrequest", appContext.getPackageName());
     }
 }

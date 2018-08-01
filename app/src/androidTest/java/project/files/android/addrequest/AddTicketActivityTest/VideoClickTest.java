@@ -1,4 +1,4 @@
-package com.example.android.addrequest.AddTicketActivityTest;
+package project.files.android.addrequest.AddTicketActivityTest;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -7,9 +7,6 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import com.example.android.addrequest.R;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,6 +14,9 @@ import org.junit.runner.RunWith;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
+import project.files.android.addrequest.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

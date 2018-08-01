@@ -1,4 +1,4 @@
-package com.example.android.addrequest;
+package files.example.android.addrequest;
 
 import org.junit.Test;
 

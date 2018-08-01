@@ -1,4 +1,4 @@
-package com.example.android.addrequest.TicketListActivity;
+package project.files.android.addrequest.TicketListActivity;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -7,14 +7,14 @@ import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import com.example.android.addrequest.MVVM.TicketList.TicketListActivity;
-import com.example.android.addrequest.R;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
+import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
+import project.files.android.addrequest.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

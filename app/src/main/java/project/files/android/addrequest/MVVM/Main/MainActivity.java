@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    // 1st commit after refactoring from com.example to project.files
+    // 2nd commit after refactoring from com.example to project.files
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    //  Rebasing back to origin:master (remote / GitHub) from master (local / Android Studio)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

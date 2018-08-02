@@ -37,6 +37,10 @@ android {
     }
     productFlavors {
     }
+
+    testOptions.unitTests.includeAndroidResources true
+
+
 }
 
 dependencies {
@@ -116,6 +120,12 @@ dependencies {
 
     // required if you want to use Mockito for unit tests
     testCompile 'org.mockito:mockito-core:2.7.22'
+
+    // use robolectric when testing
+    testCompile 'org.robolectric:robolectric:3.7.1'
+    testImplementation "org.robolectric:multidex:3.4.2"
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

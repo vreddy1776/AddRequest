@@ -9,7 +9,7 @@ import project.files.android.addrequest.Utils.Name;
 import static org.junit.Assert.assertEquals;
 
 
-public class NameTest {
+public class NameUnitTest {
 
     private String mFullName = "John Robert Edwards";
 

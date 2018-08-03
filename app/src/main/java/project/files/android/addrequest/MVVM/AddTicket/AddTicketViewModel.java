@@ -72,7 +72,8 @@ public class AddTicketViewModel extends AndroidViewModel {
             final String ticketVideoInternetUrl,
             final String userId,
             final String userName,
-            final String userPhotoUrl){
+            final String userPhotoUrl,
+            final int ticketType){
 
         Log.d(TAG,"ticketVideoPostId:  " + ticketVideoPostId);
 
@@ -104,9 +105,10 @@ public class AddTicketViewModel extends AndroidViewModel {
                     Log.d(TAG,"download URL:  " + downloadUrl);
                     ticketVideoInternetUrl = downloadUrl.toString();
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("Tickets");
-                    FirebaseDbTicket ticket = new FirebaseDbTicket(
+                    FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
+                    final DatabaseReference myRef = fBdatabase.getReference("Tickets");
+
+                    final TicketEntry ticketEntry = new TicketEntry(
                             ticketId,
                             ticketTitle,
                             ticketDescription,
@@ -117,9 +119,44 @@ public class AddTicketViewModel extends AndroidViewModel {
                             userId,
                             userName,
                             userPhotoUrl);
-                    myRef.child(String.valueOf(ticketId)).setValue(ticket);
-                    Notifications.ticketPostedNotification(context,ticketId);
 
+                    final FirebaseDbTicket fBticket = new FirebaseDbTicket(
+                            ticketId,
+                            ticketTitle,
+                            ticketDescription,
+                            ticketDate,
+                            ticketVideoPostId,
+                            ticketVideoLocalUri,
+                            ticketVideoInternetUrl,
+                            userId,
+                            userName,
+                            userPhotoUrl);
+
+
+                    if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
+                        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.ticketDao().insertTicket(ticketEntry);
+                            }
+                        });
+                    } else {
+                        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.ticketDao().updateTicket(ticketEntry);
+                            }
+                        });
+                    }
+
+                    AppExecuters.getInstance().networkIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            myRef.child(String.valueOf(ticketId)).setValue(fBticket);
+                        }
+                    });
+
+                    Notifications.ticketPostedNotification(context,ticketId);
 
                 }
             });
@@ -153,14 +190,23 @@ public class AddTicketViewModel extends AndroidViewModel {
                     userName,
                     userPhotoUrl);
 
-            AppExecuters.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    database.ticketDao().insertTicket(ticketEntry);
-                }
-            });
+            if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
+                AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.ticketDao().insertTicket(ticketEntry);
+                    }
+                });
+            } else {
+                AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.ticketDao().updateTicket(ticketEntry);
+                    }
+                });
+            }
 
-            AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            AppExecuters.getInstance().networkIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     myRef.child(String.valueOf(ticketId)).setValue(fBTicket);

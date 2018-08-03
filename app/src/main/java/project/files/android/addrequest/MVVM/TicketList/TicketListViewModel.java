@@ -13,6 +13,7 @@ import java.util.List;
 
 import project.files.android.addrequest.Adapter.TicketAdapter;
 import project.files.android.addrequest.Database.AppDatabase;
+import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
@@ -62,10 +63,23 @@ public class TicketListViewModel extends AndroidViewModel {
     }
 
 
-    public void deleteTicket(int ticketId){
+    public void deleteTicket(final int ticketId){
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("Tickets").child(String.valueOf(ticketId)).removeValue();
+        final FirebaseDatabase FbDatabase = FirebaseDatabase.getInstance();
+
+        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.ticketDao().deleteTicketById(ticketId);
+            }
+        });
+
+        AppExecuters.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                FbDatabase.getReference("Tickets").child(String.valueOf(ticketId)).removeValue();
+            }
+        });
 
     }
 

@@ -49,10 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public boolean ticketExists(int ticketId){
 
         Cursor cursor = sInstance.query("SELECT * FROM ticket WHERE ticketId = " + ticketId,null);
-        Log.d("Cursor: ","Cursor: " + cursor);
-
         int cursorCount = cursor.getCount();
-        Log.d("Cursor Count: ","Cursor Count : " + cursorCount);
 
         if( cursorCount == 0){
             return false;

@@ -198,6 +198,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
+        viewModel.setup(this,mTicketId);
         ticketLiveData = viewModel.getTicket();
         ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override

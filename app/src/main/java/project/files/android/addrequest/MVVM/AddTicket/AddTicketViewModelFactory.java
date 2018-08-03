@@ -22,7 +22,7 @@ public class AddTicketViewModelFactory extends ViewModelProvider.NewInstanceFact
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new AddTicketViewModel(mApplication, mTicketId);
+        return (T) new AddTicketViewModel();
     }
 
 

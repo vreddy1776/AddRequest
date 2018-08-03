@@ -382,7 +382,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
 
-
     
     /**
      * Add or update entry when SAVE button is clicked.

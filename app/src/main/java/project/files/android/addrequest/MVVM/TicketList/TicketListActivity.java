@@ -82,7 +82,6 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.all_tickets_menu).setVisible(false);
         menu.findItem(R.id.user_name_menu).setVisible(true);
-        menu.findItem(R.id.sign_out_menu).setTitle(R.string.sign_out);
         return true;
     }
     @Override

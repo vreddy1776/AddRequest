@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import project.files.android.addrequest.Utils.DateTime;
@@ -43,5 +44,23 @@ public abstract class AppDatabase extends RoomDatabase {
 
     /** Create TicketDao object. */
     public abstract TicketDao ticketDao();
+
+
+    public boolean ticketExists(int ticketId){
+
+        Cursor cursor = sInstance.query("SELECT * FROM ticket WHERE ticketId = " + ticketId,null);
+        Log.d("Cursor: ","Cursor: " + cursor);
+
+        int cursorCount = cursor.getCount();
+        Log.d("Cursor Count: ","Cursor Count : " + cursorCount);
+
+        if( cursorCount == 0){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 
 }

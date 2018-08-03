@@ -126,9 +126,22 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         } else {
 
-            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference myRef = database.getReference("Tickets");
-            final FirebaseDbTicket ticket = new FirebaseDbTicket(
+            final FirebaseDatabase fBDatabase = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = fBDatabase.getReference("Tickets");
+
+            final TicketEntry ticketEntry = new TicketEntry(
+                    ticketId,
+                    ticketTitle,
+                    ticketDescription,
+                    ticketDate,
+                    ticketVideoPostId,
+                    ticketVideoLocalUri,
+                    ticketVideoInternetUrl,
+                    userId,
+                    userName,
+                    userPhotoUrl);
+
+            final FirebaseDbTicket fBTicket = new FirebaseDbTicket(
                     ticketId,
                     ticketTitle,
                     ticketDescription,
@@ -143,7 +156,14 @@ public class AddTicketViewModel extends AndroidViewModel {
             AppExecuters.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    myRef.child(String.valueOf(ticketId)).setValue(ticket);
+                    database.ticketDao().insertTicket(ticketEntry);
+                }
+            });
+
+            AppExecuters.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    myRef.child(String.valueOf(ticketId)).setValue(fBTicket);
                 }
             });
 

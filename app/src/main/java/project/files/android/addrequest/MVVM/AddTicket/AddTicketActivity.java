@@ -448,7 +448,8 @@ public class AddTicketActivity extends AppCompatActivity{
                 ticketVideoInternetUrl,
                 userId,
                 userName,
-                userPhotoUrl);
+                userPhotoUrl,
+                mTicketType);
 
         finish();
 

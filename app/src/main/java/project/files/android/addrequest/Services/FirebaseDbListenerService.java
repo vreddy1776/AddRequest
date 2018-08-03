@@ -83,10 +83,8 @@ public class FirebaseDbListenerService extends Service {
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());
 
-                    boolean sd = database.ticketExists(ticket.getTicketId());
-
-
-                    if( !UserProfileSettings.getUserID(getApplicationContext()).equals(ticket.getUserId()) ){
+                    final int ticketId = firebaseDbTicket.getTicketId();
+                    if( !database.ticketExists(ticketId) ){
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -113,12 +111,17 @@ public class FirebaseDbListenerService extends Service {
                             firebaseDbTicket.getUserName(),
                             firebaseDbTicket.getUserPhotoUrl());
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            database.ticketDao().updateTicket(ticket);
-                        }
-                    }).start();
+                    final int ticketId = firebaseDbTicket.getTicketId();
+                    final String userId = firebaseDbTicket.getUserId();
+
+                    if( (database.ticketExists(ticketId)) && (!userId.equals(UserProfileSettings.getUserID(getApplicationContext()))) ){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.ticketDao().updateTicket(ticket);
+                            }
+                        }).start();
+                    }
 
                 }
 
@@ -128,12 +131,14 @@ public class FirebaseDbListenerService extends Service {
                     FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
                     final int ticketId = firebaseDbTicket.getTicketId();
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            database.ticketDao().deleteTicketById(ticketId);
-                        }
-                    }).start();
+                    if( database.ticketExists(ticketId) ){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                database.ticketDao().deleteTicketById(ticketId);
+                            }
+                        }).start();
+                    }
 
                 }
 

@@ -2,6 +2,7 @@ package project.files.android.addrequest.IntegrationTests;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import org.junit.Rule;
@@ -34,13 +35,27 @@ import static org.robolectric.Shadows.shadowOf;
 public class AddTicketActivityTest {
 
     @Test
-    public void clickingLogin_shouldStartLoginActivity() {
+    public void clickingFAB_shouldStartAddTicketActivity() {
         TicketListActivity activity = Robolectric.setupActivity(TicketListActivity.class);
         activity.findViewById(R.id.fab).performClick();
 
         Intent expectedIntent = new Intent(activity, AddTicketActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
+    }
+
+    @Test
+    public void clickingPhotoButton_shouldStartCamera() {
+        ActivityController controller = Robolectric.buildActivity(AddTicketActivity.class).create().start();
+        //Activity activity = (Activity) controller.get();
+        /*
+        activity.findViewById(R.id.videoButton).performClick();
+
+        Intent expectedIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        */
+
     }
 
 }

@@ -3,6 +3,7 @@ package project.files.android.addrequest.MVVM.AddTicket;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -22,7 +23,7 @@ import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
-public class AddTicketViewModel extends AndroidViewModel {
+public class AddTicketViewModel extends ViewModel {
 
 
     /**
@@ -43,12 +44,19 @@ public class AddTicketViewModel extends AndroidViewModel {
      * Constructor where you call loadTicketById of the ticketDao to initialize the tickets variable.
      * Note: The constructor receives the database and the ticketId
      */
+    /*
     public AddTicketViewModel(Application application, int ticketId) {
         super(application);
         database = AppDatabase.getInstance(this.getApplication());
         loadTicket(ticketId);
 
     }
+    */
+    public void setup(Context context, int ticketId){
+        database = AppDatabase.getInstance(context);
+        loadTicket(ticketId);
+    }
+
 
 
     /**
@@ -77,7 +85,7 @@ public class AddTicketViewModel extends AndroidViewModel {
 
         Log.d(TAG,"ticketVideoPostId:  " + ticketVideoPostId);
 
-        final Context context = this.getApplication();
+        //final Context context = this.getApplication();
 
         if (ticketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
@@ -156,7 +164,7 @@ public class AddTicketViewModel extends AndroidViewModel {
                         }
                     });
 
-                    Notifications.ticketPostedNotification(context,ticketId);
+                    //Notifications.ticketPostedNotification(context,ticketId);
 
                 }
             });

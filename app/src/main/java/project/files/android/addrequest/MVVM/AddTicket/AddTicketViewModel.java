@@ -70,26 +70,15 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Add ticket.
      */
-    public void addTicket(
-            final int ticketId,
-            final String ticketTitle,
-            final String ticketDescription,
-            final String ticketDate,
-            final String ticketVideoPostId,
-            final String ticketVideoLocalUri,
-            final String ticketVideoInternetUrl,
-            final String userId,
-            final String userName,
-            final String userPhotoUrl,
-            final int ticketType){
+    public void addTicket(final TicketEntry ticket, final int ticketType){
 
-        Log.d(TAG,"ticketVideoPostId:  " + ticketVideoPostId);
+        //Log.d(TAG,"ticketVideoPostId:  " + ticketVideoPostId);
 
         //final Context context = this.getApplication();
 
-        if (ticketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+        if (ticket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
-            Uri capturedVideoUri = Uri.parse(ticketVideoLocalUri);
+            Uri capturedVideoUri = Uri.parse(ticket.getTicketVideoLocalUri());
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
@@ -107,15 +96,19 @@ public class AddTicketViewModel extends ViewModel {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     String ticketVideoPostId = GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID;
+                    ticket.setTicketVideoPostId(ticketVideoPostId);
+
                     String ticketVideoInternetUrl;
 
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();;
                     Log.d(TAG,"download URL:  " + downloadUrl);
                     ticketVideoInternetUrl = downloadUrl.toString();
+                    ticket.setTicketVideoInternetUrl(ticketVideoInternetUrl);
 
                     FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
                     final DatabaseReference myRef = fBdatabase.getReference("Tickets");
 
+                    /*
                     final TicketEntry ticketEntry = new TicketEntry(
                             ticketId,
                             ticketTitle,
@@ -127,7 +120,11 @@ public class AddTicketViewModel extends ViewModel {
                             userId,
                             userName,
                             userPhotoUrl);
+                            */
 
+                    final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
+
+                    /*
                     final FirebaseDbTicket fBticket = new FirebaseDbTicket(
                             ticketId,
                             ticketTitle,
@@ -139,20 +136,21 @@ public class AddTicketViewModel extends ViewModel {
                             userId,
                             userName,
                             userPhotoUrl);
+                            */
 
 
                     if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
                         AppExecuters.getInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
-                                database.ticketDao().insertTicket(ticketEntry);
+                                database.ticketDao().insertTicket(ticket);
                             }
                         });
                     } else {
                         AppExecuters.getInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
-                                database.ticketDao().updateTicket(ticketEntry);
+                                database.ticketDao().updateTicket(ticket);
                             }
                         });
                     }
@@ -160,7 +158,7 @@ public class AddTicketViewModel extends ViewModel {
                     AppExecuters.getInstance().networkIO().execute(new Runnable() {
                         @Override
                         public void run() {
-                            myRef.child(String.valueOf(ticketId)).setValue(fBticket);
+                            myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
                         }
                     });
 
@@ -174,6 +172,7 @@ public class AddTicketViewModel extends ViewModel {
             final FirebaseDatabase fBDatabase = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = fBDatabase.getReference("Tickets");
 
+            /*
             final TicketEntry ticketEntry = new TicketEntry(
                     ticketId,
                     ticketTitle,
@@ -185,7 +184,11 @@ public class AddTicketViewModel extends ViewModel {
                     userId,
                     userName,
                     userPhotoUrl);
+                    */
 
+            final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
+
+            /*
             final FirebaseDbTicket fBTicket = new FirebaseDbTicket(
                     ticketId,
                     ticketTitle,
@@ -197,19 +200,20 @@ public class AddTicketViewModel extends ViewModel {
                     userId,
                     userName,
                     userPhotoUrl);
+                    */
 
             if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
                 AppExecuters.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        database.ticketDao().insertTicket(ticketEntry);
+                        database.ticketDao().insertTicket(ticket);
                     }
                 });
             } else {
                 AppExecuters.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        database.ticketDao().updateTicket(ticketEntry);
+                        database.ticketDao().updateTicket(ticket);
                     }
                 });
             }
@@ -217,7 +221,7 @@ public class AddTicketViewModel extends ViewModel {
             AppExecuters.getInstance().networkIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    myRef.child(String.valueOf(ticketId)).setValue(fBTicket);
+                    myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
                 }
             });
 
@@ -235,6 +239,24 @@ public class AddTicketViewModel extends ViewModel {
         return ticket;
     }
 
+
+    private FirebaseDbTicket createFirebaseTicket(TicketEntry ticket){
+
+        FirebaseDbTicket fBTicket = new FirebaseDbTicket(
+                ticket.getTicketId(),
+                ticket.getTicketTitle(),
+                ticket.getTicketDescription(),
+                ticket.getTicketDate(),
+                ticket.getTicketVideoPostId(),
+                ticket.getTicketVideoLocalUri(),
+                ticket.getTicketVideoInternetUrl(),
+                ticket.getUserId(),
+                ticket.getUserName(),
+                ticket.getUserPhotoUrl());
+
+        return fBTicket;
+
+    }
 
 
 }

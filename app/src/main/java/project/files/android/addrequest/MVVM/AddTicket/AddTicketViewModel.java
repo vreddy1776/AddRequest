@@ -30,7 +30,7 @@ public class AddTicketViewModel extends ViewModel {
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
 
     // RequestsDO member variable for the TicketEntry object wrapped in a LiveData.
-    private LiveData<TicketEntry> ticket;
+    private LiveData<TicketEntry> mLiveDataTicket;
 
     // Initialize mAppDatabase
     private AppDatabase mAppDatabase;
@@ -42,28 +42,36 @@ public class AddTicketViewModel extends ViewModel {
      */
     public void setup(Context context, int ticketId){
         mAppDatabase = AppDatabase.getInstance(context);
-        loadTicket(ticketId);
+        loadLiveDataTicket(ticketId);
     }
 
 
     /**
-     * Getter for the ticket variable.
+     * Load LiveDataTicket.
      */
-    public LiveData<TicketEntry> getTicket() {
-        return ticket;
+    private void loadLiveDataTicket(int ticketId){
+        mLiveDataTicket = mAppDatabase.ticketDao().loadTicketById(ticketId);
     }
 
 
     /**
-     * Load ticket.
+     * Getter for LiveDataTicket.
      */
-    private void loadTicket(int ticketId){
-        ticket = mAppDatabase.ticketDao().loadTicketById(ticketId);
+    public LiveData<TicketEntry> getLiveDataTicket() {
+        return mLiveDataTicket;
     }
 
 
     /**
-     * Getter for the ticket variable.
+     * Setter for LiveDataTicket.
+     */
+    public void setLiveDataTicket(LiveData<TicketEntry> liveDataTicket) {
+        mLiveDataTicket = liveDataTicket;
+    }
+
+
+    /**
+     * Getter for AppDatabase.
      */
     public AppDatabase getAppDatabase() {
         return mAppDatabase;
@@ -71,7 +79,7 @@ public class AddTicketViewModel extends ViewModel {
 
 
     /**
-     * Getter for the ticket variable.
+     * Setter for AppDatabase.
      */
     public void setAppDatabase(AppDatabase appDatabase) {
         this.mAppDatabase =  appDatabase;
@@ -79,10 +87,11 @@ public class AddTicketViewModel extends ViewModel {
 
 
     /**
-     * Add ticket.
+     * Add ticket depending on video upload presence.
      */
     public void addTicket(final TicketEntry ticket, final int ticketType){
 
+        // Video Present
         if (ticket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -109,14 +118,18 @@ public class AddTicketViewModel extends ViewModel {
                     //Notifications.ticketPostedNotification(context,ticketId);
                 }
             });
+
+        // No video present
         } else {
 
             addTicketToDb(ticket, ticketType);
         }
-
     }
 
 
+    /**
+     * Calls two threads - one for adding ticket to local DB other to remote DB.
+     */
     private void addTicketToDb(final TicketEntry ticket, final int ticketType){
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
@@ -134,6 +147,9 @@ public class AddTicketViewModel extends ViewModel {
     }
 
 
+    /**
+     * Adds ticket to local (SQLlite) DB.
+     */
     public void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
 
         if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
@@ -144,6 +160,9 @@ public class AddTicketViewModel extends ViewModel {
     }
 
 
+    /**
+     * Adds ticket to remote (Firebase) DB.
+     */
     private void addTicketToFirebaseDb(final TicketEntry ticket, int ticketType){
 
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
@@ -152,7 +171,9 @@ public class AddTicketViewModel extends ViewModel {
         myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
     }
 
-
+    /**
+     * Converts local Ticket object to Firebase ticket object to prep for upload to Firebase DB.
+     */
     private FirebaseDbTicket createFirebaseTicket(TicketEntry ticket){
 
         FirebaseDbTicket fBTicket = new FirebaseDbTicket(

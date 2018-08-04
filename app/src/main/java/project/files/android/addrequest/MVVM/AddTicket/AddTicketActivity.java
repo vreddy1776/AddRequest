@@ -439,6 +439,19 @@ public class AddTicketActivity extends AppCompatActivity{
             }});
         }
 
+        TicketEntry ticket = new TicketEntry(
+                ticketId,
+                ticketTitle,
+                ticketDescription,
+                ticketDate,
+                ticketVideoPostId,
+                ticketVideoLocalUri,
+                ticketVideoInternetUrl,
+                userId,
+                userName,
+                userPhotoUrl);
+
+        /*
         viewModel.addTicket(
                 ticketId,
                 ticketTitle,
@@ -451,6 +464,9 @@ public class AddTicketActivity extends AppCompatActivity{
                 userName,
                 userPhotoUrl,
                 mTicketType);
+                */
+
+        viewModel.addTicket(ticket,mTicketType);
 
         finish();
 

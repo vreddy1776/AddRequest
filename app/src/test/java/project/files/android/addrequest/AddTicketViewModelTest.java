@@ -19,7 +19,7 @@ public class AddTicketViewModelTest {
     private AddNoteContract.View mAddNoteView;
     */
 
-    AddTicketViewModel mAddTicketViewModel;
+    private AddTicketViewModel mAddTicketViewModel;
 
     /*
     @Before
@@ -38,6 +38,9 @@ public class AddTicketViewModelTest {
     @Test
     public void saveNoteToRepository_showsSuccessMessageUi() {
 
+        mAddTicketViewModel = new AddTicketViewModel();
+
+
         mAddTicketViewModel.addTicket(
                         104601350,
                 "Test Ticket Title",
@@ -50,6 +53,7 @@ public class AddTicketViewModelTest {
                 "Bob Smith",
                 "http://testurl.com",
                 GlobalConstants.ADD_TICKET_TYPE);
+
 
         //Mockito.verify(mAddTicketViewModel.getTicket()).set("dummy text");
 

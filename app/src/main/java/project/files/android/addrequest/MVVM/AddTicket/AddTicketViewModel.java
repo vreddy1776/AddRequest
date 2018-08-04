@@ -105,29 +105,29 @@ public class AddTicketViewModel extends ViewModel {
     }
 
 
-    private void addTicketToDb(final TicketEntry ticket, int ticketType){
+    private void addTicketToDb(final TicketEntry ticket, final int ticketType){
 
-        addTicketToLocalDb(ticket,ticketType);
-        addTicketToFirebaseDb(ticket,ticketType);
+        AppExecuters.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                addTicketToLocalDb(ticket,ticketType);
+            }
+        });
+        AppExecuters.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                addTicketToFirebaseDb(ticket,ticketType);
+            }
+        });
     }
 
 
-    private void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
+    public void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
 
         if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
-            AppExecuters.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    database.ticketDao().insertTicket(ticket);
-                }
-            });
+            database.ticketDao().insertTicket(ticket);
         } else {
-            AppExecuters.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    database.ticketDao().updateTicket(ticket);
-                }
-            });
+            database.ticketDao().updateTicket(ticket);
         }
     }
 
@@ -137,13 +137,7 @@ public class AddTicketViewModel extends ViewModel {
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = fBdatabase.getReference("Tickets");
         final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
-
-        AppExecuters.getInstance().networkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
-            }
-        });
+        myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
     }
 
 

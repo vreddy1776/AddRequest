@@ -1,13 +1,10 @@
 package project.files.android.addrequest.MVVM.AddTicket;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,7 +17,6 @@ import com.google.firebase.storage.UploadTask;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 public class AddTicketViewModel extends ViewModel {
@@ -36,16 +32,16 @@ public class AddTicketViewModel extends ViewModel {
     // RequestsDO member variable for the TicketEntry object wrapped in a LiveData.
     private LiveData<TicketEntry> ticket;
 
-    // Initialize database
-    private AppDatabase database;
+    // Initialize mAppDatabase
+    private AppDatabase mAppDatabase;
 
 
     /**
      * Constructor where you call loadTicketById of the ticketDao to initialize the tickets variable.
-     * Note: The constructor receives the database and the ticketId
+     * Note: The constructor receives the mAppDatabase and the ticketId
      */
     public void setup(Context context, int ticketId){
-        database = AppDatabase.getInstance(context);
+        mAppDatabase = AppDatabase.getInstance(context);
         loadTicket(ticketId);
     }
 
@@ -62,7 +58,23 @@ public class AddTicketViewModel extends ViewModel {
      * Load ticket.
      */
     private void loadTicket(int ticketId){
-        ticket = database.ticketDao().loadTicketById(ticketId);
+        ticket = mAppDatabase.ticketDao().loadTicketById(ticketId);
+    }
+
+
+    /**
+     * Getter for the ticket variable.
+     */
+    public AppDatabase getAppDatabase() {
+        return mAppDatabase;
+    }
+
+
+    /**
+     * Getter for the ticket variable.
+     */
+    public void setAppDatabase(AppDatabase appDatabase) {
+        this.mAppDatabase =  appDatabase;
     }
 
 
@@ -125,9 +137,9 @@ public class AddTicketViewModel extends ViewModel {
     public void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
 
         if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
-            database.ticketDao().insertTicket(ticket);
+            mAppDatabase.ticketDao().insertTicket(ticket);
         } else {
-            database.ticketDao().updateTicket(ticket);
+            mAppDatabase.ticketDao().updateTicket(ticket);
         }
     }
 

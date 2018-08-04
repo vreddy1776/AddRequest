@@ -120,12 +120,23 @@ dependencies {
 
     // required if you want to use Mockito for unit tests
     testCompile 'org.mockito:mockito-core:2.7.22'
+    androidTestImplementation "org.mockito:mockito-android:2.11.0"
+
 
     // use robolectric when testing
     testCompile 'org.robolectric:robolectric:3.7.1'
     testImplementation "org.robolectric:multidex:3.4.2"
     testCompile 'com.squareup.assertj:assertj-android:1.1.0'
 
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.0.0"
+
+    // Test helpers for Room
+    testImplementation "android.arch.persistence.room:testing:1.0.0"
+    testCompile 'com.android.support.test:runner:0.2'
+
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
 
 
 }

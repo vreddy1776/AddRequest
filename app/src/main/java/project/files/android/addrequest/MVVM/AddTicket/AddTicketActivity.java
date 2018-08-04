@@ -199,7 +199,7 @@ public class AddTicketActivity extends AppCompatActivity{
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
         viewModel.setup(this,mTicketId);
-        ticketLiveData = viewModel.getmLiveDataTicket();
+        ticketLiveData = viewModel.getLiveDataTicket();
         ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override
             public void onChanged(@Nullable TicketEntry ticketEntry) {

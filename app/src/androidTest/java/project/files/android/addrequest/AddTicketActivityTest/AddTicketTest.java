@@ -72,26 +72,21 @@ public class AddTicketTest {
 
     @Test
     public void addTicketToTicketList() throws Exception {
-        String newNoteTitle =
-                StringGenerator.randomString(3) +
-                "-Title-" +
-                StringGenerator.randomString(3);
-        String newNoteDescription =
-                StringGenerator.randomString(5) +
-                "-Description-" +
-                StringGenerator.randomString(5);
+
+        String newTitle = StringGenerator.randomTitle();
+        String newDescription = StringGenerator.randomDescription();
 
         onView(withId(R.id.fab)).perform(click());
 
-        onView(withId(R.id.editTextTicketTitle)).perform(typeText(newNoteTitle), closeSoftKeyboard());
-        onView(withId(R.id.editTextTicketDescription)).perform(typeText(newNoteDescription),
+        onView(withId(R.id.editTextTicketTitle)).perform(typeText(newTitle), closeSoftKeyboard());
+        onView(withId(R.id.editTextTicketDescription)).perform(typeText(newDescription),
                 closeSoftKeyboard());
 
         onView(withId(R.id.saveButton)).perform(click());
         onView(withId(R.id.recyclerViewTickets)).perform(
-                scrollTo(hasDescendant(withText(newNoteDescription))));
+                scrollTo(hasDescendant(withText(newDescription))));
 
-        onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));
+        onView(withItemText(newDescription)).check(matches(isDisplayed()));
 
     }
 

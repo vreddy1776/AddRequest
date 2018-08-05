@@ -13,6 +13,7 @@ import android.view.View;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,8 +68,8 @@ public class UpdateTicketTest {
             TicketListActivity.class);
 
 
-    @Test
-    public void clickItem_opensAddTicketUi() throws Exception {
+    @Before
+    public void clickItem_opensAddTicketUi(){
 
         try {
             onView(withId(R.id.user_name_menu)).perform(click());
@@ -79,8 +80,6 @@ public class UpdateTicketTest {
 
         onView(withId(R.id.recyclerViewTickets)).perform
                 (RecyclerViewActions.actionOnItemAtPosition(2, click()));
-
-        onView(withId(R.id.editTextTicketTitle)).check(matches(isDisplayed()));
     }
 
 
@@ -90,24 +89,13 @@ public class UpdateTicketTest {
         String newTitle = StringGenerator.randomTitle();
         String newDescription = StringGenerator.randomDescription();
 
-        try {
-            onView(withId(R.id.user_name_menu)).perform(click());
-        } catch (NoMatchingViewException e) {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText(R.string.my_requests)).perform(click());
-        }
-
-        onView(withId(R.id.recyclerViewTickets)).perform
-                (RecyclerViewActions.actionOnItemAtPosition(2, click()));
-
         onView(withId(R.id.editTextTicketTitle)).perform(clearText(), typeText(newTitle), closeSoftKeyboard());
         onView(withId(R.id.editTextTicketDescription)).perform(clearText(), typeText(newDescription),
                 closeSoftKeyboard());
-
         onView(withId(R.id.saveButton)).perform(click());
+
         onView(withId(R.id.recyclerViewTickets)).perform(
                 scrollTo(hasDescendant(withText(newDescription))));
-
         onView(withItemText(newDescription)).check(matches(isDisplayed()));
 
     }

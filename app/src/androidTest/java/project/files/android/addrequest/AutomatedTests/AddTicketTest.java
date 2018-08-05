@@ -10,6 +10,7 @@ import android.view.View;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,11 +63,10 @@ public class AddTicketTest {
             TicketListActivity.class);
 
 
-    @Test
-    public void clickFab_opensAddTicketUi() throws Exception {
+    @Before
+    public void clickFab_opensAddTicketUi() {
 
         onView(withId(R.id.fab)).perform(click());
-        onView(withId(R.id.editTextTicketTitle)).check(matches(isDisplayed()));
     }
 
 
@@ -76,16 +76,13 @@ public class AddTicketTest {
         String newTitle = StringGenerator.randomTitle();
         String newDescription = StringGenerator.randomDescription();
 
-        onView(withId(R.id.fab)).perform(click());
-
         onView(withId(R.id.editTextTicketTitle)).perform(typeText(newTitle), closeSoftKeyboard());
         onView(withId(R.id.editTextTicketDescription)).perform(typeText(newDescription),
                 closeSoftKeyboard());
-
         onView(withId(R.id.saveButton)).perform(click());
+
         onView(withId(R.id.recyclerViewTickets)).perform(
                 scrollTo(hasDescendant(withText(newDescription))));
-
         onView(withItemText(newDescription)).check(matches(isDisplayed()));
 
     }

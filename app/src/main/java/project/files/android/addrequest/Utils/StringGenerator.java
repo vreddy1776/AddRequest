@@ -16,4 +16,26 @@ public class StringGenerator {
         return randomStringBuilder.toString();
     }
 
+
+    public static String randomTitle(){
+
+        String newTitle =
+                StringGenerator.randomString(3) +
+                        "-Title-" +
+                        StringGenerator.randomString(3);
+
+        return newTitle;
+    }
+
+
+    public static String randomDescription(){
+
+        String newDescription =
+                StringGenerator.randomString(5) +
+                        "-Description-" +
+                        StringGenerator.randomString(5);
+
+        return newDescription;
+    }
+
 }

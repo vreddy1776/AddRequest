@@ -513,6 +513,14 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
 
+    public AddTicketViewModel getViewModel() {
+        return viewModel;
+    }
+
+    public int getTicketId() {
+        return mTicketId;
+    }
+
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
         intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );

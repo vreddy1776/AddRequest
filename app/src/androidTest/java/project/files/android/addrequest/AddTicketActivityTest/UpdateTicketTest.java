@@ -2,7 +2,7 @@ package project.files.android.addrequest.AddTicketActivityTest;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -27,10 +27,11 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(AndroidJUnit4.class)
-public class AddTicketTest {
+public class UpdateTicketTest {
 
     private static final String STRING_TO_BE_TYPED = "Light won't turn on!";
     private AddTicketActivity mAddTicketActivity;
+    private TicketListActivity mTicketListActivity;
 
     @Rule
     public ActivityTestRule mTicketListActivityRule = new ActivityTestRule<>(
@@ -41,23 +42,36 @@ public class AddTicketTest {
     @Rule
     public ActivityTestRule mAddTicketActivityRule = new ActivityTestRule<>(
             AddTicketActivity.class,
-            true,    // initialTouchMode
-            false);  // launchActivity. False to set intent.
+            true,
+            false);
 
     @Before
     public void intentToActivity() {
 
+        Intent intent = new Intent();
+        mTicketListActivityRule.launchActivity(intent);
 
+        mTicketListActivity = (TicketListActivity) mTicketListActivityRule.getActivity();
+
+        //mTicketListActivity.onItemClickListener();
+
+        /*
         Intent intent = new Intent();
         intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.ADD_TICKET_TYPE);
         mAddTicketActivityRule.launchActivity(intent);
 
         mAddTicketActivity = (AddTicketActivity) mAddTicketActivityRule.getActivity();
+        */
+
     }
 
     @Test
-    public void addTicket() {
+    public void updateTicket() {
 
+        onView(withId(R.id.recyclerViewTickets)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+
+        /*
         onView(withId(R.id.editTextTicketTitle))
                 .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
 
@@ -76,6 +90,7 @@ public class AddTicketTest {
 
         String expectedTicketTitle = STRING_TO_BE_TYPED;
         assertEquals(expectedTicketTitle,actualTicketTitle);
+        */
 
     }
 

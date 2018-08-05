@@ -46,6 +46,7 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.Date;
 import java.util.HashMap;
 
+import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.MVVM.Chat.ChatActivity;
 import project.files.android.addrequest.Notification.Notifications;
@@ -132,8 +133,6 @@ public class AddTicketActivity extends AppCompatActivity{
     private String mUserId = GlobalConstants.DEFAULT_USER_ID;
     private String mUserName = GlobalConstants.DEFAULT_USER_NAME;
     private String mUserPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
-
-
 
 
 
@@ -389,55 +388,25 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     public void onSaveButtonClicked() {
 
-        String title = mTitleText.getText().toString();
-        if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
-            mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
-        } else {
-            mTicketTitle = title;
-        }
-
-
-        String description = mDescriptionText.getText().toString();
-        if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
-            mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
-        } else {
-            mTicketDescription = description;
-        }
-
-
-
-        mTicketDate = DateTime.dateToString(new Date());
-        mUserId = UserProfileSettings.getUserID(this);
-        mUserName = UserProfileSettings.getUsername(this);
-        mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
-
+        setTitleDescription();
+        setOtherTicketValues();
 
         final int ticketId = mTicketId;
         final String ticketTitle = mTicketTitle;
-        String ticketDescription = mTicketDescription;
-        String ticketDate = mTicketDate;
-        String ticketVideoPostId = mTicketVideoPostId;
-        String ticketVideoLocalUri = mTicketVideoLocalUri;
-        String ticketVideoInternetUrl = mTicketVideoInternetUrl;
+        final String ticketDescription = mTicketDescription;
+        final String ticketDate = mTicketDate;
+        final String ticketVideoPostId = mTicketVideoPostId;
+        final String ticketVideoLocalUri = mTicketVideoLocalUri;
+        final String ticketVideoInternetUrl = mTicketVideoInternetUrl;
         final String userId = mUserId;
         final String userName = mUserName;
-        String userPhotoUrl = mUserPhotoUrl;
+        final String userPhotoUrl = mUserPhotoUrl;
 
-        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-            Appsee.addEvent("Ticket Added", new HashMap<String, Object>() {{
-                put("User Id", userId);
-                put("User Name", userName);
-                put("Ticket Id",ticketId);
-                put("Ticket Title",ticketTitle);
-            }});
-        } else {
-            Appsee.addEvent("Ticket Updated", new HashMap<String, Object>() {{
-                put("User Id", userId);
-                put("User Name", userName);
-                put("Ticket Id",ticketId);
-                put("Ticket Title",ticketTitle);
-            }});
-        }
+        AppseeFunctions.saveTicket(mTicketType,
+                userId,
+                userName,
+                ticketId,
+                ticketTitle);
 
         TicketEntry ticket = new TicketEntry(
                 ticketId,
@@ -451,25 +420,39 @@ public class AddTicketActivity extends AppCompatActivity{
                 userName,
                 userPhotoUrl);
 
-        /*
-        viewModel.addTicket(
-                ticketId,
-                ticketTitle,
-                ticketDescription,
-                ticketDate,
-                ticketVideoPostId,
-                ticketVideoLocalUri,
-                ticketVideoInternetUrl,
-                userId,
-                userName,
-                userPhotoUrl,
-                mTicketType);
-                */
-
         viewModel.addTicket(ticket,mTicketType);
 
         finish();
 
+    }
+
+
+    private void setTitleDescription(){
+
+        // Set title if blank or not
+        String title = mTitleText.getText().toString();
+        if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
+            mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
+        } else {
+            mTicketTitle = title;
+        }
+
+        // Set description if blank or not
+        String description = mDescriptionText.getText().toString();
+        if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
+            mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+        } else {
+            mTicketDescription = description;
+        }
+    }
+
+
+    private void setOtherTicketValues(){
+
+        mTicketDate = DateTime.dateToString(new Date());
+        mUserId = UserProfileSettings.getUserID(this);
+        mUserName = UserProfileSettings.getUsername(this);
+        mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
     }
 
 
@@ -587,12 +570,8 @@ public class AddTicketActivity extends AppCompatActivity{
             }
         });
 
-        /*
-        simpleExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-        player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-        */
-
     }
+
 
     private void releasePlayer() {
         if (player != null) {
@@ -606,6 +585,7 @@ public class AddTicketActivity extends AppCompatActivity{
         }
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -613,6 +593,7 @@ public class AddTicketActivity extends AppCompatActivity{
             //initializePlayer();
         }
     }
+
 
     @Override
     public void onResume() {
@@ -622,6 +603,7 @@ public class AddTicketActivity extends AppCompatActivity{
         }
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -629,6 +611,7 @@ public class AddTicketActivity extends AppCompatActivity{
             releasePlayer();
         }
     }
+
 
     @Override
     public void onStop() {

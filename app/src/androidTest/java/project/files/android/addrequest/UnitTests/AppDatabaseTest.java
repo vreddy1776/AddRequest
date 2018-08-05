@@ -1,4 +1,4 @@
-package project.files.android.addrequest;
+package project.files.android.addrequest.UnitTests;
 
 import android.content.Context;
 import android.database.Cursor;

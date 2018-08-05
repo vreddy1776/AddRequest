@@ -1,4 +1,4 @@
-package project.files.android.addrequest.IntegrationTests;
+package project.files.android.addrequest;
 
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenu;
 import org.robolectric.shadows.ShadowActivity;

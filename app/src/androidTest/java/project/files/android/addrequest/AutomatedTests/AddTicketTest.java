@@ -1,4 +1,4 @@
-package project.files.android.addrequest.AddTicketActivityTest;
+package project.files.android.addrequest.AutomatedTests;
 
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.filters.LargeTest;

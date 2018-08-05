@@ -99,7 +99,7 @@ public class AddTicketActivity extends AppCompatActivity{
     private static final String INSTANCE_PLAY_WHEN_READY_KEY = "playWhenReady";
     private static final String INSTANCE_CURRENT_WINDOW_KEY = "currentWindow";
     private static final String INSTANCE_PLAY_BACK_POSITION_KEY = "playBackPosition";
-    
+
 
     private SimpleExoPlayerView simpleExoPlayerView;
     private SimpleExoPlayer player;
@@ -291,7 +291,6 @@ public class AddTicketActivity extends AppCompatActivity{
             mTitleText.setEnabled(false);
             mDescriptionText.setEnabled(false);
             saveButton.setVisibility(View.INVISIBLE);
-            //videoButton.setVisibility(View.INVISIBLE);
         } else if(mTicketType == GlobalConstants.UPDATE_TICKET_TYPE){
             saveButton.setText(R.string.update_button);
         } else if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){

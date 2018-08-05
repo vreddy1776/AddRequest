@@ -25,7 +25,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.appsee.Appsee;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -44,7 +43,6 @@ import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.Date;
-import java.util.HashMap;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Database.TicketEntry;
@@ -101,10 +99,7 @@ public class AddTicketActivity extends AppCompatActivity{
     private static final String INSTANCE_PLAY_WHEN_READY_KEY = "playWhenReady";
     private static final String INSTANCE_CURRENT_WINDOW_KEY = "currentWindow";
     private static final String INSTANCE_PLAY_BACK_POSITION_KEY = "playBackPosition";
-
-    private static final int VIDEO_ACTION_ADD = 7;
-    private static final int VIDEO_ACTION_REMOVE = 9;
-
+    
 
     private SimpleExoPlayerView simpleExoPlayerView;
     private SimpleExoPlayer player;
@@ -221,57 +216,12 @@ public class AddTicketActivity extends AppCompatActivity{
                     mTitleText.setText(mTicketTitle);
                     mDescriptionText.setText(mTicketDescription);
 
-                    setVideoPlayer();
-
-                    /*
-                    if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID)){
-                        videoUri = Uri.parse(mTicketVideoInternetUrl);
-                        streamVideo.setVisibility(View.VISIBLE);
-                        videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
-                        if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
-                            videoDeleteButton.setVisibility(View.VISIBLE);
-                        }
-                        initializePlayer();
-                    } else if(mTicketVideoPostId.equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
-                        videoUri = Uri.parse(mTicketVideoLocalUri);
-                        streamVideo.setVisibility(View.VISIBLE);
-                        videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
-                        if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE){
-                            videoDeleteButton.setVisibility(View.VISIBLE);
-                        }
-                        initializePlayer();
-                    } else if(mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)) {
-                        streamVideo.setVisibility(View.INVISIBLE);
-                        videoDeleteButton.setVisibility(View.INVISIBLE);
-                        videoButton.setVisibility(View.VISIBLE);
-                        if (mTicketType == GlobalConstants.VIEW_TICKET_TYPE){
-                            videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.solid_border) );
-                            videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_no_video) );
-                            videoButton.setEnabled(false);
-                        } else {
-                            videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
-                            videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
-                            videoButton.setEnabled(true);
-                        }
-                    } else{
-                        // do nothing
-                    }
-                    */
-
+                    setVideoView();
                 }
-
-                /*
-                else {
-                    videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
-                    videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
-                    videoButton.setEnabled(true);
-                }
-                */
-                    
             }
         });
-    }
 
+    }
 
 
 
@@ -305,11 +255,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
         super.onSaveInstanceState(outState);
     }
-
-
-
-
-
 
 
 
@@ -356,18 +301,10 @@ public class AddTicketActivity extends AppCompatActivity{
             //do nothing
         }
 
-
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
 
-        setVideoPlayer();
-
-        /*
-        streamVideo.setVisibility(View.INVISIBLE);
-        videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.solid_border) );
-        videoDeleteButton.setVisibility(View.INVISIBLE);
-        */
-
+        setVideoView();
 
     }
 
@@ -392,7 +329,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
 
-    private void setVideoPlayer(){
+    private void setVideoView(){
 
         if ( mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID) ) {
             streamVideo.setVisibility(View.INVISIBLE);
@@ -419,6 +356,8 @@ public class AddTicketActivity extends AppCompatActivity{
             } else {
                 videoUri = Uri.parse(mTicketVideoLocalUri);
             }
+            currentWindow = 0;
+            playbackPosition = 0;
             initializePlayer();
         }
     }
@@ -505,14 +444,7 @@ public class AddTicketActivity extends AppCompatActivity{
         mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-
-        setVideoPlayer();
-
-        /*
-        streamVideo.setVisibility(View.INVISIBLE);
-        videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
-        videoDeleteButton.setVisibility(View.INVISIBLE);
-        */
+        setVideoView();
     }
 
 
@@ -576,17 +508,9 @@ public class AddTicketActivity extends AppCompatActivity{
             mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
             mTicketVideoLocalUri = videoUri.toString();
 
-            setVideoPlayer();
-
-            /*
-            streamVideo.setVisibility(View.VISIBLE);
-            videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
-            videoDeleteButton.setVisibility(View.VISIBLE);
-            initializePlayer();
-            */
+            setVideoView();
 
         }
-
     }
 
 

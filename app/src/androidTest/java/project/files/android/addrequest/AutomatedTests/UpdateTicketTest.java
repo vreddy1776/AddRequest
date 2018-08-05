@@ -47,8 +47,6 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 public class UpdateTicketTest {
 
-    private final String mTitle = StringGenerator.randomTitle();
-    private final String mDescription = StringGenerator.randomDescription();
 
     private Matcher<View> withItemText(final String itemText) {
         checkArgument(!TextUtils.isEmpty(itemText), "itemText cannot be null or empty");
@@ -68,27 +66,6 @@ public class UpdateTicketTest {
     }
 
 
-    public static ViewAction clickChildViewWithId(final int id) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return null;
-            }
-
-            @Override
-            public String getDescription() {
-                return "Click on a child view with specified id.";
-            }
-
-            @Override
-            public void perform(UiController uiController, View view) {
-                View v = view.findViewById(id);
-                v.performClick();
-            }
-        };
-    }
-
-
     @Rule
     public IntentsTestRule<TicketListActivity> mActivityRule = new IntentsTestRule<>(
             TicketListActivity.class);
@@ -97,19 +74,15 @@ public class UpdateTicketTest {
     @Before
     public void createTicket() throws Exception{
 
-
-    }
-
-
-    @Before
-    public void navToTicket() throws Exception{
+        String title = StringGenerator.randomTitle();
+        String description = StringGenerator.randomDescription();
 
         onView(withId(R.id.fab)).perform(click());
 
         onView(withId(R.id.editTextTicketTitle)).
-                perform(typeText(mTitle), closeSoftKeyboard());
+                perform(typeText(title), closeSoftKeyboard());
         onView(withId(R.id.editTextTicketDescription)).
-                perform(typeText(mDescription), closeSoftKeyboard());
+                perform(typeText(description), closeSoftKeyboard());
         onView(withId(R.id.saveButton)).
                 perform(click());
 
@@ -120,15 +93,11 @@ public class UpdateTicketTest {
             onView(withText(R.string.my_requests)).perform(click());
         }
 
-        /*
-        onView(withId(R.id.recyclerViewTickets)).perform
-                (RecyclerViewActions.actionOnItemAtPosition(1, click()));
-                */
         onView(withId(R.id.recyclerViewTickets)).
-                perform(scrollTo(hasDescendant(withText(mDescription))));
+                perform(scrollTo(hasDescendant(withText(description))));
         onView(withId(R.id.recyclerViewTickets))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText(mDescription)), click()));
+                        hasDescendant(withText(description)), click()));
 
     }
 

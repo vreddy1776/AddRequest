@@ -1,8 +1,7 @@
-package project.files.android.addrequest.IntegrationTests;
+package project.files.android.addrequest;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -12,7 +11,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.fakes.RoboMenu;
 import org.robolectric.fakes.RoboMenuItem;
 
 import project.files.android.addrequest.BuildConfig;

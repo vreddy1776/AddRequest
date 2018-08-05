@@ -1,6 +1,4 @@
-package project.files.android.addrequest.IntegrationTests;
-
-import android.app.Activity;
+package project.files.android.addrequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +6,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 
-import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import project.files.android.addrequest.MVVM.Chat.ChatActivity;
 
 

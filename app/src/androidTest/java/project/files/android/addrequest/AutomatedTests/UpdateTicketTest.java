@@ -2,6 +2,8 @@ package project.files.android.addrequest.AutomatedTests;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.filters.LargeTest;
@@ -27,6 +29,7 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollTo;
@@ -44,6 +47,8 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 public class UpdateTicketTest {
 
+    private final String mTitle = StringGenerator.randomTitle();
+    private final String mDescription = StringGenerator.randomDescription();
 
     private Matcher<View> withItemText(final String itemText) {
         checkArgument(!TextUtils.isEmpty(itemText), "itemText cannot be null or empty");
@@ -63,13 +68,50 @@ public class UpdateTicketTest {
     }
 
 
+    public static ViewAction clickChildViewWithId(final int id) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return null;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Click on a child view with specified id.";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                View v = view.findViewById(id);
+                v.performClick();
+            }
+        };
+    }
+
+
     @Rule
     public IntentsTestRule<TicketListActivity> mActivityRule = new IntentsTestRule<>(
             TicketListActivity.class);
 
 
     @Before
-    public void clickItem_opensAddTicketUi(){
+    public void createTicket() throws Exception{
+
+
+    }
+
+
+    @Before
+    public void navToTicket() throws Exception{
+
+        onView(withId(R.id.fab)).perform(click());
+
+        onView(withId(R.id.editTextTicketTitle)).
+                perform(typeText(mTitle), closeSoftKeyboard());
+        onView(withId(R.id.editTextTicketDescription)).
+                perform(typeText(mDescription), closeSoftKeyboard());
+        onView(withId(R.id.saveButton)).
+                perform(click());
 
         try {
             onView(withId(R.id.user_name_menu)).perform(click());
@@ -78,24 +120,33 @@ public class UpdateTicketTest {
             onView(withText(R.string.my_requests)).perform(click());
         }
 
+        /*
         onView(withId(R.id.recyclerViewTickets)).perform
-                (RecyclerViewActions.actionOnItemAtPosition(2, click()));
+                (RecyclerViewActions.actionOnItemAtPosition(1, click()));
+                */
+        onView(withId(R.id.recyclerViewTickets)).
+                perform(scrollTo(hasDescendant(withText(mDescription))));
+        onView(withId(R.id.recyclerViewTickets))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText(mDescription)), click()));
+
     }
 
 
     @Test
-    public void updateTicketOnTicketList() throws Exception {
+    public void updateTicket() throws Exception {
 
         String newTitle = StringGenerator.randomTitle();
         String newDescription = StringGenerator.randomDescription();
 
-        onView(withId(R.id.editTextTicketTitle)).perform(clearText(), typeText(newTitle), closeSoftKeyboard());
-        onView(withId(R.id.editTextTicketDescription)).perform(clearText(), typeText(newDescription),
-                closeSoftKeyboard());
+        onView(withId(R.id.editTextTicketTitle)).
+                perform(replaceText(newTitle), closeSoftKeyboard());
+        onView(withId(R.id.editTextTicketDescription)).
+                perform(replaceText(newDescription), closeSoftKeyboard());
         onView(withId(R.id.saveButton)).perform(click());
 
-        onView(withId(R.id.recyclerViewTickets)).perform(
-                scrollTo(hasDescendant(withText(newDescription))));
+        onView(withId(R.id.recyclerViewTickets)).
+                perform(scrollTo(hasDescendant(withText(newDescription))));
         onView(withItemText(newDescription)).check(matches(isDisplayed()));
 
     }

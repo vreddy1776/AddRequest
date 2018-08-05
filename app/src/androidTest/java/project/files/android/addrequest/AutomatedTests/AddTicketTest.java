@@ -64,7 +64,7 @@ public class AddTicketTest {
 
 
     @Before
-    public void clickFab_opensAddTicketUi() {
+    public void clickFab_opensAddTicketUi() throws Exception {
 
         onView(withId(R.id.fab)).perform(click());
     }
@@ -76,13 +76,15 @@ public class AddTicketTest {
         String newTitle = StringGenerator.randomTitle();
         String newDescription = StringGenerator.randomDescription();
 
-        onView(withId(R.id.editTextTicketTitle)).perform(typeText(newTitle), closeSoftKeyboard());
-        onView(withId(R.id.editTextTicketDescription)).perform(typeText(newDescription),
-                closeSoftKeyboard());
-        onView(withId(R.id.saveButton)).perform(click());
+        onView(withId(R.id.editTextTicketTitle)).
+                perform(typeText(newTitle), closeSoftKeyboard());
+        onView(withId(R.id.editTextTicketDescription)).
+                perform(typeText(newDescription), closeSoftKeyboard());
+        onView(withId(R.id.saveButton)).
+                perform(click());
 
-        onView(withId(R.id.recyclerViewTickets)).perform(
-                scrollTo(hasDescendant(withText(newDescription))));
+        onView(withId(R.id.recyclerViewTickets)).
+                perform(scrollTo(hasDescendant(withText(newDescription))));
         onView(withItemText(newDescription)).check(matches(isDisplayed()));
 
     }

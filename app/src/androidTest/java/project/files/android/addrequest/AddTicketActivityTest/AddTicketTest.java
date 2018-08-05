@@ -101,7 +101,7 @@ public class AddTicketTest {
     @Test
     public void addNoteToNotesList() throws Exception {
         String newNoteTitle = "Espresso";
-        String newNoteDescription = "UI testing for Android";
+        String newNoteDescription = "bab";
 
         // Click on the add note button
         onView(withId(R.id.fab)).perform(click());
@@ -118,10 +118,11 @@ public class AddTicketTest {
 
 
         // Scroll notes list to added note, by finding its description
-        /*
+
+
         onView(withId(R.id.recyclerViewTickets)).perform(
                 scrollTo(hasDescendant(withText(newNoteDescription))));
-                */
+
 
         // Verify note is displayed on screen
         onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));

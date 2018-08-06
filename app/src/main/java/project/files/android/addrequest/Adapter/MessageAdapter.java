@@ -13,13 +13,17 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import project.files.android.addrequest.MVVM.Chat.FriendlyMessage;
+import project.files.android.addrequest.MVVM.Chat.Message;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.Name;
 
-public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
-    public MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
+
+/**
+ * {@link MessageAdapter} exposes items to {@link project.files.android.addrequest.MVVM.Chat.ChatActivity}
+ */
+public class MessageAdapter extends ArrayAdapter<Message> {
+    public MessageAdapter(Context context, int resource, List<Message> objects) {
         super(context, resource, objects);
     }
 
@@ -34,7 +38,7 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
         TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
         ImageView profilePicView = (ImageView) convertView.findViewById(R.id.messageProfilePic) ;
 
-        FriendlyMessage message = getItem(position);
+        Message message = getItem(position);
 
         boolean isPhoto = message.getPhotoUrl() != null;
         if (isPhoto) {

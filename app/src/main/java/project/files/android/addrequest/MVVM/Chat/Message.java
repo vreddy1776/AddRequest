@@ -15,16 +15,16 @@
  */
 package project.files.android.addrequest.MVVM.Chat;
 
-public class FriendlyMessage {
+public class Message {
 
     private String text;
     private String name;
     private String photoUrl;
 
-    public FriendlyMessage() {
+    public Message() {
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl) {
+    public Message(String text, String name, String photoUrl) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;

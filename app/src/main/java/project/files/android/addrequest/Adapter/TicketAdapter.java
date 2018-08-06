@@ -21,28 +21,17 @@ import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.Name;
 
+/**
+ * {@link TicketAdapter} exposes list of tickets
+ * to {@link project.files.android.addrequest.MVVM.TicketList.TicketListFragment}
+ */
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketViewHolder>{
 
-
-    /**
-     * Returns the number of items to display.
-     */
-
-    // Constant for logging
     private static final String TAG = TicketAdapter.class.getSimpleName();
 
-    // Constant for date format
-    private static final String DATE_FORMAT = "dd/MM/yyy";
-
-    // Member variable to handle item clicks
     final private ItemClickListener mItemClickListener;
-
-    // Class variables for the List that holds ticket data and the Context
     private List<TicketEntry> mTicketEntries;
     private Context mContext;
-
-    // Date formatter
-    private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
 
     /**
@@ -173,6 +162,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         ImageView ticketVideoThumbnailView;
         ImageView userProfilePicView;
         TextView userNameTextView;
+
 
         /**
          * Constructor for the TicketViewHolders.

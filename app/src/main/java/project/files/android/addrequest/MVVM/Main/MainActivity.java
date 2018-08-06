@@ -28,7 +28,7 @@ import project.files.android.addrequest.Settings.UserProfileSettings;
 import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
 
-//  4th commit after rebase onto origin/master
+//  5th commit after rebase onto origin/master
 
 /**
  * Main Activity

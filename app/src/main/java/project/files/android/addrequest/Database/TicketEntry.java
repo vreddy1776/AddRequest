@@ -4,6 +4,13 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+
+/**
+ * Local DB constructor
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 @Entity(tableName = "ticket")
 public class TicketEntry {
 

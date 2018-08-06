@@ -1,5 +1,12 @@
 package project.files.android.addrequest.Database;
 
+
+/**
+ * Firebase DB constructor
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class FirebaseDbTicket {
 
 
@@ -18,7 +25,6 @@ public class FirebaseDbTicket {
 
     public FirebaseDbTicket() {
     }
-
 
 
     public FirebaseDbTicket(

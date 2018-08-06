@@ -10,10 +10,15 @@ import android.util.Log;
 
 import project.files.android.addrequest.Utils.DateTime;
 
-/**
- * Master local database.
- */
 
+/**
+ * AddTicket Activity
+ *
+ * Activity for adding and updating tickets and videos
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 @Database(entities = {TicketEntry.class}, version = 1, exportSchema = false)
 @TypeConverters(DateTime.class)
 public abstract class AppDatabase extends RoomDatabase {

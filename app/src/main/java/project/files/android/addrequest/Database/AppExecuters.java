@@ -7,6 +7,15 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
+/**
+ * AppExecutors
+ *
+ * Singleton executors for disk and network threads
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class AppExecuters {
 
     // For Singleton instantiation

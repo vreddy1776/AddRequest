@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.Chat;
+package project.files.android.addrequest.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import project.files.android.addrequest.MVVM.Chat.FriendlyMessage;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
 import project.files.android.addrequest.Utils.Name;

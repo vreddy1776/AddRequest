@@ -3,6 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
 jobs:
   build:
     working_directory: ~/code
@@ -33,6 +34,27 @@ jobs:
       - store_test_results:
           path: app/build/test-results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+
+deploy-job:
+  docker:
+    - image: my-image-version-tag
+  working_directory: /tmp/my-project
+  steps:
+    - run:
+        name: Deploy Master to GKE
+        command: ./deploy.sh
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+         requires:
+           - build-job
+         filters:
+           branches:
+             only: master
 
 
 

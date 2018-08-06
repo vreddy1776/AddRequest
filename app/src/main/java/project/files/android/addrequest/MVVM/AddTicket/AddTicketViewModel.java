@@ -17,6 +17,7 @@ import com.google.firebase.storage.UploadTask;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 public class AddTicketViewModel extends ViewModel {
@@ -89,7 +90,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Add ticket depending on video upload presence.
      */
-    public void addTicket(final TicketEntry ticket, final int ticketType){
+    public void addTicket(final Context context, final TicketEntry ticket, final int ticketType){
 
         // Video Present
         if (ticket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
@@ -115,7 +116,7 @@ public class AddTicketViewModel extends ViewModel {
 
                     addTicketToDb(ticket, ticketType);
 
-                    //Notifications.ticketPostedNotification(context,ticketId);
+                    Notifications.ticketPostedNotification(context,ticket.getTicketId());
                 }
             });
 

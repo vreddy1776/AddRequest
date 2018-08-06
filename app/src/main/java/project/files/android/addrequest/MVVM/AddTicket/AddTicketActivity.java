@@ -402,7 +402,7 @@ public class AddTicketActivity extends AppCompatActivity{
                 userName,
                 userPhotoUrl);
 
-        viewModel.addTicket(ticket,mTicketType);
+        viewModel.addTicket(this, ticket,mTicketType);
 
         finish();
 

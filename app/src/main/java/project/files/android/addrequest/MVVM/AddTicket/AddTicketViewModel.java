@@ -20,20 +20,22 @@ import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
+
+
+/**
+ * ViewModel for AddTicketActivity
+ *
+ * This viewmodel transfers data from local and remote DBs to the AddTicketActivtity for a
+ * given ticket.
+ *
+ * @author Vijay T. Reddy
+ * @version 2010.1105
+ */
 public class AddTicketViewModel extends ViewModel {
 
 
-    /**
-     * Initialize variables.
-     */
-
-    // Constant for logging
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
-
-    // RequestsDO member variable for the TicketEntry object wrapped in a LiveData.
     private LiveData<TicketEntry> mLiveDataTicket;
-
-    // Initialize mAppDatabase
     private AppDatabase mAppDatabase;
 
 
@@ -48,7 +50,9 @@ public class AddTicketViewModel extends ViewModel {
 
 
     /**
-     * Load LiveDataTicket.
+     * Get LivaData ticket from AppDatabase to be observed in AddTicketActivity
+     *
+     * @param ticketId The ticket ID for the AddTicketActivity session.
      */
     private void loadLiveDataTicket(int ticketId){
         mLiveDataTicket = mAppDatabase.ticketDao().loadTicketById(ticketId);
@@ -88,7 +92,11 @@ public class AddTicketViewModel extends ViewModel {
 
 
     /**
-     * Add ticket depending on video upload presence.
+     * Adds or updates ticket to local and remote DBs with video upload.
+     *
+     * @param context An AddTicketActivity context for notifications.
+     * @param ticket The ticket to be added.
+     * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
     public void addTicket(final Context context, final TicketEntry ticket, final int ticketType){
 
@@ -130,6 +138,11 @@ public class AddTicketViewModel extends ViewModel {
 
     /**
      * Calls two threads - one for adding ticket to local DB other to remote DB.
+     *
+     * @see #addTicket(Context, TicketEntry, int)
+     *
+     * @param ticket The ticket to be added.
+     * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
     private void addTicketToDb(final TicketEntry ticket, final int ticketType){
 
@@ -142,7 +155,7 @@ public class AddTicketViewModel extends ViewModel {
         AppExecuters.getInstance().networkIO().execute(new Runnable() {
             @Override
             public void run() {
-                addTicketToFirebaseDb(ticket,ticketType);
+                addTicketToFirebaseDb(ticket);
             }
         });
     }
@@ -150,6 +163,11 @@ public class AddTicketViewModel extends ViewModel {
 
     /**
      * Adds ticket to local (SQLlite) DB.
+     *
+     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
+     *
+     * @param ticket The ticket to be added.
+     * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
     public void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
 
@@ -163,8 +181,12 @@ public class AddTicketViewModel extends ViewModel {
 
     /**
      * Adds ticket to remote (Firebase) DB.
+     *
+     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
+     *
+     * @param ticket The ticket to be added.
      */
-    private void addTicketToFirebaseDb(final TicketEntry ticket, int ticketType){
+    private void addTicketToFirebaseDb(final TicketEntry ticket){
 
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = fBdatabase.getReference("Tickets");
@@ -172,8 +194,15 @@ public class AddTicketViewModel extends ViewModel {
         myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
     }
 
+
     /**
      * Converts local Ticket object to Firebase ticket object to prep for upload to Firebase DB.
+     *
+     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
+     *
+     * @param ticket The ticket to be added.
+     *
+     * @return the FirebaseDB ticket
      */
     private FirebaseDbTicket createFirebaseTicket(TicketEntry ticket){
 

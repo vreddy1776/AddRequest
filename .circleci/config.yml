@@ -5,6 +5,9 @@
 version: 2
 
 jobs:
+  deploy:
+    docker:
+      - image: google/cloud-sdk
   build:
     working_directory: ~/code
     docker:

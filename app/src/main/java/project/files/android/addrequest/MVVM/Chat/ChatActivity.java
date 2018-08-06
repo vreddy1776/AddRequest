@@ -95,8 +95,8 @@ public class ChatActivity extends AppCompatActivity {
         mSendButton = (Button) findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
-        List<FriendlyMessage> friendlyMessages = new ArrayList<>();
-        mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
+        List<Message> messages = new ArrayList<>();
+        mMessageAdapter = new MessageAdapter(this, R.layout.item_message, messages);
         mMessageListView.setAdapter(mMessageAdapter);
 
         // Initialize progress bar
@@ -135,7 +135,7 @@ public class ChatActivity extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, null);
+                Message friendlyMessage = new Message(mMessageEditText.getText().toString(), mUsername, null);
                 mMessagesDatabaseReference.push().setValue(friendlyMessage);
 
                 // Clear input box
@@ -215,8 +215,8 @@ public class ChatActivity extends AppCompatActivity {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    FriendlyMessage friendlyMessage = dataSnapshot.getValue(FriendlyMessage.class);
-                    mMessageAdapter.add(friendlyMessage);
+                    Message message = dataSnapshot.getValue(Message.class);
+                    mMessageAdapter.add(message);
                 }
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {}

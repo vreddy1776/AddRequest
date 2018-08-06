@@ -27,6 +27,7 @@ import project.files.android.addrequest.Settings.UserProfileSettings;
 
 import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
+// Commit after circle Ci integration - test 1
 
 /**
  * Main Activity

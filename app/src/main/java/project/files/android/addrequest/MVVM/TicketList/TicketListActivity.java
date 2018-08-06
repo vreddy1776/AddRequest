@@ -22,6 +22,15 @@ import project.files.android.addrequest.Services.FirebaseDbListenerService;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
+
+/**
+ * TicketList Activity
+ *
+ * Activity containing {@link TicketsFragment} and {@link ProfileFragment}.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class TicketListActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {
 
     /**
@@ -32,7 +41,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     private static final String TAG = TicketListActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
-    private TicketListFragment ticketListFragment;
+    private TicketsFragment ticketsFragment;
     private FloatingActionButton fabButton;
     private TicketListViewModel viewModel;
     private TicketAdapter mAdapter;
@@ -65,9 +74,9 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
 
         fragmentManager = getSupportFragmentManager();
-        ticketListFragment = new TicketListFragment();
+        ticketsFragment = new TicketsFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.ticketlist_fragment_container, ticketListFragment)
+                .add(R.id.ticketlist_fragment_container, ticketsFragment)
                 .commit();
 
     }
@@ -112,7 +121,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         openProfile();
 
         ticketType = GlobalConstants.UPDATE_TICKET_TYPE;
-        ticketListFragment.setSwipe(ticketType);
+        ticketsFragment.setSwipe(ticketType);
 
     }
 
@@ -127,7 +136,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         closeProfile();
 
         ticketType = GlobalConstants.VIEW_TICKET_TYPE;
-        ticketListFragment.setSwipe(ticketType);
+        ticketsFragment.setSwipe(ticketType);
 
     }
 
@@ -160,7 +169,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
 
     /**
-     * Log out.
+     * Log out, end Firebase DB listener service, go to main activity, and destroy activity
      */
     private void logout() {
 

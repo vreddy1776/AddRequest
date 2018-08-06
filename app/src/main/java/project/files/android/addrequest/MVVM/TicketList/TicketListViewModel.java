@@ -18,10 +18,15 @@ import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
-/**
- * ViewModel for MainActivity.
- */
 
+/**
+ * Tickets Fragment
+ *
+ * Fragment containing RecyclerView list of tickets.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class TicketListViewModel extends AndroidViewModel {
 
     private static final String TAG = TicketListViewModel.class.getSimpleName();

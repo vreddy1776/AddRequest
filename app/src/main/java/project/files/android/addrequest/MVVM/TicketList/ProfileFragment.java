@@ -18,6 +18,15 @@ import com.google.firebase.auth.FirebaseUser;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 
+
+/**
+ * Profile Fragment
+ *
+ * Section showing username and user profile pic.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class ProfileFragment extends Fragment {
 
     public ProfileFragment() {

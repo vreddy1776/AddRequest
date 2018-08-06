@@ -26,7 +26,7 @@ import project.files.android.addrequest.Utils.GlobalConstants;
 /**
  * ViewModel for AddTicketActivity
  *
- * This viewmodel transfers data from local and remote DBs to the AddTicketActivtity for a
+ * This viewmodel transfers data from local and remote DBs to the AddTicketActivity for a
  * given ticket.
  *
  * @author Vijay T. Reddy

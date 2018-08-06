@@ -10,6 +10,13 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+
+/**
+ * DOA to access AppDatabase
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 @Dao
 public interface TicketDao {
 

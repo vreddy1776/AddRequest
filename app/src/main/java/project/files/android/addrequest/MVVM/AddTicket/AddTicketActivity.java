@@ -55,71 +55,51 @@ import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.ID;
 
 
+/**
+ * AddTicket Activity
+ *
+ * Activity for adding and updating tickets and videos
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class AddTicketActivity extends AppCompatActivity{
 
 
-    /**
-     * Initialize values.
-     */
-
-    // Constant for logging
     private static final String TAG = AddTicketActivity.class.getSimpleName();
 
-    // Initialize integer for ticket ID and viewtype
     private int mTicketType = GlobalConstants.VIEW_TICKET_TYPE;
-
-    // Member variable for the ViewModel
     private AddTicketViewModel viewModel;
-
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 4;
-
-    // Fields for views
     EditText mTitleText;
     EditText mDescriptionText;
-
     FrameLayout videoWrapper;
     FrameLayout streamVideo;
-
-    // Buttons
     Button saveButton;
     ImageView videoButton;
     ImageView videoDeleteButton;
     ImageButton chatButton;
-
-
-    // Video Intent activity codes
     final static int VIDEO_REQUEST = 5;
     final static int RESULT_OK = -1;
-
-
-    // OnSavedInstance Parameter Strings
     public static final String INSTANCE_TICKET_TYPE_KEY = "instanceTicketType";
     public static final String INSTANCE_TICKET_ID_KEY = "instanceTicketId";
-
     private static final String INSTANCE_PLAY_WHEN_READY_KEY = "playWhenReady";
     private static final String INSTANCE_CURRENT_WINDOW_KEY = "currentWindow";
     private static final String INSTANCE_PLAY_BACK_POSITION_KEY = "playBackPosition";
-
-
     private SimpleExoPlayerView simpleExoPlayerView;
     private SimpleExoPlayer player;
-
     private Timeline.Window window;
     private DataSource.Factory mediaDataSourceFactory;
     private DefaultTrackSelector trackSelector;
     private boolean shouldAutoPlay;
     private BandwidthMeter bandwidthMeter;
-
     private ImageView ivHideControllerButton;
     private boolean playWhenReady;
     private int currentWindow;
     private long playbackPosition;
-
     private Uri videoUri;
-
     private LiveData<TicketEntry> ticketLiveData;
     private Observer<TicketEntry> ticketObserver;
-
     private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
     private String mTicketTitle = GlobalConstants.BLANK_TICKET_TITLE;
     private String mTicketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
@@ -130,7 +110,6 @@ public class AddTicketActivity extends AppCompatActivity{
     private String mUserId = GlobalConstants.DEFAULT_USER_ID;
     private String mUserName = GlobalConstants.DEFAULT_USER_NAME;
     private String mUserPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +128,6 @@ public class AddTicketActivity extends AppCompatActivity{
         }
 
     }
-
 
 
     /**

@@ -4,6 +4,15 @@ import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+
+/**
+ * AddTicketViewModelFactory
+ *
+ * Create new viewmodel for each addticket activity
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class AddTicketViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
 

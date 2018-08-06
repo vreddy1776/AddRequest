@@ -27,6 +27,16 @@ import project.files.android.addrequest.Settings.UserProfileSettings;
 
 import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
+
+/**
+ * Main Activity
+ *
+ * Initial activity - checks for login and automatically goes to Ticket List
+ * Activity if logged in or goes to login screen if not
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;

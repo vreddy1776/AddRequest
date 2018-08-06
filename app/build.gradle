@@ -1,19 +1,25 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        jcenter()
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
+
+
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
+play {
+    track = 'alpha'
+    serviceAccountEmail = 'addrequest-p12@api-7053728499217617757-920486.iam.gserviceaccount.com'
+    pk12File = file('api-7053728499217617757-920486-89bcefafaf77.p12')
 }
-
 
 android {
     compileSdkVersion 27
@@ -141,3 +147,4 @@ dependencies {
 
 }
 apply plugin: 'com.google.gms.google-services'
+

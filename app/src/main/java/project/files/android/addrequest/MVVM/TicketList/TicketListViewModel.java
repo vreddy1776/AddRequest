@@ -15,7 +15,7 @@ import project.files.android.addrequest.Adapter.TicketAdapter;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 /**

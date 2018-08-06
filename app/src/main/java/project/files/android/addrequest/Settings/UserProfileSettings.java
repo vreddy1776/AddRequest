@@ -1,4 +1,4 @@
-package project.files.android.addrequest.SharedPreferences;
+package project.files.android.addrequest.Settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;

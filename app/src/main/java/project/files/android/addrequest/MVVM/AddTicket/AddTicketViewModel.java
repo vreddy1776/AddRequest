@@ -30,7 +30,7 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  * given ticket.
  *
  * @author Vijay T. Reddy
- * @version 2010.1105
+ * @version 1.0.0
  */
 public class AddTicketViewModel extends ViewModel {
 

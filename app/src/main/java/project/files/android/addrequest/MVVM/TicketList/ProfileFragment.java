@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 
 public class ProfileFragment extends Fragment {
 

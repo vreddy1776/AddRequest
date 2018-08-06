@@ -49,8 +49,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <!-- VideoActivity -->
-        <activity
-            android:name="project.files.android.addrequest.MVVM.VideoPlayer.VideoPlayerActivity" />
 
         <!-- AWS S3 bucket access permission -->
         <service

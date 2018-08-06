@@ -15,7 +15,7 @@ import java.util.List;
 
 import project.files.android.addrequest.MVVM.Chat.FriendlyMessage;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.Name;
 
 public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {

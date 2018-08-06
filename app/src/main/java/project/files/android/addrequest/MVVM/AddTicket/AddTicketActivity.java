@@ -49,7 +49,7 @@ import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.MVVM.Chat.ChatActivity;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.DateTime;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.ID;

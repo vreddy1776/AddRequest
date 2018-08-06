@@ -1,6 +1,7 @@
 package project.files.android.addrequest.Services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -16,8 +17,17 @@ import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Database.FirebaseDbTicket;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 
+
+/**
+ * Firebase DB Listenser Service
+ *
+ * Starts FirebaseDB listener at login and ends at logout.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class FirebaseDbListenerService extends Service {
 
     private static final String TAG = FirebaseDbListenerService.class.getSimpleName();
@@ -25,7 +35,6 @@ public class FirebaseDbListenerService extends Service {
     private ChildEventListener mChildEventListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
-
     private AppDatabase database;
 
 
@@ -35,6 +44,10 @@ public class FirebaseDbListenerService extends Service {
         return null;
     }
 
+
+    /**
+     * Start after login by clearing tickets in local DB starting the read listener.
+     */
     @Override
     public void onCreate() {
 
@@ -47,8 +60,6 @@ public class FirebaseDbListenerService extends Service {
             @Override
             public void run() {
                 database.ticketDao().clearAllTickets();
-                Log.d(TAG,"Tickets Cleared");
-
             }
         });
 
@@ -57,12 +68,18 @@ public class FirebaseDbListenerService extends Service {
     }
 
 
+    /**
+     * End listener after logout.
+     */
     @Override
     public void onDestroy() {
         detachDatabaseReadListener();
     }
 
 
+    /**
+     * Sync additions, updates, and deletions from Firebase DB to local DB.
+     */
     private void attachDatabaseReadListener() {
         if (mChildEventListener == null) {
             mChildEventListener = new ChildEventListener() {
@@ -150,6 +167,11 @@ public class FirebaseDbListenerService extends Service {
     }
 
 
+    /**
+     *
+     * @see #onDestroy()
+     *
+     */
     private void detachDatabaseReadListener() {
         if (mChildEventListener != null) {
             mMessagesDatabaseReference.removeEventListener(mChildEventListener);

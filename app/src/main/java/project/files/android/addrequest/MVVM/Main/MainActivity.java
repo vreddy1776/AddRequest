@@ -23,7 +23,7 @@ import io.fabric.sdk.android.Fabric;
 import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Services.FirebaseDbListenerService;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 
 import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 

@@ -19,7 +19,7 @@ import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
 import project.files.android.addrequest.MVVM.Main.MainActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Services.FirebaseDbListenerService;
-import project.files.android.addrequest.SharedPreferences.UserProfileSettings;
+import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 public class TicketListActivity extends AppCompatActivity implements TicketAdapter.ItemClickListener {

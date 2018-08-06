@@ -12,18 +12,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.MVVM.TicketList.TicketsFragment;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.Name;
 
 /**
  * {@link TicketAdapter} exposes list of tickets
- * to {@link project.files.android.addrequest.MVVM.TicketList.TicketListFragment}
+ * to {@link TicketsFragment}
  */
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketViewHolder>{
 

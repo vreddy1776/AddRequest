@@ -18,15 +18,24 @@ import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.DividerItemDecorator;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
-public class TicketListFragment extends Fragment{
 
-    private static final String TAG = TicketListFragment.class.getSimpleName();
+/**
+ * Tickets Fragment
+ *
+ * Fragment containing RecyclerView list of tickets.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
+public class TicketsFragment extends Fragment{
+
+    private static final String TAG = TicketsFragment.class.getSimpleName();
 
     private ItemTouchHelper itemTouchHelper;
 
     private RecyclerView mRecyclerView;
 
-    public TicketListFragment() {
+    public TicketsFragment() {
     }
 
     /**

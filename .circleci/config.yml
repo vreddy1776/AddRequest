@@ -5,9 +5,6 @@
 version: 2
 
 jobs:
-  deploy:
-    docker:
-      - image: google/cloud-sdk
   build:
     working_directory: ~/code
     docker:
@@ -40,7 +37,7 @@ jobs:
 
 deploy-job:
   docker:
-    - image: my-image-version-tag
+    - image: google/cloud-sdk
   working_directory: /tmp/my-project
   steps:
     - run:

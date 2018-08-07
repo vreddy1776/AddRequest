@@ -46,7 +46,7 @@ jobs:
 
   test:
     override:
-      # start the emulator
+      # start the  emulator
       - emulator -avd circleci-android24 -no-window:
           background: true
           parallel: true

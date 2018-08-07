@@ -1,40 +1,22 @@
+# Java Gradle CircleCI 2.0 configuration file
 #
-# Build configuration for Circle CI
+# Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-
-general:
-    artifacts:
-        - /home/ubuntu/project-name/app/build/outputs/apk/
-
-machine:
-    environment:
-        ANDROID_HOME: /usr/local/android-sdk-linux
-
-dependencies:
-    pre:
-        - wget "https://services.gradle.org/distributions/gradle-2.13-bin.zip"; unzip gradle-2.13-bin.zip
-        - source environmentSetup.sh && copyEnvVarsToGradleProperties
+version: 2
+jobs:
+  test:
     override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.3,android-23,extra-google-m2repository,extra-google-google_play_services,extra-android-m2repository
-        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+      # start the emulator
+      - emulator -avd circleci-android24 -no-window:
+          background: true
+          parallel: true
+      # wait for it to have booted
+      - circle-android wait-for-boot
+      # run tests  against the emulator.
+      - ./gradlew connectedAndroidTest
+      # copy the build outputs to artifacts
+      - cp -r my-project/build/outputs $CIRCLE_ARTIFACTS
+      # copy the test results to the test results directory.
+      - cp -r my-project/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
 
-test:
-    override:
-        # start the build
-        - (./gradlew assemble):
-            timeout: 360
-        # start the emulator
-        - emulator -avd circleci-android22 -no-audio -no-window:
-            background: true
-            parallel: true
-        # wait for it to have booted
-        - circle-android wait-for-boot
-        # unlock the emulator screen
-        - sleep 30
-        - adb shell input keyevent 82
-        # run tests  against the emulator.
-        - ./gradlew connectedDevelopmentDebugAndroidTest -PdisablePreDex
-        # copy the build outputs to artifacts
-        - cp -r app/build/outputs $CIRCLE_ARTIFACTS
-        # copy the test results to the test results directory.
-        - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+

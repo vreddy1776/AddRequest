@@ -20,9 +20,15 @@ import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.Name;
 
+
 /**
- * {@link TicketAdapter} exposes list of tickets
- * to {@link TicketsFragment}
+ * Message Adapter
+ *
+ * {@link project.files.android.addrequest.Adapter.TicketAdapter} exposes list of tickets
+ * to {@link project.files.android.addrequest.MVVM.TicketList.TicketsFragment}
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
  */
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketViewHolder>{
 

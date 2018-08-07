@@ -20,7 +20,12 @@ import project.files.android.addrequest.Utils.Name;
 
 
 /**
+ * Message Adapter
+ *
  * {@link MessageAdapter} exposes items to {@link project.files.android.addrequest.MVVM.Chat.ChatActivity}
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
  */
 public class MessageAdapter extends ArrayAdapter<Message> {
     public MessageAdapter(Context context, int resource, List<Message> objects) {

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.HashMap;
 
 import io.fabric.sdk.android.Fabric;
+import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Services.FirebaseDbListenerService;
@@ -133,10 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 userName,
                 userPhotoUrl);
 
-        Appsee.addEvent("User Sign-In", new HashMap<String, Object>() {{
-            put("User Id", userId);
-            put("User Name", userName);
-        }});
+        AppseeFunctions.login(userId,userName);
 
         startService(new Intent(this, FirebaseDbListenerService.class));
 

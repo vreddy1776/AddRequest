@@ -44,6 +44,19 @@ jobs:
           name: Deploy Master to GKE
           command: ./deploy.sh
 
+  deployment:
+    production: PROD_LABEL
+      branch: master
+      commands:
+        - ./gradlew publishApkRelease
+          -Dorg.gradle.project.track=production
+    beta:
+      branch: develop
+      commands:
+        - ./gradlew publishApkRelease
+          -Dorg.gradle.project.track=beta
+
+
   test:
     override:
       # start the emulator

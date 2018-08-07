@@ -42,7 +42,7 @@ deploy-job:
         name: Deploy Master to GKE
         command: ./deploy.sh
 deployment:
-  production: PROD_LABEL
+  production:
     branch: master
     commands:
       - ./gradlew publishApkRelease

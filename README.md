@@ -1,20 +1,8 @@
 
-Android XYZTouristAttractions Sample
+AddRequest
 ===================================
 
-This sample aims to be as close to a real world example of a mobile
-and Wear app combination as possible. It has a more refined design
-and also provides a practical example of how a mobile app would
-interact and communicate with its wear counterpart.
-
-The app itself is modeled after a hypothetical tourist attractions
-app that notifies the user when they are in close proximity to
-notable points of interest.
-
-The Wear component shows tourist attraction images and summary
-information, and provides quick actions for nearby tourist
-attractions in a [GridViewPager](http://developer.android.com/reference/android/support/wearable/view/GridViewPager.html)
-UI component.
+AddRequest is a service request app where users can post their issues to a public forum and anyone can respond with solutions.  Videos can be added to each request to give a visual description of the issue, and a chat feature allows for a safe and easy way to discuss the problem.
 
 Introduction
 ------------
@@ -106,7 +94,13 @@ Pre-requisites
 Screenshots
 -------------
 
-<img src="screenshots/composite-1.png" height="400" alt="Screenshot"/> 
+<img src="Screenshot_1_AddRequest.png" height="400" alt="Screenshot1"/>
+<img src="Screenshot_2_AddRequest.png" height="400" alt="Screenshot2"/>
+<img src="Screenshot_3_AddRequest.png" height="400" alt="Screenshot3"/>
+<img src="Screenshot_4_AddRequest.png" height="400" alt="Screenshot4"/>
+<img src="Screenshot_5_AddRequest.png" height="400" alt="Screenshot5"/>
+<img src="Screenshot_6_AddRequest.png" height="400" alt="Screenshot6"/>
+
 
 Getting Started
 ---------------

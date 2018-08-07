@@ -94,12 +94,12 @@ Pre-requisites
 Screenshots
 -------------
 
-<img src="Screenshot_1_AddRequest.png" height="400" alt="Screenshot1"/>
-<img src="Screenshot_2_AddRequest.png" height="400" alt="Screenshot2"/>
-<img src="Screenshot_3_AddRequest.png" height="400" alt="Screenshot3"/>
-<img src="Screenshot_4_AddRequest.png" height="400" alt="Screenshot4"/>
-<img src="Screenshot_5_AddRequest.png" height="400" alt="Screenshot5"/>
-<img src="Screenshot_6_AddRequest.png" height="400" alt="Screenshot6"/>
+<img src="Screenshot_1_AddRequest.jpg" height="400" alt="Screenshot1"/>
+<img src="Screenshot_2_AddRequest.jpg" height="400" alt="Screenshot2"/>
+<img src="Screenshot_3_AddRequest.jpg" height="400" alt="Screenshot3"/>
+<img src="Screenshot_4_AddRequest.jpg" height="400" alt="Screenshot4"/>
+<img src="Screenshot_5_AddRequest.jpg" height="400" alt="Screenshot5"/>
+<img src="Screenshot_6_AddRequest.jpg" height="400" alt="Screenshot6"/>
 
 
 Getting Started

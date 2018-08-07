@@ -5,6 +5,14 @@ AddRequest
 AddRequest is a service request app where users can post their issues to a public forum and anyone can respond with solutions.  Videos can be added to each request to give a visual description of the issue, and a chat feature allows for a safe and easy way to discuss the problem.
 
 
+Introduction
+------------
+
+Steps for using this app:
+* Compile and install the mobile app onto your mobile device or emulator.
+* Log in with Google Account
+
+
 Pre-requisites
 --------------
 
@@ -23,3 +31,10 @@ Getting Started
 
 This sample uses the Gradle build system. To build this project, use the
 "gradlew build" command or use "Import Project" in Android Studio.
+
+
+Support
+-------
+
+If you've found an error in this sample, please file an issue:
+https://github.com/vreddy1776/AddRequest

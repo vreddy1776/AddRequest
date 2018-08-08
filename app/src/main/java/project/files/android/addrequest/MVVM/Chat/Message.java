@@ -15,6 +15,13 @@
  */
 package project.files.android.addrequest.MVVM.Chat;
 
+
+/**
+ * Message class
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class Message {
 
     private String text;

@@ -7,6 +7,15 @@ import android.preference.PreferenceManager;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.Name;
 
+
+/**
+ * User Profile Settings
+ *
+ * Stores user profile settings as SharedPreferences.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class UserProfileSettings {
 
 

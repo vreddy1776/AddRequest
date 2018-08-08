@@ -31,6 +31,15 @@ import project.files.android.addrequest.Adapter.MessageAdapter;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
+
+/**
+ * Chat Activity
+ *
+ * Chat service that uses Firebase instead of local DB
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

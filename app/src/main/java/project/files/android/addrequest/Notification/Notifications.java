@@ -33,6 +33,14 @@ import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 
+/**
+ * Notifications
+ *
+ * Class with all Notification references.
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class Notifications {
 
     /*

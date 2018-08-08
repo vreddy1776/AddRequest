@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.TicketList;
+package project.files.android.addrequest.Activity.TicketList;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

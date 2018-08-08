@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!-- This linear layout contains a single item displayed in the MainActivity -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="project.files.android.addrequest.MVVM.Main.MainActivity"
+    tools:context="project.files.android.addrequest.Activity.Main.MainActivity"
     android:id="@+id/ticketFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="8dp"
-        tools:context="project.files.android.addrequest.MVVM.Main.MainActivity">
+        tools:context="project.files.android.addrequest.Activity.Main.MainActivity">
 
         <LinearLayout
             android:id="@+id/mainLinearLayout"

@@ -28,7 +28,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Action;
 import android.support.v4.content.ContextCompat;
 
-import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
+import project.files.android.addrequest.Activity.AddTicket.AddTicketActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 

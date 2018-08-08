@@ -15,7 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
+import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.StringGenerator;
 

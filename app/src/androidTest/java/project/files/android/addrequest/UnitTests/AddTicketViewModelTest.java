@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.MVVM.AddTicket.AddTicketViewModel;
+import project.files.android.addrequest.Activity.AddTicket.AddTicketViewModel;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 

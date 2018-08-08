@@ -2,8 +2,6 @@ package project.files.android.addrequest.AutomatedTests;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.filters.LargeTest;
@@ -20,13 +18,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
+import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.StringGenerator;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;

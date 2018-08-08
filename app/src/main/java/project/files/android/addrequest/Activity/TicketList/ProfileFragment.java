@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.TicketList;
+package project.files.android.addrequest.Activity.TicketList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

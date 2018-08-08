@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import project.files.android.addrequest.MVVM.Chat.Message;
+import project.files.android.addrequest.Activity.Chat.Message;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.Name;
@@ -22,7 +22,7 @@ import project.files.android.addrequest.Utils.Name;
 /**
  * Message Adapter
  *
- * {@link MessageAdapter} exposes items to {@link project.files.android.addrequest.MVVM.Chat.ChatActivity}
+ * {@link MessageAdapter} exposes items to {@link project.files.android.addrequest.Activity.Chat.ChatActivity}
  *
  * @author Vijay T. Reddy
  * @version 1.0.0

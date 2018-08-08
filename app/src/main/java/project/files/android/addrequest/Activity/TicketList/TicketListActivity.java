@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.TicketList;
+package project.files.android.addrequest.Activity.TicketList;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.view.View;
 import com.firebase.ui.auth.AuthUI;
 
 import project.files.android.addrequest.Adapter.TicketAdapter;
-import project.files.android.addrequest.MVVM.AddTicket.AddTicketActivity;
-import project.files.android.addrequest.MVVM.Main.MainActivity;
+import project.files.android.addrequest.Activity.AddTicket.AddTicketActivity;
+import project.files.android.addrequest.Activity.Main.MainActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Services.FirebaseDbListenerService;
 import project.files.android.addrequest.Settings.UserProfileSettings;

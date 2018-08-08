@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.Chat;
+package project.files.android.addrequest.Activity.Chat;
 
 import android.content.Intent;
 import android.os.Bundle;

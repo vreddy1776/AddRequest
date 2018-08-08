@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.AddTicket;
+package project.files.android.addrequest.Activity.AddTicket;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;

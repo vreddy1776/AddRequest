@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.AddTicket;
+package project.files.android.addrequest.Activity.AddTicket;
 
 import android.Manifest;
 import android.arch.lifecycle.LiveData;
@@ -46,7 +46,7 @@ import java.util.Date;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.MVVM.Chat.ChatActivity;
+import project.files.android.addrequest.Activity.Chat.ChatActivity;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;

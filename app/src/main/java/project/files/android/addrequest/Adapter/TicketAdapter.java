@@ -15,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.MVVM.TicketList.TicketsFragment;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.Name;
@@ -25,7 +24,7 @@ import project.files.android.addrequest.Utils.Name;
  * Message Adapter
  *
  * {@link project.files.android.addrequest.Adapter.TicketAdapter} exposes list of tickets
- * to {@link project.files.android.addrequest.MVVM.TicketList.TicketsFragment}
+ * to {@link project.files.android.addrequest.Activity.TicketList.TicketsFragment}
  *
  * @author Vijay T. Reddy
  * @version 1.0.0

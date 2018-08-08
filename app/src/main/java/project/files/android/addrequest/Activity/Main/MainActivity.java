@@ -1,4 +1,4 @@
-package project.files.android.addrequest.MVVM.Main;
+package project.files.android.addrequest.Activity.Main;
 
 import android.content.Intent;
 import android.os.Build;
@@ -17,11 +17,9 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.HashMap;
-
 import io.fabric.sdk.android.Fabric;
 import project.files.android.addrequest.Analytics.AppseeFunctions;
-import project.files.android.addrequest.MVVM.TicketList.TicketListActivity;
+import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Services.FirebaseDbListenerService;
 import project.files.android.addrequest.Settings.UserProfileSettings;

@@ -40,7 +40,7 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
 
@@ -64,8 +64,6 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mTicketId;
     private String mTicketTitle;
@@ -89,12 +87,13 @@ public class ChatActivity extends AppCompatActivity {
 
         // Initialize Firebase components
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
+
 
         mMessagesDatabaseReference = mFirebaseDatabase.getReference()
                 .child(GlobalConstants.CHILD_NAME_TICKETS)
                 .child(mTicketId)
                 .child(GlobalConstants.CHILD_NAME_MESSAGES);
+
 
         // Initialize references to views
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -110,6 +109,8 @@ public class ChatActivity extends AppCompatActivity {
 
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
+        attachDatabaseReadListener();
 
         // ImagePickerButton shows an image picker to upload a image for a message
         mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
@@ -144,78 +145,29 @@ public class ChatActivity extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Message friendlyMessage = new Message(mMessageEditText.getText().toString(), mUsername, null);
                 mMessagesDatabaseReference.push().setValue(friendlyMessage);
+
 
                 // Clear input box
                 mMessageEditText.setText("");
             }
         });
-
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    onSignedInInitialize(user.getDisplayName());
-                } else {
-                    // User is signed out
-                    onSignedOutCleanup();
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setProviders(
-                                            AuthUI.GOOGLE_PROVIDER)
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-            }
-        };
-
+        
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) {
-                // Sign-in succeeded, set up the UI
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // Sign in was canceled by the user, finish the activity
-                Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mAuthStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
-        mMessageAdapter.clear();
         detachDatabaseReadListener();
     }
 
-    private void onSignedInInitialize(String username) {
-        mUsername = username;
-        attachDatabaseReadListener();
-    }
-
-    private void onSignedOutCleanup() {
-        mUsername = ANONYMOUS;
-        mMessageAdapter.clear();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         detachDatabaseReadListener();
     }
 

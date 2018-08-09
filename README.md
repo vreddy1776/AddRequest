@@ -7,7 +7,9 @@ AddRequest is a service request app where users can post their issues to a publi
 
 <a href="https://firebasestorage.googleapis.com/v0/b/addrequestapp.appspot.com/o/Build%2Faddrequest.apk?alt=media&token=902e2ae3-f716-4c1c-8547-25069c47fdbf" target="_blank">Download</a>
 
-
+<a href="https://firebasestorage.googleapis.com/v0/b/addrequestapp.appspot.com/o/Build%2Faddrequest.apk?alt=media&token=902e2ae3-f716-4c1c-8547-25069c47fdbf">
+  <img src="https://firebasestorage.googleapis.com/v0/b/addrequestapp.appspot.com/o/Images%2Fgoogle-play-store.svg?alt=media&token=781a0382-bf8f-480c-bf00-21bd0b454784" alt="HTML tutorial" style="width:42px;height:42px;border:0;">
+</a>
 
 
 Introduction

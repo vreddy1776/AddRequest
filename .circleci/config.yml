@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: drazisil/android-sdk:1.0.41
+      - image: circleci/android:api-26-alpha
     working_directory: ~/androidlearn
     steps:
       #  Ensure your image has git, otherwise the checkout step will fail

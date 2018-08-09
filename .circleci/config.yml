@@ -5,7 +5,7 @@ jobs:
       - image: drazisil/android-sdk:1.0.41
     working_directory: ~/androidlearn
     steps:
-      # Ensure your image has git, otherwise the checkout step will fail
+      #  Ensure your image has git, otherwise the checkout step will fail
       # - run: apt-get -qq update; apt-get -y install git
       - checkout
       - run: mkdir artifacts

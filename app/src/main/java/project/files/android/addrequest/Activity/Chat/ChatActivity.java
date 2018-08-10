@@ -42,27 +42,15 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  */
 public class ChatActivity extends AppCompatActivity implements ChatContract.View{
 
-    private static final String TAG = "MainActivity";
 
-    public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
-    public static final String FRIENDLY_MSG_LENGTH_KEY = "friendly_msg_length";
-
-    public static final int RC_SIGN_IN = 1;
-    private static final int RC_PHOTO_PICKER = 2;
 
     private ListView mMessageListView;
     private MessageAdapter mMessageAdapter;
-    private ProgressBar mProgressBar;
     private EditText mMessageEditText;
     private Button mSendButton;
 
     private ChatContract.Presenter mPresenter;
-
-    // Firebase instance variables
-    //private FirebaseDatabase mFirebaseDatabase;
-    //private DatabaseReference mMessagesDatabaseReference;
-    //private ChildEventListener mChildEventListener;
 
     private String mTicketId;
     private String mTicketTitle;
@@ -81,10 +69,9 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
 
         getSupportActionBar().setTitle(mTicketTitle);
 
-        mPresenter = new ChatPresenter(mTicketId);
+        mPresenter = new ChatPresenter(this, mTicketId);
 
         // Initialize references to views
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageListView = (ListView) findViewById(R.id.messageListView);
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (Button) findViewById(R.id.sendButton);
@@ -94,13 +81,8 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, messages);
         mMessageListView.setAdapter(mMessageAdapter);
 
-        // Initialize progress bar
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-
-        addMessageListener();
-
-
         // Enable Send button when there's text to send
+        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -120,14 +102,12 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
             }
         });
 
-        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
-
         // Send button sends a message and clears the EditText
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mPresenter.pushMessage(getApplicationContext(),mMessageEditText.getText().toString());
+                mPresenter.sendMessage(getApplicationContext());
                 mMessageEditText.setText("");
             }
         });
@@ -136,27 +116,31 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
 
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStart() {
+        super.onStart();
+        addMessageListener();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         removeMessageListener();
     }
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        removeMessageListener();
+    public String getMessageText() {
+        return mMessageEditText.getText().toString();
     }
 
 
-    @Override
-    public void addMessageListener() {
+    private void addMessageListener() {
         mPresenter.attachDatabaseReadListener(mMessageAdapter);
     }
 
 
-    @Override
-    public void removeMessageListener() {
+    private void removeMessageListener() {
         mPresenter.detachDatabaseReadListener();
     }
 

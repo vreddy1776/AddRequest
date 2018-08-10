@@ -8,15 +8,13 @@ public class ChatContract {
 
     interface View {
 
-        void addMessageListener();
-
-        void removeMessageListener();
+        String getMessageText();
 
     }
 
     interface Presenter {
 
-        void pushMessage(Context context, String messageText);
+        void sendMessage(Context context);
 
         void attachDatabaseReadListener(MessageAdapter messageAdapter);
 

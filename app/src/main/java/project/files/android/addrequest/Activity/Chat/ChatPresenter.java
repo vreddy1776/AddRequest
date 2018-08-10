@@ -16,15 +16,20 @@ import project.files.android.addrequest.Utils.GlobalConstants;
 
 
 
+
 public class ChatPresenter implements ChatContract.Presenter {
 
+
+    @NonNull
+    private final ChatContract.View mView;
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
 
 
-    public ChatPresenter(String ticketId){
+    public ChatPresenter(@NonNull ChatContract.View view, String ticketId){
+        mView = view;
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference()
                 .child(GlobalConstants.CHILD_NAME_TICKETS)
@@ -34,9 +39,11 @@ public class ChatPresenter implements ChatContract.Presenter {
 
 
     @Override
-    public void pushMessage(Context context, String messageText) {
+    public void sendMessage(Context context) {
 
-        Message message = new Message(messageText, UserProfileSettings.getUsername(context), null);
+        Message message = new Message(mView.getMessageText(),
+                UserProfileSettings.getUsername(context),
+                UserProfileSettings.getUserPhotoURL(context));
         mMessagesDatabaseReference.push().setValue(message);
 
     }

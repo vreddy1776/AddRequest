@@ -28,12 +28,14 @@ import project.files.android.addrequest.Utils.Name;
  * @version 1.0.0
  */
 public class MessageAdapter extends ArrayAdapter<Message> {
+
     public MessageAdapter(Context context, int resource, List<Message> objects) {
         super(context, resource, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_message, parent, false);
         }
@@ -45,7 +47,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         Message message = getItem(position);
 
-        boolean isPhoto = message.getPhotoUrl() != null;
+        boolean isPhoto = false;
         if (isPhoto) {
             messageTextView.setVisibility(View.GONE);
             photoImageView.setVisibility(View.VISIBLE);
@@ -57,9 +59,10 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             photoImageView.setVisibility(View.GONE);
             messageTextView.setText(message.getText());
         }
+
         authorTextView.setText(Name.getFirstName(message.getName()));
         Glide.with(getContext())
-                .load(UserProfileSettings.getUserPhotoURL(getContext()))
+                .load(message.getPhotoUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(profilePicView);
 

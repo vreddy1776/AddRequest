@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import project.files.android.addrequest.Utils.GlobalConstants;
+
 
 /**
  * Local DB constructor
@@ -29,6 +31,38 @@ public class TicketEntry {
 
 
     @Ignore
+    public TicketEntry() {
+        this.ticketId = GlobalConstants.DEFAULT_TICKET_ID;
+        this.ticketTitle = GlobalConstants.BLANK_TICKET_TITLE;
+        this.ticketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
+        this.ticketDate = GlobalConstants.DEFAULT_TICKET_DATE;
+        this.ticketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
+        this.ticketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
+        this.ticketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        this.userId = GlobalConstants.DEFAULT_USER_ID;
+        this.userName = GlobalConstants.DEFAULT_USER_NAME;
+        this.userPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
+
+    }
+
+
+    @Ignore
+    public TicketEntry(TicketEntry ticket) {
+        this.ticketId = ticket.getTicketId();
+        this.ticketTitle = ticket.getTicketTitle();
+        this.ticketDescription = ticket.getTicketDescription();
+        this.ticketDate = ticket.getTicketDate();
+        this.ticketVideoPostId = ticket.getTicketVideoPostId();
+        this.ticketVideoLocalUri = ticket.getTicketVideoLocalUri();
+        this.ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
+        this.userId = ticket.getUserId();
+        this.userName = ticket.getUserName();
+        this.userPhotoUrl = ticket.getUserPhotoUrl();
+
+    }
+
+
+    @Ignore
     public TicketEntry(
             String ticketTitle,
             String ticketDescription,
@@ -50,6 +84,7 @@ public class TicketEntry {
         this.userPhotoUrl = userPhotoUrl;
 
     }
+
 
     public TicketEntry(
             int ticketId,
@@ -156,6 +191,19 @@ public class TicketEntry {
         this.userPhotoUrl = userPhotoUrl;
     }
 
+    public void setTicket(TicketEntry ticket) {
+        this.ticketId = ticket.getTicketId();
+        this.ticketTitle = ticket.getTicketTitle();
+        this.ticketDescription = ticket.getTicketDescription();
+        this.ticketDate = ticket.getTicketDate();
+        this.ticketVideoPostId = ticket.getTicketVideoPostId();
+        this.ticketVideoLocalUri = ticket.getTicketVideoLocalUri();
+        this.ticketVideoInternetUrl = ticket.getTicketVideoInternetUrl();
+        this.userId = ticket.getUserId();
+        this.userName = ticket.getUserName();
+        this.userPhotoUrl = ticket.getUserPhotoUrl();
+
+    }
 
 }
 

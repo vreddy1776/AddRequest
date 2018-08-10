@@ -38,6 +38,7 @@ public class AddTicketViewModel extends ViewModel {
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
     private LiveData<TicketEntry> mLiveDataTicket;
     private AppDatabase mAppDatabase;
+    public TicketEntry tempTicket;
 
 
     /**
@@ -46,6 +47,7 @@ public class AddTicketViewModel extends ViewModel {
      */
     public void setup(Context context, int ticketId){
         mAppDatabase = AppDatabase.getInstance(context);
+        tempTicket = new TicketEntry();
         loadLiveDataTicket(ticketId);
     }
 

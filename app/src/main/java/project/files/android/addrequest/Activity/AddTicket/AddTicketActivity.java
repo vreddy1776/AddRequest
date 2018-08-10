@@ -100,7 +100,8 @@ public class AddTicketActivity extends AppCompatActivity{
     private Uri videoUri;
     private LiveData<TicketEntry> ticketLiveData;
     private Observer<TicketEntry> ticketObserver;
-    private int mTicketId = GlobalConstants.DEFAULT_TICKET_ID;
+    private int mReceivedTicketId = GlobalConstants.DEFAULT_TICKET_ID;
+    /*
     private String mTicketTitle = GlobalConstants.BLANK_TICKET_TITLE;
     private String mTicketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
     private String mTicketDate = GlobalConstants.DEFAULT_TICKET_DATE;
@@ -110,6 +111,7 @@ public class AddTicketActivity extends AppCompatActivity{
     private String mUserId = GlobalConstants.DEFAULT_USER_ID;
     private String mUserName = GlobalConstants.DEFAULT_USER_NAME;
     private String mUserPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
+    */
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +122,13 @@ public class AddTicketActivity extends AppCompatActivity{
 
         setupVideoPlayer(savedInstanceState);
         receiveTicketInfo();
-        initViews();
         setupViewModelFactory();
+        initViews();
+
 
         if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-            mTicketId = ID.newID();
+           //mTicketId = ID.newID();
+            viewModel.tempTicket.setTicketId(ID.newID());
         }
 
     }
@@ -160,7 +164,8 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void receiveTicketInfo(){
         Intent intent = getIntent();
-        mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
+        //mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
+        mReceivedTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
         mTicketType = intent.getIntExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.VIEW_TICKET_TYPE);
     }
 
@@ -170,9 +175,9 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void setupViewModelFactory(){
 
-        AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mTicketId);
+        AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mReceivedTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
-        viewModel.setup(this,mTicketId);
+        viewModel.setup(this,mReceivedTicketId);
         ticketLiveData = viewModel.getLiveDataTicket();
         ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override
@@ -180,6 +185,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
                 if(mTicketType != GlobalConstants.ADD_TICKET_TYPE){
 
+                    /*
                     mTicketId = ticketEntry.getTicketId();
                     mTicketTitle = ticketEntry.getTicketTitle();
                     mTicketDescription = ticketEntry.getTicketDescription();
@@ -193,6 +199,12 @@ public class AddTicketActivity extends AppCompatActivity{
 
                     mTitleText.setText(mTicketTitle);
                     mDescriptionText.setText(mTicketDescription);
+                     */
+
+                    viewModel.tempTicket.setTicket(ticketEntry);
+
+                    mTitleText.setText(viewModel.tempTicket.getTicketTitle());
+                    mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
 
                     setVideoView();
                 }
@@ -212,7 +224,9 @@ public class AddTicketActivity extends AppCompatActivity{
 
         outState.putInt(INSTANCE_TICKET_TYPE_KEY , mTicketType);
 
-        outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
+        //outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
+        outState.putInt(INSTANCE_TICKET_ID_KEY , mReceivedTicketId);
+        /*
         outState.putString("mTicketTitle" , mTicketTitle);
         outState.putString("mTicketDescription" , mTicketDescription);
         outState.putString("mTicketDate" , mTicketDate);
@@ -222,6 +236,7 @@ public class AddTicketActivity extends AppCompatActivity{
         outState.putString("mUserId" , mUserId);
         outState.putString("mUserName" , mUserName);
         outState.putString("mUserPhotoUrl" , mUserPhotoUrl);
+        */
 
         playbackPosition = player.getCurrentPosition();
         currentWindow = player.getCurrentWindowIndex();
@@ -278,8 +293,12 @@ public class AddTicketActivity extends AppCompatActivity{
             //do nothing
         }
 
+        /*
         mTitleText.setText(mTicketTitle);
         mDescriptionText.setText(mTicketDescription);
+        */
+        mTitleText.setText(viewModel.tempTicket.getTicketTitle());
+        mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
 
         setVideoView();
 
@@ -308,7 +327,7 @@ public class AddTicketActivity extends AppCompatActivity{
 
     private void setVideoView(){
 
-        if ( mTicketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID) ) {
+        if ( viewModel.tempTicket.getTicketVideoPostId().equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID) ) {
             streamVideo.setVisibility(View.INVISIBLE);
             videoButton.setVisibility(View.VISIBLE);
             videoDeleteButton.setVisibility(View.INVISIBLE);
@@ -328,10 +347,10 @@ public class AddTicketActivity extends AppCompatActivity{
             if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE) {
                 videoDeleteButton.setVisibility(View.VISIBLE);
             }
-            if ( mTicketVideoPostId.equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID )){
-                videoUri = Uri.parse(mTicketVideoInternetUrl);
+            if ( viewModel.tempTicket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID )){
+                videoUri = Uri.parse(viewModel.tempTicket.getTicketVideoInternetUrl());
             } else {
-                videoUri = Uri.parse(mTicketVideoLocalUri);
+                videoUri = Uri.parse(viewModel.tempTicket.getTicketVideoLocalUri());
             }
             currentWindow = 0;
             playbackPosition = 0;
@@ -351,6 +370,7 @@ public class AddTicketActivity extends AppCompatActivity{
         setTitleDescription();
         setOtherTicketValues();
 
+        /*
         final int ticketId = mTicketId;
         final String ticketTitle = mTicketTitle;
         final String ticketDescription = mTicketDescription;
@@ -361,13 +381,22 @@ public class AddTicketActivity extends AppCompatActivity{
         final String userId = mUserId;
         final String userName = mUserName;
         final String userPhotoUrl = mUserPhotoUrl;
+        */
 
+        /*
         AppseeFunctions.saveTicket(mTicketType,
                 userId,
                 userName,
                 ticketId,
                 ticketTitle);
+                */
+        AppseeFunctions.saveTicket(mTicketType,
+                viewModel.tempTicket.getUserId(),
+                viewModel.tempTicket.getUserName(),
+                viewModel.tempTicket.getTicketId(),
+                viewModel.tempTicket.getTicketTitle());
 
+        /*
         TicketEntry ticket = new TicketEntry(
                 ticketId,
                 ticketTitle,
@@ -379,8 +408,10 @@ public class AddTicketActivity extends AppCompatActivity{
                 userId,
                 userName,
                 userPhotoUrl);
+                */
+        TicketEntry ticket = new TicketEntry(viewModel.tempTicket);
 
-        viewModel.addTicket(this, ticket,mTicketType);
+        viewModel.addTicket(this, ticket, mTicketType);
 
         finish();
 
@@ -392,35 +423,54 @@ public class AddTicketActivity extends AppCompatActivity{
         // Set title if blank or not
         String title = mTitleText.getText().toString();
         if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
-            mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
+            //mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
+            viewModel.tempTicket.setTicketTitle(GlobalConstants.DEFAULT_TICKET_TITLE);
         } else {
-            mTicketTitle = title;
+            //mTicketTitle = title;
+            viewModel.tempTicket.setTicketTitle(title);
+
         }
 
         // Set description if blank or not
         String description = mDescriptionText.getText().toString();
         if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
-            mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+            //mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
+            viewModel.tempTicket.setTicketDescription(GlobalConstants.DEFAULT_TICKET_DESCRIPTION);
         } else {
-            mTicketDescription = description;
+            //mTicketDescription = description;
+            viewModel.tempTicket.setTicketDescription(description);
+
         }
     }
 
 
     private void setOtherTicketValues(){
 
+        /*
         mTicketDate = DateTime.dateToString(new Date());
         mUserId = UserProfileSettings.getUserID(this);
         mUserName = UserProfileSettings.getUsername(this);
         mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
+        */
+
+        viewModel.tempTicket.setTicketDate(DateTime.dateToString(new Date()));
+        viewModel.tempTicket.setUserId(UserProfileSettings.getUserID(this));
+        viewModel.tempTicket.setUserName(UserProfileSettings.getUsername(this));
+        viewModel.tempTicket.setUserPhotoUrl(UserProfileSettings.getUserPhotoURL(this));
+
     }
 
 
     public void onVideoDeleteButtonClicked(View view){
 
+        /*
         mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
         mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
         mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        */
+        viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID);
+        viewModel.tempTicket.setTicketVideoLocalUri(GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI);
+        viewModel.tempTicket.setTicketVideoInternetUrl(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL);
         setVideoView();
     }
 
@@ -482,8 +532,14 @@ public class AddTicketActivity extends AppCompatActivity{
         if(  ( requestCode == VIDEO_REQUEST )  &&  ( resultCode == RESULT_OK )  ){
 
             videoUri = data.getData();
+
+            /*
             mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
             mTicketVideoLocalUri = videoUri.toString();
+            */
+
+            viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID);
+            viewModel.tempTicket.setTicketVideoLocalUri(videoUri.toString());
 
             setVideoView();
 
@@ -496,13 +552,16 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
     public int getTicketId() {
-        return mTicketId;
+        //return mTicketId;
+        return viewModel.tempTicket.getTicketId();
     }
 
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
-        intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );
-        intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , mTicketTitle );
+        //intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );
+        //intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , mTicketTitle );
+        intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(viewModel.tempTicket.getTicketId()));
+        intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , viewModel.tempTicket.getTicketTitle() );
         startActivity(intent);
     }
 

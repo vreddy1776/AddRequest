@@ -101,17 +101,6 @@ public class AddTicketActivity extends AppCompatActivity{
     private LiveData<TicketEntry> ticketLiveData;
     private Observer<TicketEntry> ticketObserver;
     private int mReceivedTicketId = GlobalConstants.DEFAULT_TICKET_ID;
-    /*
-    private String mTicketTitle = GlobalConstants.BLANK_TICKET_TITLE;
-    private String mTicketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
-    private String mTicketDate = GlobalConstants.DEFAULT_TICKET_DATE;
-    private String mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
-    private String mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
-    private String mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-    private String mUserId = GlobalConstants.DEFAULT_USER_ID;
-    private String mUserName = GlobalConstants.DEFAULT_USER_NAME;
-    private String mUserPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
-    */
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +116,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
         if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-           //mTicketId = ID.newID();
             viewModel.tempTicket.setTicketId(ID.newID());
         }
 
@@ -164,7 +152,6 @@ public class AddTicketActivity extends AppCompatActivity{
      */
     private void receiveTicketInfo(){
         Intent intent = getIntent();
-        //mTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
         mReceivedTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
         mTicketType = intent.getIntExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.VIEW_TICKET_TYPE);
     }
@@ -184,22 +171,6 @@ public class AddTicketActivity extends AppCompatActivity{
             public void onChanged(@Nullable TicketEntry ticketEntry) {
 
                 if(mTicketType != GlobalConstants.ADD_TICKET_TYPE){
-
-                    /*
-                    mTicketId = ticketEntry.getTicketId();
-                    mTicketTitle = ticketEntry.getTicketTitle();
-                    mTicketDescription = ticketEntry.getTicketDescription();
-                    mTicketDate = ticketEntry.getTicketDate();
-                    mTicketVideoPostId = ticketEntry.getTicketVideoPostId();
-                    mTicketVideoLocalUri = ticketEntry.getTicketVideoLocalUri();
-                    mTicketVideoInternetUrl = ticketEntry.getTicketVideoInternetUrl();
-                    mUserId = ticketEntry.getUserId();
-                    mUserName = ticketEntry.getUserName();
-                    mUserPhotoUrl = ticketEntry.getUserPhotoUrl();
-
-                    mTitleText.setText(mTicketTitle);
-                    mDescriptionText.setText(mTicketDescription);
-                     */
 
                     viewModel.tempTicket.setTicket(ticketEntry);
 
@@ -223,20 +194,7 @@ public class AddTicketActivity extends AppCompatActivity{
     protected void onSaveInstanceState(Bundle outState) {
 
         outState.putInt(INSTANCE_TICKET_TYPE_KEY , mTicketType);
-
-        //outState.putInt(INSTANCE_TICKET_ID_KEY , mTicketId);
         outState.putInt(INSTANCE_TICKET_ID_KEY , mReceivedTicketId);
-        /*
-        outState.putString("mTicketTitle" , mTicketTitle);
-        outState.putString("mTicketDescription" , mTicketDescription);
-        outState.putString("mTicketDate" , mTicketDate);
-        outState.putString("mTicketVideoPostId" , mTicketVideoPostId);
-        outState.putString("mTicketVideoLocalUri" , mTicketVideoLocalUri);
-        outState.putString("mTicketVideoInternetUrl" , mTicketVideoInternetUrl);
-        outState.putString("mUserId" , mUserId);
-        outState.putString("mUserName" , mUserName);
-        outState.putString("mUserPhotoUrl" , mUserPhotoUrl);
-        */
 
         playbackPosition = player.getCurrentPosition();
         currentWindow = player.getCurrentWindowIndex();
@@ -293,10 +251,6 @@ public class AddTicketActivity extends AppCompatActivity{
             //do nothing
         }
 
-        /*
-        mTitleText.setText(mTicketTitle);
-        mDescriptionText.setText(mTicketDescription);
-        */
         mTitleText.setText(viewModel.tempTicket.getTicketTitle());
         mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
 
@@ -370,45 +324,12 @@ public class AddTicketActivity extends AppCompatActivity{
         setTitleDescription();
         setOtherTicketValues();
 
-        /*
-        final int ticketId = mTicketId;
-        final String ticketTitle = mTicketTitle;
-        final String ticketDescription = mTicketDescription;
-        final String ticketDate = mTicketDate;
-        final String ticketVideoPostId = mTicketVideoPostId;
-        final String ticketVideoLocalUri = mTicketVideoLocalUri;
-        final String ticketVideoInternetUrl = mTicketVideoInternetUrl;
-        final String userId = mUserId;
-        final String userName = mUserName;
-        final String userPhotoUrl = mUserPhotoUrl;
-        */
-
-        /*
-        AppseeFunctions.saveTicket(mTicketType,
-                userId,
-                userName,
-                ticketId,
-                ticketTitle);
-                */
         AppseeFunctions.saveTicket(mTicketType,
                 viewModel.tempTicket.getUserId(),
                 viewModel.tempTicket.getUserName(),
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        /*
-        TicketEntry ticket = new TicketEntry(
-                ticketId,
-                ticketTitle,
-                ticketDescription,
-                ticketDate,
-                ticketVideoPostId,
-                ticketVideoLocalUri,
-                ticketVideoInternetUrl,
-                userId,
-                userName,
-                userPhotoUrl);
-                */
         TicketEntry ticket = new TicketEntry(viewModel.tempTicket);
 
         viewModel.addTicket(this, ticket, mTicketType);
@@ -423,10 +344,8 @@ public class AddTicketActivity extends AppCompatActivity{
         // Set title if blank or not
         String title = mTitleText.getText().toString();
         if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
-            //mTicketTitle = GlobalConstants.DEFAULT_TICKET_TITLE;
             viewModel.tempTicket.setTicketTitle(GlobalConstants.DEFAULT_TICKET_TITLE);
         } else {
-            //mTicketTitle = title;
             viewModel.tempTicket.setTicketTitle(title);
 
         }
@@ -434,10 +353,8 @@ public class AddTicketActivity extends AppCompatActivity{
         // Set description if blank or not
         String description = mDescriptionText.getText().toString();
         if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
-            //mTicketDescription = GlobalConstants.DEFAULT_TICKET_DESCRIPTION;
             viewModel.tempTicket.setTicketDescription(GlobalConstants.DEFAULT_TICKET_DESCRIPTION);
         } else {
-            //mTicketDescription = description;
             viewModel.tempTicket.setTicketDescription(description);
 
         }
@@ -445,13 +362,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
 
     private void setOtherTicketValues(){
-
-        /*
-        mTicketDate = DateTime.dateToString(new Date());
-        mUserId = UserProfileSettings.getUserID(this);
-        mUserName = UserProfileSettings.getUsername(this);
-        mUserPhotoUrl = UserProfileSettings.getUserPhotoURL(this);
-        */
 
         viewModel.tempTicket.setTicketDate(DateTime.dateToString(new Date()));
         viewModel.tempTicket.setUserId(UserProfileSettings.getUserID(this));
@@ -463,11 +373,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
     public void onVideoDeleteButtonClicked(View view){
 
-        /*
-        mTicketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
-        mTicketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
-        mTicketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-        */
         viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID);
         viewModel.tempTicket.setTicketVideoLocalUri(GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI);
         viewModel.tempTicket.setTicketVideoInternetUrl(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL);
@@ -533,11 +438,6 @@ public class AddTicketActivity extends AppCompatActivity{
 
             videoUri = data.getData();
 
-            /*
-            mTicketVideoPostId = GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID;
-            mTicketVideoLocalUri = videoUri.toString();
-            */
-
             viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID);
             viewModel.tempTicket.setTicketVideoLocalUri(videoUri.toString());
 
@@ -551,15 +451,14 @@ public class AddTicketActivity extends AppCompatActivity{
         return viewModel;
     }
 
+
     public int getTicketId() {
-        //return mTicketId;
         return viewModel.tempTicket.getTicketId();
     }
 
+
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
-        //intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(mTicketId) );
-        //intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , mTicketTitle );
         intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(viewModel.tempTicket.getTicketId()));
         intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , viewModel.tempTicket.getTicketTitle() );
         startActivity(intent);

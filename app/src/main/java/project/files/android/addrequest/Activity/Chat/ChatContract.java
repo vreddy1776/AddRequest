@@ -1,38 +1,27 @@
 package project.files.android.addrequest.Activity.Chat;
 
-import android.support.annotation.NonNull;
+import android.content.Context;
 
-import java.io.IOException;
+import project.files.android.addrequest.Adapter.MessageAdapter;
 
 public class ChatContract {
 
     interface View {
 
-        void showEmptyNoteError();
+        void addMessageListener();
 
-        void showNotesList();
+        void removeMessageListener();
 
-        void openCamera(String saveTo);
-
-        void showImagePreview(@NonNull String uri);
-
-        void showImageError();
     }
 
     interface Presenter {
 
-        void setDatabaseReference();
+        void pushMessage(Context context, String messageText);
 
-        void pushMessage(String messageText);
+        void attachDatabaseReadListener(MessageAdapter messageAdapter);
 
+        void detachDatabaseReadListener();
 
-        void saveNote(String title, String description);
-
-        void takePicture() throws IOException;
-
-        void imageAvailable();
-
-        void imageCaptureFailed();
     }
 
 }

@@ -40,7 +40,7 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
-public class ChatActivity extends AppCompatActivity{
+public class ChatActivity extends AppCompatActivity implements ChatContract.View{
 
     private static final String TAG = "MainActivity";
 
@@ -54,16 +54,15 @@ public class ChatActivity extends AppCompatActivity{
     private ListView mMessageListView;
     private MessageAdapter mMessageAdapter;
     private ProgressBar mProgressBar;
-    private ImageButton mPhotoPickerButton;
     private EditText mMessageEditText;
     private Button mSendButton;
 
-    private String mUsername;
+    private ChatContract.Presenter mPresenter;
 
     // Firebase instance variables
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mMessagesDatabaseReference;
-    private ChildEventListener mChildEventListener;
+    //private FirebaseDatabase mFirebaseDatabase;
+    //private DatabaseReference mMessagesDatabaseReference;
+    //private ChildEventListener mChildEventListener;
 
     private String mTicketId;
     private String mTicketTitle;
@@ -80,25 +79,13 @@ public class ChatActivity extends AppCompatActivity{
         mTicketId = intent.getStringExtra(GlobalConstants.TICKET_ID_KEY);
         mTicketTitle = intent.getStringExtra(GlobalConstants.TICKET_TITLE_KEY);
 
-
         getSupportActionBar().setTitle(mTicketTitle);
 
-        mUsername = ANONYMOUS;
-
-        // Initialize Firebase components
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-
-
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference()
-                .child(GlobalConstants.CHILD_NAME_TICKETS)
-                .child(mTicketId)
-                .child(GlobalConstants.CHILD_NAME_MESSAGES);
-
+        mPresenter = new ChatPresenter(mTicketId);
 
         // Initialize references to views
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageListView = (ListView) findViewById(R.id.messageListView);
-        mPhotoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (Button) findViewById(R.id.sendButton);
 
@@ -110,15 +97,8 @@ public class ChatActivity extends AppCompatActivity{
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-        attachDatabaseReadListener();
+        addMessageListener();
 
-        // ImagePickerButton shows an image picker to upload a image for a message
-        mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         // Enable Send button when there's text to send
         mMessageEditText.addTextChangedListener(new TextWatcher() {
@@ -139,6 +119,7 @@ public class ChatActivity extends AppCompatActivity{
             public void afterTextChanged(Editable editable) {
             }
         });
+
         mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
 
         // Send button sends a message and clears the EditText
@@ -146,55 +127,39 @@ public class ChatActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-
-                Message friendlyMessage = new Message(mMessageEditText.getText().toString(), mUsername, null);
-                mMessagesDatabaseReference.push().setValue(friendlyMessage);
-
-
-                // Clear input box
+                mPresenter.pushMessage(getApplicationContext(),mMessageEditText.getText().toString());
                 mMessageEditText.setText("");
             }
         });
-        
+
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        detachDatabaseReadListener();
+        removeMessageListener();
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        detachDatabaseReadListener();
+        removeMessageListener();
     }
 
-    private void attachDatabaseReadListener() {
-        if (mChildEventListener == null) {
-            mChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Message message = dataSnapshot.getValue(Message.class);
-                    mMessageAdapter.add(message);
-                }
 
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                public void onCancelled(DatabaseError databaseError) {}
-            };
-            mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
-        }
+    @Override
+    public void addMessageListener() {
+        mPresenter.attachDatabaseReadListener(mMessageAdapter);
     }
 
-    private void detachDatabaseReadListener() {
-        if (mChildEventListener != null) {
-            mMessagesDatabaseReference.removeEventListener(mChildEventListener);
-            mChildEventListener = null;
-        }
+
+    @Override
+    public void removeMessageListener() {
+        mPresenter.detachDatabaseReadListener();
     }
+
 
 }
 

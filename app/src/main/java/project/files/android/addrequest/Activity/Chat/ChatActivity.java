@@ -77,8 +77,7 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
         mSendButton = (Button) findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
-        List<Message> messages = new ArrayList<>();
-        mMessageAdapter = new MessageAdapter(this, R.layout.item_message, messages);
+        mMessageAdapter = new MessageAdapter(this, R.layout.item_message, mPresenter.createMessageList());
         mMessageListView.setAdapter(mMessageAdapter);
 
         // Enable Send button when there's text to send
@@ -135,8 +134,13 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
     }
 
 
+    @Override
+    public MessageAdapter getMessageAdapter() {
+        return mMessageAdapter;
+    }
+
     private void addMessageListener() {
-        mPresenter.attachDatabaseReadListener(mMessageAdapter);
+        mPresenter.attachDatabaseReadListener();
     }
 
 

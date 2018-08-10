@@ -2,6 +2,8 @@ package project.files.android.addrequest.Activity.Chat;
 
 import android.content.Context;
 
+import java.util.List;
+
 import project.files.android.addrequest.Adapter.MessageAdapter;
 
 public class ChatContract {
@@ -10,13 +12,17 @@ public class ChatContract {
 
         String getMessageText();
 
+        MessageAdapter getMessageAdapter();
+
     }
 
     interface Presenter {
 
+        List<Message> createMessageList();
+
         void sendMessage(Context context);
 
-        void attachDatabaseReadListener(MessageAdapter messageAdapter);
+        void attachDatabaseReadListener();
 
         void detachDatabaseReadListener();
 

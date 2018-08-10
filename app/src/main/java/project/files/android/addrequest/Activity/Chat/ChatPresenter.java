@@ -9,7 +9,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import project.files.android.addrequest.Adapter.MessageAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
@@ -39,6 +41,13 @@ public class ChatPresenter implements ChatContract.Presenter {
 
 
     @Override
+    public List<Message> createMessageList() {
+        List<Message> messages = new ArrayList<>();
+        return messages;
+    }
+
+
+    @Override
     public void sendMessage(Context context) {
 
         Message message = new Message(mView.getMessageText(),
@@ -50,13 +59,13 @@ public class ChatPresenter implements ChatContract.Presenter {
 
 
     @Override
-    public void attachDatabaseReadListener(final MessageAdapter messageAdapter) {
+    public void attachDatabaseReadListener() {
         if (mChildEventListener == null) {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Message message = dataSnapshot.getValue(Message.class);
-                    messageAdapter.add(message);
+                    mView.getMessageAdapter().add(message);
                 }
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {}

@@ -99,8 +99,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     private int currentWindow;
     private long playbackPosition;
     private Uri videoUri;
-    private LiveData<TicketEntry> ticketLiveData;
-    private Observer<TicketEntry> ticketObserver;
     private int mReceivedTicketId = GlobalConstants.DEFAULT_TICKET_ID;
 
 
@@ -166,25 +164,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mReceivedTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
         viewModel.setup(this,this, mReceivedTicketId, mTicketType);
-
-        /*
-        ticketLiveData = viewModel.getLiveDataTicket();
-        ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
-            @Override
-            public void onChanged(@Nullable TicketEntry ticketEntry) {
-
-                if(mTicketType != GlobalConstants.ADD_TICKET_TYPE){
-
-                    viewModel.tempTicket.setTicket(ticketEntry);
-
-                    mTitleText.setText(viewModel.tempTicket.getTicketTitle());
-                    mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
-
-                    setVideoView();
-                }
-            }
-        });
-        */
 
     }
 
@@ -255,8 +234,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             //do nothing
         }
 
-        mTitleText.setText(viewModel.tempTicket.getTicketTitle());
-        mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
+        updateTitleDescription();
 
         setVideoView();
 
@@ -340,9 +318,10 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        TicketEntry ticket = new TicketEntry(viewModel.tempTicket);
+        //TicketEntry ticket = new TicketEntry(viewModel.tempTicket);
+        //viewModel.addTicket(this, ticket, mTicketType);
 
-        viewModel.addTicket(this, ticket, mTicketType);
+        viewModel.addTicket(this, mTicketType);
 
         finish();
 
@@ -549,9 +528,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
-        }
-        if (ticketObserver != null){
-            ticketLiveData.removeObserver(ticketObserver);
         }
     }
 

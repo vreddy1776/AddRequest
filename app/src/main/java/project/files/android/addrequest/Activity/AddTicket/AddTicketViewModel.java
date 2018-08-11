@@ -68,13 +68,6 @@ public class AddTicketViewModel extends ViewModel {
                     view.updateTitleDescription();
                     view.setVideoView();
 
-
-                    /*
-                    mTitleText.setText(viewModel.tempTicket.getTicketTitle());
-                    mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
-
-                    setVideoView();
-                    */
                 }
             }
         });
@@ -128,18 +121,17 @@ public class AddTicketViewModel extends ViewModel {
      * Adds or updates ticket to local and remote DBs with video upload.
      *
      * @param context An AddTicketActivity context for notifications.
-     * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
-    public void addTicket(final Context context, final TicketEntry ticket, final int ticketType){
+    public void addTicket(final Context context, final int ticketType){
 
         // Video Present
-        if (ticket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+        if (tempTicket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
 
-            Uri capturedVideoUri = Uri.parse(ticket.getTicketVideoLocalUri());
+            Uri capturedVideoUri = Uri.parse(tempTicket.getTicketVideoLocalUri());
             StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
             UploadTask uploadTask = localVideoRef.putFile(capturedVideoUri);
 
@@ -152,19 +144,19 @@ public class AddTicketViewModel extends ViewModel {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    ticket.setTicketVideoPostId(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID);
-                    ticket.setTicketVideoInternetUrl(taskSnapshot.getDownloadUrl().toString());
+                    tempTicket.setTicketVideoPostId(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID);
+                    tempTicket.setTicketVideoInternetUrl(taskSnapshot.getDownloadUrl().toString());
 
-                    addTicketToDb(ticket, ticketType);
+                    addTicketToDb(tempTicket, ticketType);
 
-                    Notifications.ticketPostedNotification(context,ticket.getTicketId());
+                    Notifications.ticketPostedNotification(context,tempTicket.getTicketId());
                 }
             });
 
         // No video present
         } else {
 
-            addTicketToDb(ticket, ticketType);
+            addTicketToDb(tempTicket, ticketType);
         }
     }
 
@@ -172,7 +164,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Calls two threads - one for adding ticket to local DB other to remote DB.
      *
-     * @see #addTicket(Context, TicketEntry, int)
+     * @see #addTicket(Context, int)
      *
      * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.

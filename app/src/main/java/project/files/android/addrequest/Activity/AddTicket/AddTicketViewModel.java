@@ -7,6 +7,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,6 +59,7 @@ public class AddTicketViewModel extends ViewModel {
         tempTicket = new TicketEntry();
         loadLiveDataTicket(ticketId);
 
+        removeObserver();
         mLiveDataTicket.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override
             public void onChanged(@Nullable TicketEntry ticketEntry) {
@@ -215,36 +217,22 @@ public class AddTicketViewModel extends ViewModel {
 
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = fBdatabase.getReference("Tickets");
-        //final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
         myRef.child(String.valueOf(ticket.getTicketId())).setValue(ticket);
+
     }
 
 
-    /**
-     * Converts local Ticket object to Firebase ticket object to prep for upload to Firebase DB.
-     *
-     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
-     *
-     * @param ticket The ticket to be added.
-     *
-     * @return the FirebaseDB ticket
-     */
-    private FirebaseDbTicket createFirebaseTicket(TicketEntry ticket){
-
-        FirebaseDbTicket fBTicket = new FirebaseDbTicket(
-                ticket.getTicketId(),
-                ticket.getTicketTitle(),
-                ticket.getTicketDescription(),
-                ticket.getTicketDate(),
-                ticket.getTicketVideoPostId(),
-                ticket.getTicketVideoLocalUri(),
-                ticket.getTicketVideoInternetUrl(),
-                ticket.getUserId(),
-                ticket.getUserName(),
-                ticket.getUserPhotoUrl());
-
-        return fBTicket;
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        removeObserver();
     }
 
+
+    private void removeObserver(){
+        if (ticketObserver != null){
+            mLiveDataTicket.removeObserver(ticketObserver);
+        }
+    }
 
 }

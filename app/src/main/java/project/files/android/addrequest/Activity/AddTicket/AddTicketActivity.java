@@ -318,9 +318,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        //TicketEntry ticket = new TicketEntry(viewModel.tempTicket);
-        //viewModel.addTicket(this, ticket, mTicketType);
-
         viewModel.addTicket(this, mTicketType);
 
         finish();

@@ -215,8 +215,8 @@ public class AddTicketViewModel extends ViewModel {
 
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = fBdatabase.getReference("Tickets");
-        final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
-        myRef.child(String.valueOf(ticket.getTicketId())).setValue(fbTicket);
+        //final FirebaseDbTicket fbTicket = createFirebaseTicket(ticket);
+        myRef.child(String.valueOf(ticket.getTicketId())).setValue(ticket);
     }
 
 

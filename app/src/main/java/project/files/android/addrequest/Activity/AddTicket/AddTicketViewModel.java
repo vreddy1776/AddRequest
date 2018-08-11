@@ -1,10 +1,12 @@
 package project.files.android.addrequest.Activity.AddTicket;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import project.files.android.addrequest.Activity.Chat.ChatContract;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.FirebaseDbTicket;
@@ -34,9 +37,12 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  */
 public class AddTicketViewModel extends ViewModel {
 
+    @NonNull
+    private AddTicketContract.View mView;
 
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
     private LiveData<TicketEntry> mLiveDataTicket;
+    private Observer<TicketEntry> ticketObserver;
     private AppDatabase mAppDatabase;
     public TicketEntry tempTicket;
 
@@ -45,10 +51,34 @@ public class AddTicketViewModel extends ViewModel {
      * Constructor where you call loadTicketById of the ticketDao to initialize the tickets variable.
      * Note: The constructor receives the mAppDatabase and the ticketId
      */
-    public void setup(Context context, int ticketId){
+    public void setup(Context context, @NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
+
+        mView = view;
         mAppDatabase = AppDatabase.getInstance(context);
         tempTicket = new TicketEntry();
         loadLiveDataTicket(ticketId);
+
+        mLiveDataTicket.observeForever(ticketObserver = new Observer<TicketEntry>() {
+            @Override
+            public void onChanged(@Nullable TicketEntry ticketEntry) {
+
+                if(ticketType != GlobalConstants.ADD_TICKET_TYPE){
+
+                    tempTicket.setTicket(ticketEntry);
+                    view.updateTitleDescription();
+                    view.setVideoView();
+
+
+                    /*
+                    mTitleText.setText(viewModel.tempTicket.getTicketTitle());
+                    mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
+
+                    setVideoView();
+                    */
+                }
+            }
+        });
+
     }
 
 

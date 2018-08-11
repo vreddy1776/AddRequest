@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -63,7 +64,7 @@ import project.files.android.addrequest.Utils.ID;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
-public class AddTicketActivity extends AppCompatActivity{
+public class AddTicketActivity extends AppCompatActivity implements AddTicketContract.View{
 
 
     private static final String TAG = AddTicketActivity.class.getSimpleName();
@@ -164,7 +165,9 @@ public class AddTicketActivity extends AppCompatActivity{
 
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mReceivedTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
-        viewModel.setup(this,mReceivedTicketId);
+        viewModel.setup(this,this, mReceivedTicketId, mTicketType);
+
+        /*
         ticketLiveData = viewModel.getLiveDataTicket();
         ticketLiveData.observeForever(ticketObserver = new Observer<TicketEntry>() {
             @Override
@@ -181,6 +184,7 @@ public class AddTicketActivity extends AppCompatActivity{
                 }
             }
         });
+        */
 
     }
 
@@ -278,8 +282,14 @@ public class AddTicketActivity extends AppCompatActivity{
     }
 
 
+    @Override
+    public void updateTitleDescription() {
+        mTitleText.setText(viewModel.tempTicket.getTicketTitle());
+        mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
+    }
 
-    private void setVideoView(){
+    @Override
+    public void setVideoView(){
 
         if ( viewModel.tempTicket.getTicketVideoPostId().equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID) ) {
             streamVideo.setVisibility(View.INVISIBLE);

@@ -60,67 +60,62 @@ android {
 }
 
 dependencies {
+
+
+    /**
+     * AppCompat.
+     */
     compile 'com.android.support:appcompat-v7:27.1.1'
 
-    //FAB dependencies
+
+    /**
+     * Floating Action Button.
+     */
     compile 'com.android.support:design:27.1.0'
 
-    // For ViewModelProviders
+
+    /**
+     * ViewModel, LiveData.
+     */
     implementation 'android.arch.lifecycle:extensions:1.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
-    // For Room Database
+
+    /**
+     * Room Database.
+     */
     compile 'android.arch.persistence.room:runtime:1.0.0'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
-    // For LiveData Class
-    implementation 'android.arch.lifecycle:extensions:1.1.0'
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
-    // Add Recycler view dependencies; must match SDK version
+    /**
+     * RecyclerView.
+     */
     compile 'com.android.support:recyclerview-v7:27.0.2'
 
-    // Volley
-    compile 'com.android.volley:volley:1.1.0'
 
-    // Exoplayer
-
-    //compile 'com.google.android.exoplayer:exoplayer:2.7.3'
-
-    // AWS
-
-    // S3 Bucket integration
-    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.6.+@aar') { transitive = true }
-    implementation 'com.amazonaws:aws-android-sdk-s3:2.6.+'
-    implementation 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
-
-    // DynamoDB
-    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.6.+'
-
-    // Espresso Testing
-    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
-    androidTestCompile 'com.android.support:support-annotations:27.1.0'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.2'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.0') {
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'recyclerview-v7'
-
-    }
-
-    // Anotations
+    /**
+     * Annotations.
+     */
     compile 'com.android.support:support-annotations:25.1.0'
 
-    // Glide
+
+    /**
+     * Glide.
+     */
+
+    // Glide - main
     implementation 'com.github.bumptech.glide:glide:4.7.1'
 
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
-    // Firebase Components
+
+    /**
+     * Firebase.
+     */
+
+    // Components
     compile 'com.google.firebase:firebase-auth:9.6.0'
     compile 'com.google.firebase:firebase-messaging:9.6.0'
     compile 'com.google.firebase:firebase-database:9.6.0'
@@ -130,10 +125,16 @@ dependencies {
     // FirebaseUI
     compile 'com.firebaseui:firebase-ui-auth:0.6.0'
 
-    // Exoplayer Fragment
+
+    /**
+     * ExoPlayer Fragment.
+     */
     compile 'com.github.slashrootv200:exo-player-fragment-lib:0.0.3'
 
-    // UI
+
+    /**
+     * UI.
+     */
     compile 'com.github.devlight.shadowlayout:library:1.0.2'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -152,6 +153,24 @@ dependencies {
     }
     implementation 'com.android.support:multidex:1.0.3'
 
+
+
+    /**
+     * Testing.
+     */
+
+    //Espresso
+    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
+    androidTestCompile 'com.android.support:support-annotations:27.1.0'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
     // required if you want to use Mockito for unit tests
     testCompile 'org.mockito:mockito-core:2.7.22'
     androidTestImplementation 'org.mockito:mockito-android:2.11.0'
@@ -169,6 +188,8 @@ dependencies {
     testCompile 'com.android.support.test:runner:0.2'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 

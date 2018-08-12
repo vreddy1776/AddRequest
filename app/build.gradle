@@ -127,7 +127,7 @@ dependencies {
 
 
     /**
-     * ExoPlayer Fragment.
+     * ExoPlayer View.
      */
     compile 'com.github.slashrootv200:exo-player-fragment-lib:0.0.3'
 

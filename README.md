@@ -24,6 +24,7 @@ This app uses the following Android components:
 This app also uses the following third-party libraries:
 * Google Firebase RealTimeDB and Storage
 * Fabric Crashlytics
+* Glide
 * Appsee
 
 

@@ -18,7 +18,7 @@ This app uses the following Android components:
 * Model-View-ViewModel (MVVM) architecture
 * LiveData
 * Room Persistence Library
-* RecyclerView
+* [RecyclerView][4]
 * Exoplayer
 
 This app also uses the following third-party libraries:
@@ -26,6 +26,8 @@ This app also uses the following third-party libraries:
 * Fabric Crashlytics
 * Glide
 * Appsee
+
+[4]: https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html
 
 
 Pre-requisites

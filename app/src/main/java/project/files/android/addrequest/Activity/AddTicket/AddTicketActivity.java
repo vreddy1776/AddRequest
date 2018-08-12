@@ -89,7 +89,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     private DefaultTrackSelector trackSelector;
     private boolean shouldAutoPlay;
     private BandwidthMeter bandwidthMeter;
-    private ImageView ivHideControllerButton;
     private boolean playWhenReady;
     private int currentWindow;
     private long playbackPosition;
@@ -137,7 +136,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), (TransferListener<? super DataSource>) bandwidthMeter);
         window = new Timeline.Window();
 
-        ivHideControllerButton = (ImageView) findViewById(R.id.exo_controller);
     }
 
 
@@ -235,6 +233,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     }
 
+
     private void setupActionBar(){
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -260,6 +259,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         mTitleText.setText(viewModel.tempTicket.getTicketTitle());
         mDescriptionText.setText(viewModel.tempTicket.getTicketDescription());
     }
+
 
     @Override
     public void setVideoView(){
@@ -294,9 +294,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             initializePlayer();
         }
     }
-
-
-
 
     
     /**
@@ -367,6 +364,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     public void onVideoButtonClicked() {
         requestReadExternalStoragePermission();
     }
+
 
     private void requestReadExternalStoragePermission(){
         if (ContextCompat.checkSelfPermission(AddTicketActivity.this,
@@ -464,13 +462,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         MediaSource mediaSource = new ExtractorMediaSource(videoUri,
                 mediaDataSourceFactory, extractorsFactory, null, null);
         player.prepare(mediaSource, true, false);
-
-        ivHideControllerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simpleExoPlayerView.hideController();
-            }
-        });
 
     }
 

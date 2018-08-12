@@ -100,7 +100,7 @@
         android:id="@+id/editTextTicketDescriptionWrapper"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/text_half_rounded_rectangle"
+        android:background="@drawable/textbox_half_rounded_rectangle"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

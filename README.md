@@ -45,7 +45,7 @@ Getting Started
 ---------------
 
 Steps for using release build:
-* Download addrequesst.apk from the link above.
+* Download addrequest.apk from the link above.
 * Install the mobile app onto your mobile device.
 * Log in with Google Account
 

@@ -2,6 +2,15 @@ package project.files.android.addrequest.Utils;
 
 import java.util.Random;
 
+
+/**
+ * String Utils
+ *
+ * Generate random title and description strings for tests
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class StringUtils {
 
     public static String randomString(int length) {

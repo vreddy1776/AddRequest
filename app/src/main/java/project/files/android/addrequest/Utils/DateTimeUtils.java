@@ -6,6 +6,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ * DateTime Utils
+ *
+ * Convert and format Date object to string
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class DateTimeUtils {
 
     @TypeConverter

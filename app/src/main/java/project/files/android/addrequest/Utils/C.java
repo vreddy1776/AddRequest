@@ -2,6 +2,13 @@ package project.files.android.addrequest.Utils;
 
 import android.net.Uri;
 
+
+/**
+ * Global Constants
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class C {
 
     // Intent Keys

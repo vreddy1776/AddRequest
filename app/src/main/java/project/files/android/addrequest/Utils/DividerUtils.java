@@ -5,6 +5,15 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+
+/**
+ * Divider Utils
+ *
+ * Draw blank dividers on RecyclerView
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class DividerUtils extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 

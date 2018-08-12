@@ -1,7 +1,15 @@
 package project.files.android.addrequest.Utils;
 
-public class NameUtils {
 
+/**
+ * Name Utils
+ *
+ * Get first, middle, and last names from username
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
+public class NameUtils {
 
     public static String getFirstName(String fullname) {
 

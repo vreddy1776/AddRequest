@@ -8,10 +8,20 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 
-// new since Glide v4
+
+/**
+ * GlideUtils
+ *
+ * New since Glide v
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 @GlideModule
 public final class GlideUtils extends AppGlideModule {
+
     // leave empty for now
+
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
         // Glide default Bitmap Format is set to RGB_565 since it

@@ -4,6 +4,15 @@ package project.files.android.addrequest.Utils;
 import java.math.BigDecimal;
 import java.util.Random;
 
+
+/**
+ * ID Utils
+ *
+ * Generate and convert random Ticket IDs
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class IdUtils {
 
     public static int newID(){

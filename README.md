@@ -35,8 +35,15 @@ Screenshots
 Getting Started
 ---------------
 
-This sample uses the Gradle build system. To build this project, use the
-"gradlew build" command or use "Import Project" in Android Studio.
+Steps for using release build:
+* Download addrequesst.apk from the link above.
+* Install the mobile app onto your mobile device.
+* Log in with Google Account
+
+Steps for using debug build:
+* Use the "gradlew build" command or "Import Project" in Android Studio.
+* Compile and install the mobile app onto your mobile device or emulator.
+* Log in with Google Account
 
 
 Support

@@ -21,7 +21,7 @@ This app uses the following Android components:
 * RecyclerView
 * Exoplayer
 
-This app also uses the following third-party:
+This app also uses the following third-party libraries:
 * Google Firebase RealTimeDB and Storage
 * Fabric Crashlytics
 * Appsee

@@ -17,7 +17,7 @@ import project.files.android.addrequest.Utils.C;
  */
 public class AppseeFunctions {
 
-
+    // Analytics taken when user logs in
     public static void login(final String userId, final String userName){
 
         Appsee.addEvent("User Sign-In", new HashMap<String, Object>() {{
@@ -27,7 +27,7 @@ public class AppseeFunctions {
 
     }
 
-
+    // Analytics taken when user creates or updates ticket
     public static void saveTicket(int ticketType,
                                   final String userId,
                                   final String userName,

@@ -14,9 +14,17 @@ AddRequest is a service request app where users can post their issues to a publi
 Introduction
 ------------
 
-Steps for using this app:
-* Compile and install the mobile app onto your mobile device or emulator.
-* Log in with Google Account
+This app uses the following Android components:
+* Model-View-ViewModel (MVVM) architecture
+* LiveData
+* Room Persistence Library
+* RecyclerView
+* Exoplayer
+
+This app also uses the following third-party:
+* Google Firebase RealTimeDB and Storage
+* Fabric Crashlytics
+* Appsee
 
 
 Pre-requisites

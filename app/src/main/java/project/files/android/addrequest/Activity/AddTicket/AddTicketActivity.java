@@ -43,7 +43,7 @@ import java.util.Date;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Activity.Chat.ChatActivity;
-import project.files.android.addrequest.Notification.Notifications;
+import project.files.android.addrequest.Background.Notifications;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.DateTime;

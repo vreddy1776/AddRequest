@@ -1,4 +1,4 @@
-package project.files.android.addrequest.Services;
+package project.files.android.addrequest.Background;
 
 import android.app.Service;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import project.files.android.addrequest.Database.AppDatabase;
-import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 

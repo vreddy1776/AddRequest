@@ -17,9 +17,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import project.files.android.addrequest.Database.AppDatabase;
-import project.files.android.addrequest.Database.AppExecuters;
+import project.files.android.addrequest.Background.AppExecuters;
 import project.files.android.addrequest.Database.Ticket;
-import project.files.android.addrequest.Notification.Notifications;
+import project.files.android.addrequest.Background.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
 

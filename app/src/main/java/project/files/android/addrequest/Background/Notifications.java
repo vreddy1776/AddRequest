@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package project.files.android.addrequest.Notification;
+package project.files.android.addrequest.Background;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

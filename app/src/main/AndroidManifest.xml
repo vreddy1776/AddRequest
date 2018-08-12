@@ -57,7 +57,7 @@
 
         <!-- FirebaseDbListener Service -->
         <service
-            android:name="project.files.android.addrequest.Services.FirebaseDbListenerService"
+            android:name="project.files.android.addrequest.Background.FirebaseDbListenerService"
             android:enabled="true" />
 
         <meta-data

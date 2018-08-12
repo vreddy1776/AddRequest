@@ -34,7 +34,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     private static final String TAG = TicketAdapter.class.getSimpleName();
 
     final private ItemClickListener mItemClickListener;
-    private List<Ticket> mTicketEntries;
+    private List<Ticket> mTicketList;
     private Context mContext;
 
 
@@ -85,7 +85,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     public void onBindViewHolder(TicketViewHolder holder, int position) {
 
         // Determine the values of the wanted data
-        Ticket ticket = mTicketEntries.get(position);
+        Ticket ticket = mTicketList.get(position);
         String ticketTitle = ticket.getTicketTitle();
         String ticketDescription = ticket.getTicketDescription();
         String ticketDate = ticket.getTicketDate();
@@ -129,10 +129,10 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
      */
     @Override
     public int getItemCount() {
-        if (mTicketEntries == null) {
+        if (mTicketList == null) {
             return 0;
         }
-        return mTicketEntries.size();
+        return mTicketList.size();
     }
 
 
@@ -140,16 +140,16 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
      * Returns a list of tickets for an Activity to delete.
      */
     public List<Ticket> getTickets() {
-        return mTicketEntries;
+        return mTicketList;
     }
 
 
     /**
-     * When data changes, this method updates the list of ticketEntries
+     * When data changes, this method updates the list of tickets
      * and notifies the adapter to use the new values on it
      */
-    public void setTickets(List<Ticket> ticketEntries) {
-        mTicketEntries = ticketEntries;
+    public void setTickets(List<Ticket> ticketList) {
+        mTicketList = ticketList;
         notifyDataSetChanged();
     }
 
@@ -189,7 +189,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
         @Override
         public void onClick(View v) {
-            int elementId = mTicketEntries.get(getAdapterPosition()).getTicketId();
+            int elementId = mTicketList.get(getAdapterPosition()).getTicketId();
             mItemClickListener.onItemClickListener(elementId);
         }
 

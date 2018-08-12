@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_background">
 
-    <!-- RecyclerView that is responsible for holding a listTicketEntry data -->
+    <!-- RecyclerView that is responsible for holding ticket list data -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"

@@ -24,8 +24,8 @@ This app uses the following Android components:
 This app also uses the following third-party libraries:
 * [Google Firebase RealTimeDB and Storage][6]
 * [Fabric Crashlytics][7]
-* Glide
-* Appsee
+* [Glide][8]
+* [Appsee] [9]
 
 [1]: https://developer.android.com/reference/android/arch/lifecycle/ViewModel
 [2]: https://developer.android.com/reference/android/arch/lifecycle/LiveData
@@ -35,6 +35,9 @@ This app also uses the following third-party libraries:
 [5]: https://github.com/google/ExoPlayer
 [6]: https://firebase.google.com/
 [7]: http://try.crashlytics.com/sdk-android/
+[8]: https://github.com/bumptech/glide
+[9]: https://www.appsee.com/docs/android/native
+
 
 Pre-requisites
 --------------

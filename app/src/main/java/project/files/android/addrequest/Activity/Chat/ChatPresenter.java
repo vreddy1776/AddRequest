@@ -18,7 +18,14 @@ import project.files.android.addrequest.Utils.C;
 
 
 
-
+/**
+ * Chat Presenter
+ *
+ * Presenter for data to ChatActivity
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class ChatPresenter implements ChatContract.Presenter {
 
 

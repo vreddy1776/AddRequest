@@ -6,6 +6,15 @@ import java.util.List;
 
 import project.files.android.addrequest.Adapter.MessageAdapter;
 
+
+/**
+ * Chat Contract
+ *
+ * Presenter interface for ChatActivity and View interface for ChatPresenter
+ *
+ * @author Vijay T. Reddy
+ * @version 1.0.0
+ */
 public class ChatContract {
 
     interface View {

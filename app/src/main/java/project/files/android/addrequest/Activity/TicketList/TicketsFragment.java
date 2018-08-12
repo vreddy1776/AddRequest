@@ -45,7 +45,7 @@ public class TicketsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the Android-Me fragment layout
-        View rootView = inflater.inflate(R.layout.fragment_ticket_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tickets, container, false);
 
         final TicketListActivity ticketListActivity = (TicketListActivity) this.getActivity();
 

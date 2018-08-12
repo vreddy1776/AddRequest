@@ -66,9 +66,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     @Override
     public TicketViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        // Inflate the ticket_layout to a view
+        // Inflate the item_ticket to a view
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.ticket_layout, parent, false);
+                .inflate(R.layout.item_ticket, parent, false);
 
         return new TicketViewHolder(view);
 

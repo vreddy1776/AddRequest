@@ -15,17 +15,28 @@ Introduction
 ------------
 
 This app uses the following Android components:
-* Model-View-ViewModel (MVVM) architecture
-* LiveData
-* Room Persistence Library
-* RecyclerView
-* Exoplayer
+* [Model-View-ViewModel (MVVM) architecture][1]
+* [LiveData][2]
+* [Room Persistence Library][3]
+* [RecyclerView][4]
+* [Exoplayer][5]
 
 This app also uses the following third-party libraries:
-* Google Firebase RealTimeDB and Storage
-* Fabric Crashlytics
-* Glide
-* Appsee
+* [Google Firebase RealTimeDB and Storage][6]
+* [Fabric Crashlytics][7]
+* [Glide][8]
+* [Appsee][9]
+
+[1]: https://developer.android.com/reference/android/arch/lifecycle/ViewModel
+[2]: https://developer.android.com/reference/android/arch/lifecycle/LiveData
+[3]: https://developer.android.com/topic/libraries/architecture/room
+[4]: https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html
+
+[5]: https://github.com/google/ExoPlayer
+[6]: https://firebase.google.com/
+[7]: http://try.crashlytics.com/sdk-android/
+[8]: https://github.com/bumptech/glide
+[9]: https://www.appsee.com/docs/android/native
 
 
 Pre-requisites

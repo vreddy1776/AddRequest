@@ -25,7 +25,7 @@ This app also uses the following third-party libraries:
 * [Google Firebase RealTimeDB and Storage][6]
 * [Fabric Crashlytics][7]
 * [Glide][8]
-* [Appsee] [9]
+* [Appsee][9]
 
 [1]: https://developer.android.com/reference/android/arch/lifecycle/ViewModel
 [2]: https://developer.android.com/reference/android/arch/lifecycle/LiveData

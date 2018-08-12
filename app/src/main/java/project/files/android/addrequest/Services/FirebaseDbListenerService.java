@@ -86,21 +86,9 @@ public class FirebaseDbListenerService extends Service {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
-                    final TicketEntry ticket = new TicketEntry(
-                            firebaseDbTicket.getTicketId(),
-                            firebaseDbTicket.getTicketTitle(),
-                            firebaseDbTicket.getTicketDescription(),
-                            firebaseDbTicket.getTicketDate(),
-                            firebaseDbTicket.getTicketVideoPostId(),
-                            firebaseDbTicket.getTicketVideoLocalUri(),
-                            firebaseDbTicket.getTicketVideoInternetUrl(),
-                            firebaseDbTicket.getUserId(),
-                            firebaseDbTicket.getUserName(),
-                            firebaseDbTicket.getUserPhotoUrl());
+                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
 
-                    final int ticketId = firebaseDbTicket.getTicketId();
-                    if( !database.ticketExists(ticketId) ){
+                    if( !database.ticketExists(ticket.getTicketId()) ){
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -114,23 +102,9 @@ public class FirebaseDbListenerService extends Service {
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                    FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
-                    final TicketEntry ticket = new TicketEntry(
-                            firebaseDbTicket.getTicketId(),
-                            firebaseDbTicket.getTicketTitle(),
-                            firebaseDbTicket.getTicketDescription(),
-                            firebaseDbTicket.getTicketDate(),
-                            firebaseDbTicket.getTicketVideoPostId(),
-                            firebaseDbTicket.getTicketVideoLocalUri(),
-                            firebaseDbTicket.getTicketVideoInternetUrl(),
-                            firebaseDbTicket.getUserId(),
-                            firebaseDbTicket.getUserName(),
-                            firebaseDbTicket.getUserPhotoUrl());
+                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
 
-                    final int ticketId = firebaseDbTicket.getTicketId();
-                    final String userId = firebaseDbTicket.getUserId();
-
-                    if( (database.ticketExists(ticketId)) && (!userId.equals(UserProfileSettings.getUserID(getApplicationContext()))) ){
+                    if( (database.ticketExists(ticket.getTicketId())) && (!ticket.getUserId().equals(UserProfileSettings.getUserID(getApplicationContext()))) ){
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -144,14 +118,13 @@ public class FirebaseDbListenerService extends Service {
 
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                    FirebaseDbTicket firebaseDbTicket = dataSnapshot.getValue(FirebaseDbTicket.class);
-                    final int ticketId = firebaseDbTicket.getTicketId();
+                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
 
-                    if( database.ticketExists(ticketId) ){
+                    if( database.ticketExists(ticket.getTicketId()) ){
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                database.ticketDao().deleteTicketById(ticketId);
+                                database.ticketDao().deleteTicketById(ticket.getTicketId());
                             }
                         }).start();
                     }

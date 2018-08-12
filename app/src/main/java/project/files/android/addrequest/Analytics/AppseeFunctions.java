@@ -4,7 +4,7 @@ import com.appsee.Appsee;
 
 import java.util.HashMap;
 
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -22,7 +22,7 @@ public class AppseeFunctions {
 
         Appsee.addEvent("User Sign-In", new HashMap<String, Object>() {{
             put("User Id", userId);
-            put("User Name", userName);
+            put("User NameUtils", userName);
         }});
 
     }
@@ -34,17 +34,17 @@ public class AppseeFunctions {
                                   final int ticketId,
                                   final String ticketTitle){
 
-        if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
+        if(ticketType == C.ADD_TICKET_TYPE){
             Appsee.addEvent("Ticket Added", new HashMap<String, Object>() {{
                 put("User Id", userId);
-                put("User Name", userName);
+                put("User NameUtils", userName);
                 put("Ticket Id",ticketId);
                 put("Ticket Title",ticketTitle);
             }});
         } else {
             Appsee.addEvent("Ticket Updated", new HashMap<String, Object>() {{
                 put("User Id", userId);
-                put("User Name", userName);
+                put("User NameUtils", userName);
                 put("Ticket Id",ticketId);
                 put("Ticket Title",ticketTitle);
             }});

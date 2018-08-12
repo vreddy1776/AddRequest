@@ -20,7 +20,7 @@ import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Background.AppExecuters;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Background.Notifications;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 
@@ -61,7 +61,7 @@ public class AddTicketViewModel extends ViewModel {
             @Override
             public void onChanged(@Nullable Ticket ticket) {
 
-                if(ticketType != GlobalConstants.ADD_TICKET_TYPE){
+                if(ticketType != C.ADD_TICKET_TYPE){
 
                     tempTicket.setTicket(ticket);
                     view.updateTitleDescription();
@@ -77,7 +77,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Get LivaData ticket from AppDatabase to be observed in AddTicketActivity
      *
-     * @param ticketId The ticket ID for the AddTicketActivity session.
+     * @param ticketId The ticket IdUtils for the AddTicketActivity session.
      */
     private void loadLiveDataTicket(int ticketId){
         mLiveDataTicket = mAppDatabase.ticketDao().loadTicketById(ticketId);
@@ -125,7 +125,7 @@ public class AddTicketViewModel extends ViewModel {
     public void addTicket(final Context context, final int ticketType){
 
         // Video Present
-        if (tempTicket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+        if (tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
@@ -143,7 +143,7 @@ public class AddTicketViewModel extends ViewModel {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    tempTicket.setTicketVideoPostId(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID);
+                    tempTicket.setTicketVideoPostId(C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID);
                     tempTicket.setTicketVideoInternetUrl(taskSnapshot.getDownloadUrl().toString());
 
                     addTicketToDb(tempTicket, ticketType);
@@ -195,7 +195,7 @@ public class AddTicketViewModel extends ViewModel {
      */
     public void addTicketToLocalDb(final Ticket ticket, int ticketType){
 
-        if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
+        if(ticketType == C.ADD_TICKET_TYPE){
             mAppDatabase.ticketDao().insertTicket(ticket);
         } else {
             mAppDatabase.ticketDao().updateTicket(ticket);

@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 // new since Glide v4
 @GlideModule
-public final class MyAppGildeModule extends AppGlideModule {
+public final class GlideUtils extends AppGlideModule {
     // leave empty for now
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {

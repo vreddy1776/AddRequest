@@ -15,8 +15,8 @@ import java.util.List;
 import project.files.android.addrequest.Adapter.TicketAdapter;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.DividerItemDecorator;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.DividerUtils;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -62,7 +62,7 @@ public class TicketsFragment extends Fragment{
         mRecyclerView.setAdapter(ticketAdapter);
 
         // Remove divider lines
-        mRecyclerView.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.divider_none)));
+        mRecyclerView.addItemDecoration(new DividerUtils(ContextCompat.getDrawable(getContext(), R.drawable.divider_none)));
 
 
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -89,7 +89,7 @@ public class TicketsFragment extends Fragment{
 
     public void setSwipe(int ticketType){
 
-        if (ticketType == GlobalConstants.UPDATE_TICKET_TYPE){
+        if (ticketType == C.UPDATE_TICKET_TYPE){
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
         } else {
             itemTouchHelper.attachToRecyclerView(null);

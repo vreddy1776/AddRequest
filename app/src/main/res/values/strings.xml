@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Strings for Activity Name -->
+    <!-- Strings for Activity NameUtils -->
     <string name="app_name">AddRequest</string>
     <string name="main_activity_name">AddRequest</string>
     <string name="add_ticket_activity_name">Request</string>

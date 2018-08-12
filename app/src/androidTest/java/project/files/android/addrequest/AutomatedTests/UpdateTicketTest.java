@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 
 import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.StringGenerator;
+import project.files.android.addrequest.Utils.StringUtils;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -71,8 +71,8 @@ public class UpdateTicketTest {
     @Before
     public void createTicket() throws Exception{
 
-        String title = StringGenerator.randomTitle();
-        String description = StringGenerator.randomDescription();
+        String title = StringUtils.randomTitle();
+        String description = StringUtils.randomDescription();
 
         onView(withId(R.id.fab)).perform(click());
 
@@ -102,8 +102,8 @@ public class UpdateTicketTest {
     @Test
     public void updateTicket() throws Exception {
 
-        String newTitle = StringGenerator.randomTitle();
-        String newDescription = StringGenerator.randomDescription();
+        String newTitle = StringUtils.randomTitle();
+        String newDescription = StringUtils.randomDescription();
 
         onView(withId(R.id.editTextTicketTitle)).
                 perform(replaceText(newTitle), closeSoftKeyboard());

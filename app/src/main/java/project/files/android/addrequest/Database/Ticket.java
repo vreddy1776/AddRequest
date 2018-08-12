@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -32,16 +32,16 @@ public class Ticket {
 
     @Ignore
     public Ticket() {
-        this.ticketId = GlobalConstants.DEFAULT_TICKET_ID;
-        this.ticketTitle = GlobalConstants.BLANK_TICKET_TITLE;
-        this.ticketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
-        this.ticketDate = GlobalConstants.DEFAULT_TICKET_DATE;
-        this.ticketVideoPostId = GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID;
-        this.ticketVideoLocalUri = GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI;
-        this.ticketVideoInternetUrl = GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL;
-        this.userId = GlobalConstants.DEFAULT_USER_ID;
-        this.userName = GlobalConstants.DEFAULT_USER_NAME;
-        this.userPhotoUrl = GlobalConstants.DEFAULT_USER_PHOTO_URL;
+        this.ticketId = C.DEFAULT_TICKET_ID;
+        this.ticketTitle = C.BLANK_TICKET_TITLE;
+        this.ticketDescription = C.BLANK_DESCRIPTION_TITLE;
+        this.ticketDate = C.DEFAULT_TICKET_DATE;
+        this.ticketVideoPostId = C.DEFAULT_TICKET_VIDEO_POST_ID;
+        this.ticketVideoLocalUri = C.DEFAULT_TICKET_VIDEO_LOCAL_URI;
+        this.ticketVideoInternetUrl = C.DEFAULT_TICKET_VIDEO_INTERNET_URL;
+        this.userId = C.DEFAULT_USER_ID;
+        this.userName = C.DEFAULT_USER_NAME;
+        this.userPhotoUrl = C.DEFAULT_USER_PHOTO_URL;
 
     }
 

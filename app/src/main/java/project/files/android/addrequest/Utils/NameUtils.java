@@ -1,6 +1,6 @@
 package project.files.android.addrequest.Utils;
 
-public class Name {
+public class NameUtils {
 
 
     public static String getFirstName(String fullname) {

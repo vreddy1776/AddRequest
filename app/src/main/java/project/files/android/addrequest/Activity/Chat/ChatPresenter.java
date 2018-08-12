@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.files.android.addrequest.Settings.UserProfileSettings;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 
@@ -34,9 +34,9 @@ public class ChatPresenter implements ChatContract.Presenter {
         mView = view;
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference()
-                .child(GlobalConstants.CHILD_NAME_TICKETS)
+                .child(C.CHILD_NAME_TICKETS)
                 .child(ticketId)
-                .child(GlobalConstants.CHILD_NAME_MESSAGES);
+                .child(C.CHILD_NAME_MESSAGES);
     }
 
 

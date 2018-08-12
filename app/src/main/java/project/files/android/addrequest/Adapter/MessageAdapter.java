@@ -15,8 +15,7 @@ import java.util.List;
 
 import project.files.android.addrequest.Activity.Chat.Message;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Settings.UserProfileSettings;
-import project.files.android.addrequest.Utils.Name;
+import project.files.android.addrequest.Utils.NameUtils;
 
 
 /**
@@ -60,7 +59,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             messageTextView.setText(message.getText());
         }
 
-        authorTextView.setText(Name.getFirstName(message.getName()));
+        authorTextView.setText(NameUtils.getFirstName(message.getName()));
         Glide.with(getContext())
                 .load(message.getPhotoUrl())
                 .apply(RequestOptions.circleCropTransform())

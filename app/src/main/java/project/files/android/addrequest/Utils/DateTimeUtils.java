@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateTime {
+public class DateTimeUtils {
 
     @TypeConverter
     public static Date toDate(Long timestamp) {

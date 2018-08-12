@@ -46,9 +46,9 @@ import project.files.android.addrequest.Activity.Chat.ChatActivity;
 import project.files.android.addrequest.Background.Notifications;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
-import project.files.android.addrequest.Utils.DateTime;
-import project.files.android.addrequest.Utils.GlobalConstants;
-import project.files.android.addrequest.Utils.ID;
+import project.files.android.addrequest.Utils.DateTimeUtils;
+import project.files.android.addrequest.Utils.C;
+import project.files.android.addrequest.Utils.IdUtils;
 
 
 /**
@@ -64,7 +64,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     private static final String TAG = AddTicketActivity.class.getSimpleName();
 
-    private int mTicketType = GlobalConstants.VIEW_TICKET_TYPE;
+    private int mTicketType = C.VIEW_TICKET_TYPE;
     private AddTicketViewModel viewModel;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 4;
     EditText mTitleText;
@@ -93,7 +93,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     private int currentWindow;
     private long playbackPosition;
     private Uri videoUri;
-    private int mReceivedTicketId = GlobalConstants.DEFAULT_TICKET_ID;
+    private int mReceivedTicketId = C.DEFAULT_TICKET_ID;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +108,8 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         initViews();
 
 
-        if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
-            viewModel.tempTicket.setTicketId(ID.newID());
+        if(mTicketType == C.ADD_TICKET_TYPE){
+            viewModel.tempTicket.setTicketId(IdUtils.newID());
         }
 
     }
@@ -140,12 +140,12 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
 
     /**
-     * Get ticket ID from MainActivity
+     * Get ticket IdUtils from MainActivity
      */
     private void receiveTicketInfo(){
         Intent intent = getIntent();
-        mReceivedTicketId = intent.getIntExtra(GlobalConstants.TICKET_ID_KEY, GlobalConstants.DEFAULT_TICKET_ID);
-        mTicketType = intent.getIntExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.VIEW_TICKET_TYPE);
+        mReceivedTicketId = intent.getIntExtra(C.TICKET_ID_KEY, C.DEFAULT_TICKET_ID);
+        mTicketType = intent.getIntExtra(C.TICKET_TYPE_KEY, C.VIEW_TICKET_TYPE);
     }
 
 
@@ -164,7 +164,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     //Removed for aws testing
     /**
-     * Save the instance ticket ID in case of screen rotation or app exit
+     * Save the instance ticket IdUtils in case of screen rotation or app exit
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -214,13 +214,13 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             }
         });
 
-        if(mTicketType == GlobalConstants.VIEW_TICKET_TYPE) {
+        if(mTicketType == C.VIEW_TICKET_TYPE) {
             mTitleText.setEnabled(false);
             mDescriptionText.setEnabled(false);
             saveButton.setVisibility(View.INVISIBLE);
-        } else if(mTicketType == GlobalConstants.UPDATE_TICKET_TYPE){
+        } else if(mTicketType == C.UPDATE_TICKET_TYPE){
             saveButton.setText(R.string.update_button);
-        } else if(mTicketType == GlobalConstants.ADD_TICKET_TYPE){
+        } else if(mTicketType == C.ADD_TICKET_TYPE){
             saveButton.setText(R.string.add_button);
             chatButton.setVisibility(View.INVISIBLE);
         } else {
@@ -264,11 +264,11 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     @Override
     public void setVideoView(){
 
-        if ( viewModel.tempTicket.getTicketVideoPostId().equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID) ) {
+        if ( viewModel.tempTicket.getTicketVideoPostId().equals(C.DEFAULT_TICKET_VIDEO_POST_ID) ) {
             streamVideo.setVisibility(View.INVISIBLE);
             videoButton.setVisibility(View.VISIBLE);
             videoDeleteButton.setVisibility(View.INVISIBLE);
-            if (mTicketType == GlobalConstants.VIEW_TICKET_TYPE) {
+            if (mTicketType == C.VIEW_TICKET_TYPE) {
                 videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_border_solid) );
                 videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_no_video) );
                 videoButton.setEnabled(false);
@@ -281,10 +281,10 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             streamVideo.setVisibility(View.VISIBLE);
             videoButton.setVisibility(View.INVISIBLE);
             videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
-            if (mTicketType != GlobalConstants.VIEW_TICKET_TYPE) {
+            if (mTicketType != C.VIEW_TICKET_TYPE) {
                 videoDeleteButton.setVisibility(View.VISIBLE);
             }
-            if ( viewModel.tempTicket.getTicketVideoPostId().equals(GlobalConstants.VIDEO_EXISTS_TICKET_VIDEO_POST_ID )){
+            if ( viewModel.tempTicket.getTicketVideoPostId().equals(C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID )){
                 videoUri = Uri.parse(viewModel.tempTicket.getTicketVideoInternetUrl());
             } else {
                 videoUri = Uri.parse(viewModel.tempTicket.getTicketVideoLocalUri());
@@ -321,8 +321,8 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
         // Set title if blank or not
         String title = mTitleText.getText().toString();
-        if(title.equals(GlobalConstants.BLANK_TICKET_TITLE)){
-            viewModel.tempTicket.setTicketTitle(GlobalConstants.DEFAULT_TICKET_TITLE);
+        if(title.equals(C.BLANK_TICKET_TITLE)){
+            viewModel.tempTicket.setTicketTitle(C.DEFAULT_TICKET_TITLE);
         } else {
             viewModel.tempTicket.setTicketTitle(title);
 
@@ -330,8 +330,8 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
         // Set description if blank or not
         String description = mDescriptionText.getText().toString();
-        if(description.equals(GlobalConstants.BLANK_DESCRIPTION_TITLE)){
-            viewModel.tempTicket.setTicketDescription(GlobalConstants.DEFAULT_TICKET_DESCRIPTION);
+        if(description.equals(C.BLANK_DESCRIPTION_TITLE)){
+            viewModel.tempTicket.setTicketDescription(C.DEFAULT_TICKET_DESCRIPTION);
         } else {
             viewModel.tempTicket.setTicketDescription(description);
 
@@ -341,7 +341,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     private void setOtherTicketValues(){
 
-        viewModel.tempTicket.setTicketDate(DateTime.dateToString(new Date()));
+        viewModel.tempTicket.setTicketDate(DateTimeUtils.dateToString(new Date()));
         viewModel.tempTicket.setUserId(UserProfileSettings.getUserID(this));
         viewModel.tempTicket.setUserName(UserProfileSettings.getUsername(this));
         viewModel.tempTicket.setUserPhotoUrl(UserProfileSettings.getUserPhotoURL(this));
@@ -351,9 +351,9 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     public void onVideoDeleteButtonClicked(View view){
 
-        viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID);
-        viewModel.tempTicket.setTicketVideoLocalUri(GlobalConstants.DEFAULT_TICKET_VIDEO_LOCAL_URI);
-        viewModel.tempTicket.setTicketVideoInternetUrl(GlobalConstants.DEFAULT_TICKET_VIDEO_INTERNET_URL);
+        viewModel.tempTicket.setTicketVideoPostId(C.DEFAULT_TICKET_VIDEO_POST_ID);
+        viewModel.tempTicket.setTicketVideoLocalUri(C.DEFAULT_TICKET_VIDEO_LOCAL_URI);
+        viewModel.tempTicket.setTicketVideoInternetUrl(C.DEFAULT_TICKET_VIDEO_INTERNET_URL);
         setVideoView();
     }
 
@@ -417,7 +417,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
             videoUri = data.getData();
 
-            viewModel.tempTicket.setTicketVideoPostId(GlobalConstants.VIDEO_CREATED_TICKET_VIDEO_POST_ID);
+            viewModel.tempTicket.setTicketVideoPostId(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID);
             viewModel.tempTicket.setTicketVideoLocalUri(videoUri.toString());
 
             setVideoView();
@@ -438,8 +438,8 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
     public void goToChat(View view){
         Intent intent = new Intent(AddTicketActivity.this, ChatActivity.class);
-        intent.putExtra( GlobalConstants.TICKET_ID_KEY , Integer.toString(viewModel.tempTicket.getTicketId()));
-        intent.putExtra( GlobalConstants.TICKET_TITLE_KEY , viewModel.tempTicket.getTicketTitle() );
+        intent.putExtra( C.TICKET_ID_KEY , Integer.toString(viewModel.tempTicket.getTicketId()));
+        intent.putExtra( C.TICKET_TITLE_KEY , viewModel.tempTicket.getTicketTitle() );
         startActivity(intent);
     }
 

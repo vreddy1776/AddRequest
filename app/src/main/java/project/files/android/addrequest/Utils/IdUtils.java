@@ -4,7 +4,7 @@ package project.files.android.addrequest.Utils;
 import java.math.BigDecimal;
 import java.util.Random;
 
-public class ID {
+public class IdUtils {
 
     public static int newID(){
 

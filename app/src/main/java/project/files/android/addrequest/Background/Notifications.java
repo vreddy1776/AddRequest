@@ -30,7 +30,7 @@ import android.support.v4.content.ContextCompat;
 
 import project.files.android.addrequest.Activity.AddTicket.AddTicketActivity;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -44,14 +44,14 @@ import project.files.android.addrequest.Utils.GlobalConstants;
 public class Notifications {
 
     /*
-     * This notification ID can be used to access our notification after we've displayed it. This
+     * This notification IdUtils can be used to access our notification after we've displayed it. This
      * can be handy when we need to cancel the notification, or perhaps update it. This number is
      * arbitrary and can be set to whatever you like. 1138 is in no way significant.
      */
     private static final int NOTIFICATION_ID = 1138;
     private static final String MAIN_NOTIFICATION_CHANNEL_ID = "main_notification_channel";
     private static final int OPEN_REQUEST = 0;
-    private static int mTicketID = GlobalConstants.DEFAULT_TICKET_ID;
+    private static int mTicketID = C.DEFAULT_TICKET_ID;
 
 
     public static void ticketPostedNotification(Context context, int ticketID) {
@@ -93,8 +93,8 @@ public class Notifications {
     private static Action openTicketAction(Context context) {
 
         Intent intent = new Intent(context, AddTicketActivity.class);
-        intent.putExtra(GlobalConstants.TICKET_ID_KEY, mTicketID);
-        intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.UPDATE_TICKET_TYPE);
+        intent.putExtra(C.TICKET_ID_KEY, mTicketID);
+        intent.putExtra(C.TICKET_TYPE_KEY, C.UPDATE_TICKET_TYPE);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,

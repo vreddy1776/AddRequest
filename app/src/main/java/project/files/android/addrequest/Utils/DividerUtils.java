@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class DividerItemDecorator extends RecyclerView.ItemDecoration {
+public class DividerUtils extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 
-    public DividerItemDecorator(Drawable divider) {
+    public DividerUtils(Drawable divider) {
         mDivider = divider;
     }
 

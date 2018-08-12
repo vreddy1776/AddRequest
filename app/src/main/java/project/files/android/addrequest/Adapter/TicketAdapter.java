@@ -16,8 +16,8 @@ import java.util.List;
 
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.GlobalConstants;
-import project.files.android.addrequest.Utils.Name;
+import project.files.android.addrequest.Utils.C;
+import project.files.android.addrequest.Utils.NameUtils;
 
 
 /**
@@ -100,7 +100,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         holder.ticketDateView.setText(ticketDate);
 
 
-        if(ticketVideoPostId.equals(GlobalConstants.DEFAULT_TICKET_VIDEO_POST_ID)){
+        if(ticketVideoPostId.equals(C.DEFAULT_TICKET_VIDEO_POST_ID)){
             holder.ticketVideoThumbnailView.setVisibility(View.INVISIBLE);
         } else {
             holder.ticketVideoThumbnailView.setVisibility(View.VISIBLE);
@@ -119,7 +119,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.userProfilePicView);
 
-        holder.userNameTextView.setText(Name.getFirstName(userName));
+        holder.userNameTextView.setText(NameUtils.getFirstName(userName));
 
     }
 

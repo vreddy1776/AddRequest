@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.Name;
+import project.files.android.addrequest.Utils.NameUtils;
 
 
 /**
@@ -74,8 +74,8 @@ public class UserProfileSettings {
         editor.putString( PREFERENCES_KEY_USERID , userId );
         editor.putString( PREFERENCES_KEY_USERNAME , userName );
         editor.putString( PREFERENCES_KEY_USER_PHOTO_URL , userPhotoUrl );
-        editor.putString( PREFERENCES_KEY_FIRSTNAME , Name.getFirstName(userName) );
-        editor.putString( PREFERENCES_KEY_LASTNAME , Name.getLastName(userName) );
+        editor.putString( PREFERENCES_KEY_FIRSTNAME , NameUtils.getFirstName(userName) );
+        editor.putString( PREFERENCES_KEY_LASTNAME , NameUtils.getLastName(userName) );
 
         editor.apply();
 

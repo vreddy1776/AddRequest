@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 
 import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 import project.files.android.addrequest.R;
-import project.files.android.addrequest.Utils.StringGenerator;
+import project.files.android.addrequest.Utils.StringUtils;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -73,8 +73,8 @@ public class AddTicketTest {
     @Test
     public void addTicketToTicketList() throws Exception {
 
-        String newTitle = StringGenerator.randomTitle();
-        String newDescription = StringGenerator.randomDescription();
+        String newTitle = StringUtils.randomTitle();
+        String newDescription = StringUtils.randomDescription();
 
         onView(withId(R.id.editTextTicketTitle)).
                 perform(typeText(newTitle), closeSoftKeyboard());

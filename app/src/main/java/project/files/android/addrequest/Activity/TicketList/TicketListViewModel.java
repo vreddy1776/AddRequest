@@ -16,7 +16,7 @@ import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Background.AppExecuters;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Settings.UserProfileSettings;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -46,7 +46,7 @@ public class TicketListViewModel extends AndroidViewModel {
 
     public void updateDB(final TicketAdapter ticketAdapter, int updateCode){
         removeObservers();
-        if (updateCode == GlobalConstants.LOAD_ALL){
+        if (updateCode == C.LOAD_ALL){
             ticketListLiveData = database.ticketDao().loadAllTickets();
             ticketListLiveData.observeForever(allTicketsObserver = new Observer<List<Ticket>>() {
                 @Override
@@ -54,7 +54,7 @@ public class TicketListViewModel extends AndroidViewModel {
                     ticketAdapter.setTickets(ticketList);
                 }
             });
-        } else if (updateCode == GlobalConstants.LOAD_USER) {
+        } else if (updateCode == C.LOAD_USER) {
             ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
             ticketListLiveData.observeForever(profileObserver = new Observer<List<Ticket>>() {
                 @Override

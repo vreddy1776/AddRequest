@@ -2,7 +2,7 @@ package project.files.android.addrequest.Utils;
 
 import java.util.Random;
 
-public class StringGenerator {
+public class StringUtils {
 
     public static String randomString(int length) {
         Random generator = new Random();
@@ -20,9 +20,9 @@ public class StringGenerator {
     public static String randomTitle(){
 
         String newTitle =
-                StringGenerator.randomString(3) +
+                StringUtils.randomString(3) +
                         "-Title-" +
-                        StringGenerator.randomString(3);
+                        StringUtils.randomString(3);
 
         return newTitle;
     }
@@ -31,9 +31,9 @@ public class StringGenerator {
     public static String randomDescription(){
 
         String newDescription =
-                StringGenerator.randomString(5) +
+                StringUtils.randomString(5) +
                         "-Description-" +
-                        StringGenerator.randomString(5);
+                        StringUtils.randomString(5);
 
         return newDescription;
     }

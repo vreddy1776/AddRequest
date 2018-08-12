@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Activity.AddTicket.AddTicketViewModel;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -66,7 +66,7 @@ public class AddTicketViewModelTest extends Assert {
     @Test
     public void addTicketTest() {
 
-        mAddTicketViewModel.addTicketToLocalDb(mInsertedTicket, GlobalConstants.ADD_TICKET_TYPE);
+        mAddTicketViewModel.addTicketToLocalDb(mInsertedTicket, C.ADD_TICKET_TYPE);
         AppDatabase actualAppDatabase = mAddTicketViewModel.getAppDatabase();
 
         Cursor cursor = actualAppDatabase.query("SELECT * FROM ticket WHERE ticketId = " + mInsertedTicket.getTicketId(),null);
@@ -84,8 +84,8 @@ public class AddTicketViewModelTest extends Assert {
     @Test
     public void modifyTicketTest() {
 
-        mAddTicketViewModel.addTicketToLocalDb(mInsertedTicket, GlobalConstants.ADD_TICKET_TYPE);
-        mAddTicketViewModel.addTicketToLocalDb(mUpdatedTicket, GlobalConstants.UPDATE_TICKET_TYPE);
+        mAddTicketViewModel.addTicketToLocalDb(mInsertedTicket, C.ADD_TICKET_TYPE);
+        mAddTicketViewModel.addTicketToLocalDb(mUpdatedTicket, C.UPDATE_TICKET_TYPE);
         AppDatabase actualAppDatabase = mAddTicketViewModel.getAppDatabase();
 
         Cursor cursor = actualAppDatabase.query("SELECT * FROM ticket WHERE ticketId = " + mUpdatedTicket.getTicketId(),null);

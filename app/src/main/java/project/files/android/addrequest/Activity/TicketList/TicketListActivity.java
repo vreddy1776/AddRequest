@@ -20,7 +20,7 @@ import project.files.android.addrequest.Activity.Main.MainActivity;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Background.FirebaseDbListenerService;
 import project.files.android.addrequest.Settings.UserProfileSettings;
-import project.files.android.addrequest.Utils.GlobalConstants;
+import project.files.android.addrequest.Utils.C;
 
 
 /**
@@ -56,7 +56,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_list);
 
-        ticketType = GlobalConstants.VIEW_TICKET_TYPE;
+        ticketType = C.VIEW_TICKET_TYPE;
 
         mAdapter = new TicketAdapter( this, this);
 
@@ -65,13 +65,13 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
             @Override
             public void onClick(View view) {
                 Intent addTicketIntent = new Intent(TicketListActivity.this, AddTicketActivity.class);
-                addTicketIntent.putExtra(GlobalConstants.TICKET_TYPE_KEY, GlobalConstants.ADD_TICKET_TYPE);
+                addTicketIntent.putExtra(C.TICKET_TYPE_KEY, C.ADD_TICKET_TYPE);
                 startActivity(addTicketIntent);
             }
         });
 
         viewModel = ViewModelProviders.of(this).get(TicketListViewModel.class);
-        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
+        viewModel.updateDB(mAdapter, C.LOAD_ALL);
 
         fragmentManager = getSupportFragmentManager();
         ticketsFragment = new TicketsFragment();
@@ -116,11 +116,11 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         getSupportActionBar().setTitle(R.string.profile_activity_name);
 
-        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_USER);
+        viewModel.updateDB(mAdapter, C.LOAD_USER);
 
         openProfile();
 
-        ticketType = GlobalConstants.UPDATE_TICKET_TYPE;
+        ticketType = C.UPDATE_TICKET_TYPE;
         ticketsFragment.setSwipe(ticketType);
 
     }
@@ -131,11 +131,11 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         getSupportActionBar().setTitle(R.string.ticket_list_activity_name);
 
-        viewModel.updateDB(mAdapter,GlobalConstants.LOAD_ALL);
+        viewModel.updateDB(mAdapter, C.LOAD_ALL);
 
         closeProfile();
 
-        ticketType = GlobalConstants.VIEW_TICKET_TYPE;
+        ticketType = C.VIEW_TICKET_TYPE;
         ticketsFragment.setSwipe(ticketType);
 
     }
@@ -148,7 +148,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         ProfileFragment profileFragment = new ProfileFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.profile_fragment_container,profileFragment,GlobalConstants.PROFILE_FRAGMENT_TAG)
+                .add(R.id.profile_fragment_container,profileFragment, C.PROFILE_FRAGMENT_TAG)
                 .commit();
 
     }
@@ -159,7 +159,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
      */
     private void closeProfile() {
 
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(GlobalConstants.PROFILE_FRAGMENT_TAG);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(C.PROFILE_FRAGMENT_TAG);
         if(fragment != null)
             getSupportFragmentManager().beginTransaction()
                     .remove(fragment)
@@ -195,8 +195,8 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
 
         Intent intent = new Intent(this, AddTicketActivity.class);
-        intent.putExtra(GlobalConstants.TICKET_ID_KEY, itemId);
-        intent.putExtra(GlobalConstants.TICKET_TYPE_KEY, ticketType);
+        intent.putExtra(C.TICKET_ID_KEY, itemId);
+        intent.putExtra(C.TICKET_TYPE_KEY, ticketType);
         startActivity(intent);
 
     }

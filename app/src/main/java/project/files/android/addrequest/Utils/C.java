@@ -2,7 +2,7 @@ package project.files.android.addrequest.Utils;
 
 import android.net.Uri;
 
-public class GlobalConstants {
+public class C {
 
     // Intent Keys
     public static final String TICKET_ID_KEY = "TicketId";
@@ -10,7 +10,7 @@ public class GlobalConstants {
     public static final String TICKET_TYPE_KEY = "TicketType";
 
 
-    // Database Child Name
+    // Database Child NameUtils
     public static final String CHILD_NAME_TICKETS = "Tickets";
     public static final String CHILD_NAME_MESSAGES = "Messages";
 

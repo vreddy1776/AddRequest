@@ -8,7 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import project.files.android.addrequest.Utils.DateTime;
+import project.files.android.addrequest.Utils.DateTimeUtils;
 
 
 /**
@@ -20,7 +20,7 @@ import project.files.android.addrequest.Utils.DateTime;
  * @version 1.0.0
  */
 @Database(entities = {Ticket.class}, version = 1, exportSchema = false)
-@TypeConverters(DateTime.class)
+@TypeConverters(DateTimeUtils.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = AppDatabase.class.getSimpleName();

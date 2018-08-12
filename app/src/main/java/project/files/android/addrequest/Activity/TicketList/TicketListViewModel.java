@@ -14,7 +14,7 @@ import java.util.List;
 import project.files.android.addrequest.Adapter.TicketAdapter;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
@@ -32,9 +32,9 @@ public class TicketListViewModel extends AndroidViewModel {
     private static final String TAG = TicketListViewModel.class.getSimpleName();
 
     private AppDatabase database;
-    private LiveData<List<TicketEntry>> ticketListLiveData;
-    private Observer<List<TicketEntry>> allTicketsObserver;
-    private Observer<List<TicketEntry>> profileObserver;
+    private LiveData<List<Ticket>> ticketListLiveData;
+    private Observer<List<Ticket>> allTicketsObserver;
+    private Observer<List<Ticket>> profileObserver;
 
 
 
@@ -48,18 +48,18 @@ public class TicketListViewModel extends AndroidViewModel {
         removeObservers();
         if (updateCode == GlobalConstants.LOAD_ALL){
             ticketListLiveData = database.ticketDao().loadAllTickets();
-            ticketListLiveData.observeForever(allTicketsObserver = new Observer<List<TicketEntry>>() {
+            ticketListLiveData.observeForever(allTicketsObserver = new Observer<List<Ticket>>() {
                 @Override
-                public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
-                    ticketAdapter.setTickets(ticketEntryList);
+                public void onChanged(@Nullable List<Ticket> ticketList) {
+                    ticketAdapter.setTickets(ticketList);
                 }
             });
         } else if (updateCode == GlobalConstants.LOAD_USER) {
             ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
-            ticketListLiveData.observeForever(profileObserver = new Observer<List<TicketEntry>>() {
+            ticketListLiveData.observeForever(profileObserver = new Observer<List<Ticket>>() {
                 @Override
-                public void onChanged(@Nullable List<TicketEntry> ticketEntryList) {
-                    ticketAdapter.setTickets(ticketEntryList);
+                public void onChanged(@Nullable List<Ticket> ticketList) {
+                    ticketAdapter.setTickets(ticketList);
                 }
             });
         } else {

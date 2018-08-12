@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import project.files.android.addrequest.Adapter.TicketAdapter;
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.DividerItemDecorator;
 import project.files.android.addrequest.Utils.GlobalConstants;
@@ -74,8 +74,8 @@ public class TicketsFragment extends Fragment{
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 int position = viewHolder.getAdapterPosition();
-                List<TicketEntry> tickets = ticketAdapter.getTickets();
-                TicketEntry ticket = tickets.get(position);
+                List<Ticket> tickets = ticketAdapter.getTickets();
+                Ticket ticket = tickets.get(position);
                 ticketListActivity.swipeTicket(ticket.getTicketId());
 
             }

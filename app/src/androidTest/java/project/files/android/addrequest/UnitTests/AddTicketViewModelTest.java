@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import project.files.android.addrequest.Database.AppDatabase;
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Activity.AddTicket.AddTicketViewModel;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
@@ -21,8 +21,8 @@ public class AddTicketViewModelTest extends Assert {
 
 
     private AddTicketViewModel mAddTicketViewModel;
-    private TicketEntry mInsertedTicket;
-    private TicketEntry mUpdatedTicket;
+    private Ticket mInsertedTicket;
+    private Ticket mUpdatedTicket;
     private AppDatabase mDatabase;
 
 
@@ -31,7 +31,7 @@ public class AddTicketViewModelTest extends Assert {
 
         mAddTicketViewModel = new AddTicketViewModel();
 
-        mInsertedTicket = new TicketEntry(
+        mInsertedTicket = new Ticket(
                 104601350,
                 "Test Ticket Title",
                 "test ticket description",
@@ -43,7 +43,7 @@ public class AddTicketViewModelTest extends Assert {
                 "Bob Smith",
                 "http://testurl.com");
 
-        mUpdatedTicket = new TicketEntry(
+        mUpdatedTicket = new Ticket(
                 104601350,
                 "Other Title",
                 "some other description",

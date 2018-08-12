@@ -14,7 +14,7 @@ import project.files.android.addrequest.Utils.GlobalConstants;
  * @version 1.0.0
  */
 @Entity(tableName = "ticket")
-public class TicketEntry {
+public class Ticket {
 
     @PrimaryKey(autoGenerate = true)
     private int ticketId;
@@ -31,7 +31,7 @@ public class TicketEntry {
 
 
     @Ignore
-    public TicketEntry() {
+    public Ticket() {
         this.ticketId = GlobalConstants.DEFAULT_TICKET_ID;
         this.ticketTitle = GlobalConstants.BLANK_TICKET_TITLE;
         this.ticketDescription = GlobalConstants.BLANK_DESCRIPTION_TITLE;
@@ -47,7 +47,7 @@ public class TicketEntry {
 
 
     @Ignore
-    public TicketEntry(TicketEntry ticket) {
+    public Ticket(Ticket ticket) {
         this.ticketId = ticket.getTicketId();
         this.ticketTitle = ticket.getTicketTitle();
         this.ticketDescription = ticket.getTicketDescription();
@@ -63,7 +63,7 @@ public class TicketEntry {
 
 
     @Ignore
-    public TicketEntry(
+    public Ticket(
             String ticketTitle,
             String ticketDescription,
             String ticketDate,
@@ -86,7 +86,7 @@ public class TicketEntry {
     }
 
 
-    public TicketEntry(
+    public Ticket(
             int ticketId,
             String ticketTitle,
             String ticketDescription,
@@ -191,7 +191,7 @@ public class TicketEntry {
         this.userPhotoUrl = userPhotoUrl;
     }
 
-    public void setTicket(TicketEntry ticket) {
+    public void setTicket(Ticket ticket) {
         this.ticketId = ticket.getTicketId();
         this.ticketTitle = ticket.getTicketTitle();
         this.ticketDescription = ticket.getTicketDescription();

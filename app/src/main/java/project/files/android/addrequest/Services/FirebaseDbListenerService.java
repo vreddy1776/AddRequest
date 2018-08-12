@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 
 
@@ -83,7 +83,7 @@ public class FirebaseDbListenerService extends Service {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
+                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
 
                     if( !database.ticketExists(ticket.getTicketId()) ){
                         new Thread(new Runnable() {
@@ -99,7 +99,7 @@ public class FirebaseDbListenerService extends Service {
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
+                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
 
                     if( (database.ticketExists(ticket.getTicketId())) && (!ticket.getUserId().equals(UserProfileSettings.getUserID(getApplicationContext()))) ){
                         new Thread(new Runnable() {
@@ -115,7 +115,7 @@ public class FirebaseDbListenerService extends Service {
 
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                    final TicketEntry ticket = dataSnapshot.getValue(TicketEntry.class);
+                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
 
                     if( database.ticketExists(ticket.getTicketId()) ){
                         new Thread(new Runnable() {

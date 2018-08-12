@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.GlobalConstants;
 import project.files.android.addrequest.Utils.Name;
@@ -34,7 +34,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     private static final String TAG = TicketAdapter.class.getSimpleName();
 
     final private ItemClickListener mItemClickListener;
-    private List<TicketEntry> mTicketEntries;
+    private List<Ticket> mTicketEntries;
     private Context mContext;
 
 
@@ -85,7 +85,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     public void onBindViewHolder(TicketViewHolder holder, int position) {
 
         // Determine the values of the wanted data
-        TicketEntry ticket = mTicketEntries.get(position);
+        Ticket ticket = mTicketEntries.get(position);
         String ticketTitle = ticket.getTicketTitle();
         String ticketDescription = ticket.getTicketDescription();
         String ticketDate = ticket.getTicketDate();
@@ -139,7 +139,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     /**
      * Returns a list of tickets for an Activity to delete.
      */
-    public List<TicketEntry> getTickets() {
+    public List<Ticket> getTickets() {
         return mTicketEntries;
     }
 
@@ -148,7 +148,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
      * When data changes, this method updates the list of ticketEntries
      * and notifies the adapter to use the new values on it
      */
-    public void setTickets(List<TicketEntry> ticketEntries) {
+    public void setTickets(List<Ticket> ticketEntries) {
         mTicketEntries = ticketEntries;
         notifyDataSetChanged();
     }

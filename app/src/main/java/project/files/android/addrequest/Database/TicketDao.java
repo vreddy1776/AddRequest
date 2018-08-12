@@ -20,28 +20,28 @@ import java.util.List;
 @Dao
 public interface TicketDao {
 
-    @Query("SELECT * FROM ticket")
-    LiveData<List<TicketEntry>> loadAllTickets();
+    @Query("SELECT * FROM Ticket")
+    LiveData<List<Ticket>> loadAllTickets();
 
-    @Query("SELECT * FROM ticket WHERE userId = :userId")
-    LiveData<List<TicketEntry>> loadUserTickets(String userId);
+    @Query("SELECT * FROM Ticket WHERE userId = :userId")
+    LiveData<List<Ticket>> loadUserTickets(String userId);
 
     @Insert
-    void insertTicket(TicketEntry ticketEntry);
+    void insertTicket(Ticket ticket);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTicket(TicketEntry ticketEntry);
+    void updateTicket(Ticket ticket);
 
     @Delete
-    void deleteTicket(TicketEntry ticketEntry);
+    void deleteTicket(Ticket ticket);
 
-    @Query("DELETE FROM ticket WHERE ticketId = :ticketId")
+    @Query("DELETE FROM Ticket WHERE ticketId = :ticketId")
     void deleteTicketById(int ticketId);
 
-    @Query("DELETE FROM ticket")
+    @Query("DELETE FROM Ticket")
     void clearAllTickets();
 
-    @Query("SELECT * FROM ticket WHERE ticketId = :ticketId")
-    LiveData<TicketEntry> loadTicketById(int ticketId);
+    @Query("SELECT * FROM Ticket WHERE ticketId = :ticketId")
+    LiveData<Ticket> loadTicketById(int ticketId);
 
 }

@@ -18,7 +18,7 @@ import com.google.firebase.storage.UploadTask;
 
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
-import project.files.android.addrequest.Database.TicketEntry;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;
 
@@ -39,10 +39,10 @@ public class AddTicketViewModel extends ViewModel {
     private AddTicketContract.View mView;
 
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
-    private LiveData<TicketEntry> mLiveDataTicket;
-    private Observer<TicketEntry> ticketObserver;
+    private LiveData<Ticket> mLiveDataTicket;
+    private Observer<Ticket> ticketObserver;
     private AppDatabase mAppDatabase;
-    public TicketEntry tempTicket;
+    public Ticket tempTicket;
 
 
     /**
@@ -53,17 +53,17 @@ public class AddTicketViewModel extends ViewModel {
 
         mView = view;
         mAppDatabase = AppDatabase.getInstance(context);
-        tempTicket = new TicketEntry();
+        tempTicket = new Ticket();
         loadLiveDataTicket(ticketId);
 
         removeObserver();
-        mLiveDataTicket.observeForever(ticketObserver = new Observer<TicketEntry>() {
+        mLiveDataTicket.observeForever(ticketObserver = new Observer<Ticket>() {
             @Override
-            public void onChanged(@Nullable TicketEntry ticketEntry) {
+            public void onChanged(@Nullable Ticket ticket) {
 
                 if(ticketType != GlobalConstants.ADD_TICKET_TYPE){
 
-                    tempTicket.setTicket(ticketEntry);
+                    tempTicket.setTicket(ticket);
                     view.updateTitleDescription();
                     view.setVideoView();
 
@@ -87,7 +87,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Getter for LiveDataTicket.
      */
-    public LiveData<TicketEntry> getLiveDataTicket() {
+    public LiveData<Ticket> getLiveDataTicket() {
         return mLiveDataTicket;
     }
 
@@ -95,7 +95,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Setter for LiveDataTicket.
      */
-    public void setLiveDataTicket(LiveData<TicketEntry> liveDataTicket) {
+    public void setLiveDataTicket(LiveData<Ticket> liveDataTicket) {
         mLiveDataTicket = liveDataTicket;
     }
 
@@ -168,7 +168,7 @@ public class AddTicketViewModel extends ViewModel {
      * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
-    private void addTicketToDb(final TicketEntry ticket, final int ticketType){
+    private void addTicketToDb(final Ticket ticket, final int ticketType){
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -188,12 +188,12 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Adds ticket to local (SQLlite) DB.
      *
-     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
+     * @see #addTicketToDb(Ticket, int) (Ticket, int)
      *
      * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
-    public void addTicketToLocalDb(final TicketEntry ticket, int ticketType){
+    public void addTicketToLocalDb(final Ticket ticket, int ticketType){
 
         if(ticketType == GlobalConstants.ADD_TICKET_TYPE){
             mAppDatabase.ticketDao().insertTicket(ticket);
@@ -206,11 +206,11 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Adds ticket to remote (Firebase) DB.
      *
-     * @see #addTicketToDb(TicketEntry, int) (TicketEntry, int)
+     * @see #addTicketToDb(Ticket, int) (Ticket, int)
      *
      * @param ticket The ticket to be added.
      */
-    private void addTicketToFirebaseDb(final TicketEntry ticket){
+    private void addTicketToFirebaseDb(final Ticket ticket){
 
         FirebaseDatabase fBdatabase = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = fBdatabase.getReference("Tickets");

@@ -1,8 +1,6 @@
 package project.files.android.addrequest.Activity.AddTicket;
 
 import android.Manifest;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,13 +9,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -46,7 +42,6 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.Date;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
-import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Activity.Chat.ChatActivity;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.R;

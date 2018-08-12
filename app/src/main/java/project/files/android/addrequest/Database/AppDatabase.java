@@ -19,7 +19,7 @@ import project.files.android.addrequest.Utils.DateTime;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
-@Database(entities = {TicketEntry.class}, version = 1, exportSchema = false)
+@Database(entities = {Ticket.class}, version = 1, exportSchema = false)
 @TypeConverters(DateTime.class)
 public abstract class AppDatabase extends RoomDatabase {
 

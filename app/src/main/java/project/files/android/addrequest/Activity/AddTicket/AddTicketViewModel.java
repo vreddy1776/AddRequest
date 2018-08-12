@@ -7,7 +7,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,10 +16,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import project.files.android.addrequest.Activity.Chat.ChatContract;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
-import project.files.android.addrequest.Database.FirebaseDbTicket;
 import project.files.android.addrequest.Database.TicketEntry;
 import project.files.android.addrequest.Notification.Notifications;
 import project.files.android.addrequest.Utils.GlobalConstants;

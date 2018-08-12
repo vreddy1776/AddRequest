@@ -1,11 +1,9 @@
 package project.files.android.addrequest.Services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Database.AppExecuters;
 import project.files.android.addrequest.Database.TicketEntry;
-import project.files.android.addrequest.Database.FirebaseDbTicket;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 
 

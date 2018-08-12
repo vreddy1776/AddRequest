@@ -47,7 +47,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             tools:text="Message"
             android:background="@drawable/background_rounded_rectangle"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_normal"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"

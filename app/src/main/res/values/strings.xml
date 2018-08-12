@@ -17,15 +17,16 @@
     <string name="loading_button">Loading video…</string>
 
 
-
     <!-- Strings for AddTicketActivity -->
     <string name="edit_ticket_title">Request title&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
     <string name="edit_ticket_description">Describe your request&#8230;</string>  <!-- This has a unicode character for "..." = "&#8230;" -->
+
 
     <!-- Strings for Notifications and Toasts -->
     <string name="main_notification_channel_name">Primary</string>
     <string name="notification_title">Request received!</string>
     <string name="notification_body">Your video upload request has been received by AddRequest</string>
+
 
     <!-- Strings for Facebook Login -->
     <string name="facebook_app_id">288678245030695</string>
@@ -34,6 +35,7 @@
     <string name="cancel_login">Se canceló la operación</string>
     <string name="error_login">Ocurrió un error al ingresar</string>
     <string name="logout">Cerrar sesión</string>
+
 
     <!-- Strings for Menu & Login Items -->
     <string name="default_userid">no_user_id</string>

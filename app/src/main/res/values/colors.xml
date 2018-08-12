@@ -10,7 +10,6 @@
 
 
     <!-- Edit Text Boxes -->
-    <color name="editTextBackground">#D3D3D3</color>
     <color name="editTextLight">#D3D3D3</color>
     <color name="editTextDark">	#606060</color>
 
@@ -20,8 +19,6 @@
     <color name="blank_background">#FFFFFF</color>
     <color name="main_background">#D3D3D3</color>
     <color name="main_foreground">#B1B1B1</color>
-
-
 
     <color name="profileBackground">#FFFFFF</color>
 

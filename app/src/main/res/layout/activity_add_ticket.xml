@@ -29,7 +29,7 @@
                 android:hint="@string/edit_ticket_title"
                 android:maxLines="1"
                 android:textColor="@color/editTextLight"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_large"
                 android:textStyle="bold"
                 android:layout_marginLeft="0dp"/>
 
@@ -113,7 +113,7 @@
             android:layout_height="match_parent"
             android:gravity="top"
             android:hint="@string/edit_ticket_description"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_normal"
             android:background="@null" />
 
     </FrameLayout>

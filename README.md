@@ -4,7 +4,7 @@ AddRequest
 AddRequest is a service request app where users can post their issues to a public forum and anyone can respond with solutions.  Videos can be added to each request to give a visual description of the issue, and a chat feature allows for a safe and easy way to discuss the problem.
 
 <a href="https://www.dropbox.com/s/pep0jk2x5h5i18y/google-play-store.jpg?raw=1">
-  <img src="https://firebasestorage.googleapis.com/v0/b/addrequestapp.appspot.com/o/Images%2Fgoogle-play-store.jpg?alt=media&token=17cde6f5-2664-4ca2-95e9-5e3a8f43805c" alt="addrequest" width="256" height="80"">
+  <img src="https://www.dropbox.com/s/bucc2ve7tyzeqwc/addrequest.apk?raw=1" alt="addrequest" width="256" height="80"">
 </a>
 
 

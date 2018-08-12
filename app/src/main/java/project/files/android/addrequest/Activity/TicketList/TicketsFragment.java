@@ -62,7 +62,7 @@ public class TicketsFragment extends Fragment{
         mRecyclerView.setAdapter(ticketAdapter);
 
         // Remove divider lines
-        mRecyclerView.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.no_divider)));
+        mRecyclerView.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.divider_none)));
 
 
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

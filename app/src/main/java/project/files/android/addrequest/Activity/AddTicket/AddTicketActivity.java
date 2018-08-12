@@ -269,11 +269,11 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             videoButton.setVisibility(View.VISIBLE);
             videoDeleteButton.setVisibility(View.INVISIBLE);
             if (mTicketType == GlobalConstants.VIEW_TICKET_TYPE) {
-                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.solid_border) );
+                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_border_solid) );
                 videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_no_video) );
                 videoButton.setEnabled(false);
             }else {
-                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.dash_border) );
+                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_border_dashed) );
                 videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
                 videoButton.setEnabled(true);
             }

@@ -39,7 +39,7 @@
                 android:layout_height="30dp"
                 android:layout_toLeftOf="@id/saveButton"
                 android:layout_centerVertical="true"
-                android:background="@drawable/nav_chat"
+                android:background="@drawable/btn_chat"
                 android:onClick="goToChat"
                 android:layout_marginRight="10dp"/>
 
@@ -63,7 +63,7 @@
 
     <FrameLayout
         android:id="@+id/videoWrapper"
-        android:background="@drawable/dash_border"
+        android:background="@drawable/background_border_dashed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
@@ -100,7 +100,7 @@
         android:id="@+id/editTextTicketDescriptionWrapper"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/half_rounded_rectangle"
+        android:background="@drawable/text_half_rounded_rectangle"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

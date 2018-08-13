@@ -88,4 +88,15 @@ public class AppDatabaseTest extends Assert {
     }
 
 
+    @Test
+    public void deleteTicketTest() {
+
+        mDatabase.ticketDao().clearAllTickets();
+        mDatabase.ticketDao().insertTicket(mInsertedTicket);
+        mDatabase.ticketDao().deleteTicketById(mInsertedTicket.getTicketId());
+        assertFalse(mDatabase.ticketExists(mInsertedTicket.getTicketId()));
+
+    }
+
+
 }

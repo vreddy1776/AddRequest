@@ -50,8 +50,7 @@ public class AppDatabaseTest extends Assert {
                 "Bob Smith",
                 "http://userPhoto.com");
 
-        Context context = InstrumentationRegistry.getTargetContext();
-        mDatabase = AppDatabase.getInstance(context);
+        mDatabase = AppDatabase.getInstance();
     }
 
 

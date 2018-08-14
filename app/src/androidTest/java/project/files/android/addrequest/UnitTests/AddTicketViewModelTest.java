@@ -56,7 +56,7 @@ public class AddTicketViewModelTest extends Assert {
                 "http://userPhoto.com");
 
         Context context = InstrumentationRegistry.getTargetContext();
-        mDatabase = AppDatabase.getInstance(context);
+        mDatabase = AppDatabase.getInstance();
         mDatabase.ticketDao().clearAllTickets();
         mAddTicketViewModel.setAppDatabase(mDatabase);
 

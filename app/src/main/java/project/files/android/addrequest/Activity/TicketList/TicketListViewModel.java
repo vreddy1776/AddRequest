@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -27,7 +28,7 @@ import project.files.android.addrequest.Utils.C;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
-public class TicketListViewModel extends AndroidViewModel {
+public class TicketListViewModel extends ViewModel {
 
     private static final String TAG = TicketListViewModel.class.getSimpleName();
 
@@ -38,8 +39,7 @@ public class TicketListViewModel extends AndroidViewModel {
 
 
 
-    public TicketListViewModel(Application application) {
-        super(application);
+    public TicketListViewModel() {
         database = AppDatabase.getInstance();
     }
 

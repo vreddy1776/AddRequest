@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         final String userName = mFirebaseAuth.getCurrentUser().getDisplayName();
         final String userPhotoUrl = mFirebaseAuth.getCurrentUser().getPhotoUrl().toString();
 
-        UserProfileSettings.setUserProfileAtLogin(this,
+        UserProfileSettings.setUserProfileAtLogin(
                 userId,
                 userName,
                 userPhotoUrl);

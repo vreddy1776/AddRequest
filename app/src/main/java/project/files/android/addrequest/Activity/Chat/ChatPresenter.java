@@ -58,8 +58,8 @@ public class ChatPresenter implements ChatContract.Presenter {
     public void sendMessage(Context context) {
 
         Message message = new Message(mView.getMessageText(),
-                UserProfileSettings.getUsername(context),
-                UserProfileSettings.getUserPhotoURL(context));
+                UserProfileSettings.getUsername(),
+                UserProfileSettings.getUserPhotoURL());
         mMessagesDatabaseReference.push().setValue(message);
 
     }

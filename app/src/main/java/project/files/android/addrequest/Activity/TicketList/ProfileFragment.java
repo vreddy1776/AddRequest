@@ -42,10 +42,10 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         TextView firstNameText = rootView.findViewById(R.id.firstNameText);
-        firstNameText.setText(UserProfileSettings.getFirstname(getContext()));
+        firstNameText.setText(UserProfileSettings.getFirstname());
 
         TextView lastNameText = rootView.findViewById(R.id.lastNameText);
-        lastNameText.setText(UserProfileSettings.getLastname(getContext()));
+        lastNameText.setText(UserProfileSettings.getLastname());
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();

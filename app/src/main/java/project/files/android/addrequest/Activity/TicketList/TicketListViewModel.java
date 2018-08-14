@@ -55,7 +55,7 @@ public class TicketListViewModel extends AndroidViewModel {
                 }
             });
         } else if (updateCode == C.LOAD_USER) {
-            ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID(this.getApplication()));
+            ticketListLiveData = database.ticketDao().loadUserTickets(UserProfileSettings.getUserID());
             ticketListLiveData.observeForever(profileObserver = new Observer<List<Ticket>>() {
                 @Override
                 public void onChanged(@Nullable List<Ticket> ticketList) {

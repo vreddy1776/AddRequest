@@ -342,9 +342,9 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     private void setOtherTicketValues(){
 
         viewModel.tempTicket.setTicketDate(DateTimeUtils.dateToString(new Date()));
-        viewModel.tempTicket.setUserId(UserProfileSettings.getUserID(this));
-        viewModel.tempTicket.setUserName(UserProfileSettings.getUsername(this));
-        viewModel.tempTicket.setUserPhotoUrl(UserProfileSettings.getUserPhotoURL(this));
+        viewModel.tempTicket.setUserId(UserProfileSettings.getUserID());
+        viewModel.tempTicket.setUserName(UserProfileSettings.getUsername());
+        viewModel.tempTicket.setUserPhotoUrl(UserProfileSettings.getUserPhotoURL());
 
     }
 

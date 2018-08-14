@@ -100,7 +100,8 @@ public class FirebaseDbListenerService extends Service {
 
                     final Ticket ticket = dataSnapshot.getValue(Ticket.class);
 
-                    if( (database.ticketExists(ticket.getTicketId())) && (!ticket.getUserId().equals(UserProfileSettings.getUserID(getApplicationContext()))) ){
+                    if( database.ticketExists(ticket.getTicketId()) &&
+                            !ticket.getUserId().equals(UserProfileSettings.getUserID()) ){
                         new Thread(new Runnable() {
                             @Override
                             public void run() {

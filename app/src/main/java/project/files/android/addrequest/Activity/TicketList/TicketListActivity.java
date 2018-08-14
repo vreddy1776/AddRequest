@@ -174,7 +174,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     private void logout() {
 
         stopService(new Intent(this, FirebaseDbListenerService.class));
-        UserProfileSettings.setUserProfileAtLogout(this);
+        UserProfileSettings.setUserProfileAtLogout();
         AuthUI.getInstance().signOut(this);
 
         Intent intent = new Intent(TicketListActivity.this, MainActivity.class);

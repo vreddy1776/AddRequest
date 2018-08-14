@@ -43,6 +43,7 @@ import java.util.Date;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Activity.Chat.ChatActivity;
+import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.Background.Notifications;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
@@ -269,18 +270,18 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
             videoButton.setVisibility(View.VISIBLE);
             videoDeleteButton.setVisibility(View.INVISIBLE);
             if (mTicketType == C.VIEW_TICKET_TYPE) {
-                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_border_solid) );
-                videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_no_video) );
+                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(MyApplication.getAppContext(),R.drawable.background_border_solid) );
+                videoButton.setBackground( (Drawable) ContextCompat.getDrawable(MyApplication.getAppContext(),R.drawable.ic_no_video) );
                 videoButton.setEnabled(false);
             }else {
-                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.background_border_dashed) );
-                videoButton.setBackground( (Drawable) ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_video) );
+                videoWrapper.setBackground( (Drawable) ContextCompat.getDrawable(MyApplication.getAppContext(),R.drawable.background_border_dashed) );
+                videoButton.setBackground( (Drawable) ContextCompat.getDrawable(MyApplication.getAppContext(),R.drawable.ic_add_video) );
                 videoButton.setEnabled(true);
             }
         } else {
             streamVideo.setVisibility(View.VISIBLE);
             videoButton.setVisibility(View.INVISIBLE);
-            videoWrapper.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.videoBackground));
+            videoWrapper.setBackgroundColor(ContextCompat.getColor(MyApplication.getAppContext(),R.color.videoBackground));
             if (mTicketType != C.VIEW_TICKET_TYPE) {
                 videoDeleteButton.setVisibility(View.VISIBLE);
             }

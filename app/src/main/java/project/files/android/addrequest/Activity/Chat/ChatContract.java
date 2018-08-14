@@ -29,7 +29,7 @@ public class ChatContract {
 
         List<Message> createMessageList();
 
-        void sendMessage(Context context);
+        void sendMessage();
 
         void attachDatabaseReadListener();
 

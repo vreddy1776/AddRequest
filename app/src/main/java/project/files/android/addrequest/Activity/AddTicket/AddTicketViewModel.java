@@ -49,7 +49,7 @@ public class AddTicketViewModel extends ViewModel {
      * Constructor where you call loadTicketById of the ticketDao to initialize the tickets variable.
      * Note: The constructor receives the mAppDatabase and the ticketId
      */
-    public void setup(Context context, @NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
+    public void setup(@NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
 
         mView = view;
         mAppDatabase = AppDatabase.getInstance();
@@ -119,10 +119,9 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Adds or updates ticket to local and remote DBs with video upload.
      *
-     * @param context An AddTicketActivity context for notifications.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
-    public void addTicket(final Context context, final int ticketType){
+    public void addTicket(final int ticketType){
 
         // Video Present
         if (tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
@@ -148,7 +147,7 @@ public class AddTicketViewModel extends ViewModel {
 
                     addTicketToDb(tempTicket, ticketType);
 
-                    Notifications.ticketPostedNotification(context,tempTicket.getTicketId());
+                    Notifications.ticketPostedNotification(tempTicket.getTicketId());
                 }
             });
 
@@ -163,7 +162,7 @@ public class AddTicketViewModel extends ViewModel {
     /**
      * Calls two threads - one for adding ticket to local DB other to remote DB.
      *
-     * @see #addTicket(Context, int)
+     * @see #addTicket(int)
      *
      * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.

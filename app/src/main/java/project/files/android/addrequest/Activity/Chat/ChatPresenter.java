@@ -55,7 +55,7 @@ public class ChatPresenter implements ChatContract.Presenter {
 
 
     @Override
-    public void sendMessage(Context context) {
+    public void sendMessage() {
 
         Message message = new Message(mView.getMessageText(),
                 UserProfileSettings.getUsername(),

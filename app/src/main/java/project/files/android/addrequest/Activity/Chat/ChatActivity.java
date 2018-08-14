@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
             @Override
             public void onClick(View view) {
 
-                mPresenter.sendMessage(MyApplication.getAppContext());
+                mPresenter.sendMessage();
                 mMessageEditText.setText("");
             }
         });

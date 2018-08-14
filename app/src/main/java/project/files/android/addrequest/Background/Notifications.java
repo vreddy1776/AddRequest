@@ -54,8 +54,9 @@ public class Notifications {
     private static int mTicketID = C.DEFAULT_TICKET_ID;
 
 
-    public static void ticketPostedNotification(Context context, int ticketID) {
+    public static void ticketPostedNotification(int ticketID) {
 
+        Context context = MyApplication.getAppContext();
         mTicketID = ticketID;
 
         NotificationManager notificationManager = (NotificationManager)

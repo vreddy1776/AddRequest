@@ -156,7 +156,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
         AddTicketViewModelFactory factory = new AddTicketViewModelFactory(this.getApplication(), mReceivedTicketId);
         viewModel = ViewModelProviders.of(this, factory).get(AddTicketViewModel.class);
-        viewModel.setup(this,this, mReceivedTicketId, mTicketType);
+        viewModel.setup(this, mReceivedTicketId, mTicketType);
 
     }
 
@@ -310,7 +310,7 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        viewModel.addTicket(this, mTicketType);
+        viewModel.addTicket(mTicketType);
 
         finish();
 

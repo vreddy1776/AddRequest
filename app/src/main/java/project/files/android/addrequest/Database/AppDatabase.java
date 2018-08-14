@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.Utils.DateTimeUtils;
 
 
@@ -29,13 +30,13 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
 
     /** Create only one new database instance if not yet already created. */
-    public static AppDatabase getInstance(Context context) {
+    public static AppDatabase getInstance() {
 
         // Create new database instance
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
+                sInstance = Room.databaseBuilder(MyApplication.getAppContext(),
                         AppDatabase.class, AppDatabase.DATABASE_NAME)
                         .build();
             }

@@ -40,7 +40,7 @@ public class TicketListViewModel extends AndroidViewModel {
 
     public TicketListViewModel(Application application) {
         super(application);
-        database = AppDatabase.getInstance(this.getApplication());
+        database = AppDatabase.getInstance();
     }
 
 

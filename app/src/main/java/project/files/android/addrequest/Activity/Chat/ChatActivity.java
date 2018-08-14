@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import project.files.android.addrequest.Adapter.MessageAdapter;
+import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.C;
 
@@ -90,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements ChatContract.View
             @Override
             public void onClick(View view) {
 
-                mPresenter.sendMessage(getApplicationContext());
+                mPresenter.sendMessage(MyApplication.getAppContext());
                 mMessageEditText.setText("");
             }
         });

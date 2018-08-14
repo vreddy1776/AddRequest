@@ -52,7 +52,7 @@ public class AddTicketViewModel extends ViewModel {
     public void setup(Context context, @NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
 
         mView = view;
-        mAppDatabase = AppDatabase.getInstance(context);
+        mAppDatabase = AppDatabase.getInstance();
         tempTicket = new Ticket();
         loadLiveDataTicket(ticketId);
 

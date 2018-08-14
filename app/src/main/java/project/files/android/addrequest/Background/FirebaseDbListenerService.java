@@ -50,7 +50,7 @@ public class FirebaseDbListenerService extends Service {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("Tickets");
 
-        database = AppDatabase.getInstance(this.getApplication());
+        database = AppDatabase.getInstance();
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override

@@ -1,9 +1,15 @@
 package project.files.android.addrequest.Activity.TicketList;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,11 +20,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
+
+import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
 
 /**
@@ -30,9 +39,6 @@ import project.files.android.addrequest.Settings.UserProfileSettings;
  * @version 1.0.0
  */
 public class ProfileFragment extends Fragment {
-
-    public static final int PICK_IMAGE = 1;
-    private ImageView profilePic;
 
     public ProfileFragment() {
     }
@@ -55,14 +61,12 @@ public class ProfileFragment extends Fragment {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        profilePic = rootView.findViewById(R.id.profilePic);
+        ImageView profilePic = rootView.findViewById(R.id.profilePic);
 
         Glide.with(getContext())
                 .load(user.getPhotoUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(profilePic);
-
-        profilePic.setOnClickListener(photoClickListener);
 
         return rootView;
     }
@@ -82,30 +86,5 @@ public class ProfileFragment extends Fragment {
         menu.findItem(R.id.user_name_menu).setVisible(false);
     }
 
-
-    private View.OnClickListener photoClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-        }
-    };
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            if (data == null) {
-                //Display an error
-                return;
-            }
-            Glide.with(getContext())
-                    .load(data.getData())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profilePic);
-        }
-    }
 
 }

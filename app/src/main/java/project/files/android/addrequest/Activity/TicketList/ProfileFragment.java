@@ -1,5 +1,7 @@
 package project.files.android.addrequest.Activity.TicketList;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +31,9 @@ import project.files.android.addrequest.Settings.UserProfileSettings;
  */
 public class ProfileFragment extends Fragment {
 
+    public static final int PICK_IMAGE = 1;
+    private ImageView profilePic;
+
     public ProfileFragment() {
     }
 
@@ -50,12 +55,14 @@ public class ProfileFragment extends Fragment {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        ImageView profilePic = rootView.findViewById(R.id.profilePic);
+        profilePic = rootView.findViewById(R.id.profilePic);
 
         Glide.with(getContext())
                 .load(user.getPhotoUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(profilePic);
+
+        profilePic.setOnClickListener(photoClickListener);
 
         return rootView;
     }
@@ -73,6 +80,32 @@ public class ProfileFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.findItem(R.id.all_tickets_menu).setVisible(true);
         menu.findItem(R.id.user_name_menu).setVisible(false);
+    }
+
+
+    private View.OnClickListener photoClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        }
+    };
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                return;
+            }
+            Glide.with(getContext())
+                    .load(data.getData())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profilePic);
+        }
     }
 
 }

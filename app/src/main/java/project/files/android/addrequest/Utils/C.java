@@ -40,6 +40,7 @@ public class C {
 
     // Fragment Tags
     public static final String PROFILE_FRAGMENT_TAG = "ProfileFragment";
+    public static final String TICKETS_FRAGMENT_TAG = "TicketsFragment";
 
 
     // SQLlite Ticket DB update codes

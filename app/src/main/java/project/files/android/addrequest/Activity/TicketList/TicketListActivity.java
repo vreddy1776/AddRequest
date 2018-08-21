@@ -58,7 +58,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         ticketType = C.VIEW_TICKET_TYPE;
 
-        mAdapter = new TicketAdapter( this, this);
+        mAdapter = new TicketAdapter( this);
 
         fabButton = findViewById(R.id.fab);
         fabButton.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +74,8 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         viewModel.updateDB(mAdapter, C.LOAD_ALL);
 
         fragmentManager = getSupportFragmentManager();
-        ticketsFragment = new TicketsFragment();
-        fragmentManager.beginTransaction()
-                .add(R.id.ticketlist_fragment_container, ticketsFragment)
-                .commit();
+
+        openTicketsFragment();
 
     }
 
@@ -118,7 +116,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         viewModel.updateDB(mAdapter, C.LOAD_USER);
 
-        openProfile();
+        openProfileFragment();
 
         ticketType = C.UPDATE_TICKET_TYPE;
         ticketsFragment.setSwipe(ticketType);
@@ -133,7 +131,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
 
         viewModel.updateDB(mAdapter, C.LOAD_ALL);
 
-        closeProfile();
+        closeProfileFragment();
 
         ticketType = C.VIEW_TICKET_TYPE;
         ticketsFragment.setSwipe(ticketType);
@@ -144,7 +142,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     /**
      * Go to user Profile.
      */
-    private void openProfile() {
+    private void openProfileFragment() {
 
         ProfileFragment profileFragment = new ProfileFragment();
         fragmentManager.beginTransaction()
@@ -157,15 +155,42 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
     /**
      * Go to user Profile.
      */
-    private void closeProfile() {
+    private void closeProfileFragment() {
 
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(C.PROFILE_FRAGMENT_TAG);
-        if(fragment != null)
+        Fragment profileFragment = getSupportFragmentManager().findFragmentByTag(C.PROFILE_FRAGMENT_TAG);
+        if(profileFragment != null)
             getSupportFragmentManager().beginTransaction()
-                    .remove(fragment)
+                    .remove(profileFragment)
                     .commit();
 
     }
+
+
+    /**
+     * Open Tickets Fragment on Activity open.
+     */
+    private void openTicketsFragment() {
+
+        ticketsFragment = new TicketsFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.ticketlist_fragment_container, ticketsFragment, C.TICKETS_FRAGMENT_TAG)
+                .commit();
+
+    }
+
+
+    /**
+     * Close Tickets Fragment on Activity close.
+     */
+    private void closeTicketsFragment() {
+
+        if(ticketsFragment != null)
+            getSupportFragmentManager().beginTransaction()
+                    .remove(ticketsFragment)
+                    .commit();
+
+    }
+
 
 
     /**
@@ -178,10 +203,8 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         AuthUI.getInstance().signOut(this);
 
         Intent intent = new Intent(TicketListActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
-        finish();
 
     }
 

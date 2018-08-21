@@ -136,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
 
         startService(new Intent(this, FirebaseDbListenerService.class));
 
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+
         Intent intent = new Intent(MainActivity.this, TicketListActivity.class);
         startActivity(intent);
 

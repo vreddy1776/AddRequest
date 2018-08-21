@@ -1,15 +1,7 @@
 package project.files.android.addrequest.Activity.TicketList;
 
-import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,14 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
+import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
-
-import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
 
 /**
@@ -58,13 +46,10 @@ public class ProfileFragment extends Fragment {
         TextView lastNameText = rootView.findViewById(R.id.lastNameText);
         lastNameText.setText(UserProfileSettings.getLastname());
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
         ImageView profilePic = rootView.findViewById(R.id.profilePic);
 
-        Glide.with(getContext())
-                .load(user.getPhotoUrl())
+        Glide.with(MyApplication.getAppContext())
+                .load(UserProfileSettings.getUserPhotoURL())
                 .apply(RequestOptions.circleCropTransform())
                 .into(profilePic);
 

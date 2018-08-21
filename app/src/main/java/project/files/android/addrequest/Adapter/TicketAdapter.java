@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.C;
@@ -35,17 +36,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
     final private ItemClickListener mItemClickListener;
     private List<Ticket> mTicketList;
-    private Context mContext;
 
 
     /**
      * Constructor for the TicketAdapter that initializes the Context.
      *
-     * @param context  the current Context
      * @param listener the ItemClickListener
      */
-    public TicketAdapter(Context context , ItemClickListener listener) {
-        mContext = context;
+    public TicketAdapter(ItemClickListener listener) {
         mItemClickListener = listener;
     }
 
@@ -67,7 +65,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     public TicketViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         // Inflate the item_ticket to a view
-        View view = LayoutInflater.from(mContext)
+        View view = LayoutInflater.from(/*mContext*/ MyApplication.getAppContext())
                 .inflate(R.layout.item_ticket, parent, false);
 
         return new TicketViewHolder(view);
@@ -107,14 +105,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.isMemoryCacheable();
             Log.d(TAG, "url:  " + ticketVideoInternetUrl);
-            Glide.with(mContext)
+            Glide.with(MyApplication.getAppContext())
                     .load(ticketVideoInternetUrl)
                     .thumbnail(0.1f)
                     .into(holder.ticketVideoThumbnailView);
         }
 
 
-        Glide.with(mContext)
+        Glide.with(MyApplication.getAppContext())
                 .load(userPhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.userProfilePicView);

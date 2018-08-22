@@ -318,30 +318,16 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
         setTitleDescription();
         setOtherTicketValues();
 
+
         AppseeFunctions.saveTicket(mTicketType,
                 viewModel.tempTicket.getUserId(),
                 viewModel.tempTicket.getUserName(),
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        //viewModel.addTicket(mTicketType);
-
         if (viewModel.tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
 
-            /*
-            startService(new Intent(this, VideoUploadService.class));
             Intent intent = new Intent(this, VideoUploadService.class);
-            intent.putExtra("object", viewModel.tempTicket);
-            startService(intent);
-            */
-
-            /*
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(C.TICKET_KEY, (Serializable) new Ticket(viewModel.tempTicket));
-            */
-
-            Intent intent = new Intent(this, VideoUploadService.class);
-            //intent.putExtra("bundle", bundle);
             intent.putExtra(C.TICKET_KEY, Parcels.wrap(new Ticket(viewModel.tempTicket)));
             intent.putExtra(C.TICKET_TYPE_KEY, mTicketType);
             startService(intent);

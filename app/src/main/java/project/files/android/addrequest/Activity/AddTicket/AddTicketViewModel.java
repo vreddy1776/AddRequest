@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import project.files.android.addrequest.Background.FirebaseDbListenerService;
+import project.files.android.addrequest.Background.MyApplication;
+import project.files.android.addrequest.Background.VideoUploadService;
 import project.files.android.addrequest.Database.AppDatabase;
 import project.files.android.addrequest.Background.AppExecuters;
 import project.files.android.addrequest.Database.Ticket;
@@ -35,8 +39,10 @@ import project.files.android.addrequest.Utils.C;
  */
 public class AddTicketViewModel extends ViewModel {
 
+    /*
     @NonNull
     private AddTicketContract.View mView;
+    */
 
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
     private LiveData<Ticket> mLiveDataTicket;
@@ -51,7 +57,7 @@ public class AddTicketViewModel extends ViewModel {
      */
     public void setup(@NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
 
-        mView = view;
+        //mView = view;
         mAppDatabase = AppDatabase.getInstance();
         tempTicket = new Ticket();
         loadLiveDataTicket(ticketId);
@@ -121,10 +127,13 @@ public class AddTicketViewModel extends ViewModel {
      *
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
+    /*
     public void addTicket(final int ticketType){
 
         // Video Present
         if (tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+
+            startService(new Intent(MyApplication.getAppContext(), VideoUploadService.class));
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
@@ -157,17 +166,16 @@ public class AddTicketViewModel extends ViewModel {
             addTicketToDb(tempTicket, ticketType);
         }
     }
+    */
 
 
     /**
      * Calls two threads - one for adding ticket to local DB other to remote DB.
-     *
-     * @see #addTicket(int)
-     *
+     **
      * @param ticket The ticket to be added.
      * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
      */
-    private void addTicketToDb(final Ticket ticket, final int ticketType){
+    public void addTicketToDb(final Ticket ticket, final int ticketType){
 
         AppExecuters.getInstance().diskIO().execute(new Runnable() {
             @Override

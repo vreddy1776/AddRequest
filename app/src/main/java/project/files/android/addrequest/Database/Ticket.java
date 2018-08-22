@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.parceler.Parcel;
+
 import project.files.android.addrequest.Utils.C;
 
 
@@ -13,6 +15,7 @@ import project.files.android.addrequest.Utils.C;
  * @author Vijay T. Reddy
  * @version 1.0.0
  */
+@Parcel
 @Entity(tableName = "ticket")
 public class Ticket {
 

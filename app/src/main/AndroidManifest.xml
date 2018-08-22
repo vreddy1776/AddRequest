@@ -61,6 +61,11 @@
             android:name="project.files.android.addrequest.Background.FirebaseDbListenerService"
             android:enabled="true" />
 
+        <!-- VideoUpload Service -->
+        <service
+            android:name="project.files.android.addrequest.Background.VideoUploadService"
+            android:enabled="true" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1f315c4d2a277d95f70f9787211b4eefa3de8ff0" />

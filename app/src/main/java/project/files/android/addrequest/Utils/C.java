@@ -11,7 +11,8 @@ import android.net.Uri;
  */
 public class C {
 
-    // Intent Keys
+    // Intent or Bundle Keys
+    public static final String TICKET_KEY = "Ticket";
     public static final String TICKET_ID_KEY = "TicketId";
     public static final String TICKET_TITLE_KEY = "TicketTitle";
     public static final String TICKET_TYPE_KEY = "TicketType";

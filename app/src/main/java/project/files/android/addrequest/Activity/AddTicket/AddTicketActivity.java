@@ -8,7 +8,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -38,13 +40,24 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import org.parceler.Parcels;
+
+import java.io.Serializable;
 import java.util.Date;
 
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Activity.Chat.ChatActivity;
+import project.files.android.addrequest.Background.FirebaseDbListenerService;
 import project.files.android.addrequest.Background.MyApplication;
 import project.files.android.addrequest.Background.Notifications;
+import project.files.android.addrequest.Background.VideoUploadService;
+import project.files.android.addrequest.Database.Ticket;
 import project.files.android.addrequest.R;
 import project.files.android.addrequest.Settings.UserProfileSettings;
 import project.files.android.addrequest.Utils.DateTimeUtils;
@@ -311,7 +324,31 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
                 viewModel.tempTicket.getTicketId(),
                 viewModel.tempTicket.getTicketTitle());
 
-        viewModel.addTicket(mTicketType);
+        //viewModel.addTicket(mTicketType);
+
+        if (viewModel.tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
+
+            /*
+            startService(new Intent(this, VideoUploadService.class));
+            Intent intent = new Intent(this, VideoUploadService.class);
+            intent.putExtra("object", viewModel.tempTicket);
+            startService(intent);
+            */
+
+            /*
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(C.TICKET_KEY, (Serializable) new Ticket(viewModel.tempTicket));
+            */
+
+            Intent intent = new Intent(this, VideoUploadService.class);
+            //intent.putExtra("bundle", bundle);
+            intent.putExtra(C.TICKET_KEY, Parcels.wrap(new Ticket(viewModel.tempTicket)));
+            intent.putExtra(C.TICKET_TYPE_KEY, mTicketType);
+            startService(intent);
+
+        } else {
+            viewModel.addTicketToDb(viewModel.tempTicket, mTicketType);
+        }
 
         finish();
 

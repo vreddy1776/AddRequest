@@ -108,6 +108,13 @@ dependencies {
      * ExoPlayer.
      */
     implementation 'com.google.android.exoplayer:exoplayer:2.6.1'
+
+    /**
+     * Parceler.
+     */
+    implementation 'org.parceler:parceler-api:1.1.11'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
+
     /**
      * UI.
      */

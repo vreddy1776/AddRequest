@@ -39,10 +39,6 @@ import project.files.android.addrequest.Utils.C;
  */
 public class AddTicketViewModel extends ViewModel {
 
-    /*
-    @NonNull
-    private AddTicketContract.View mView;
-    */
 
     private static final String TAG = AddTicketViewModel.class.getSimpleName();
     private LiveData<Ticket> mLiveDataTicket;
@@ -57,7 +53,6 @@ public class AddTicketViewModel extends ViewModel {
      */
     public void setup(@NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
 
-        //mView = view;
         mAppDatabase = AppDatabase.getInstance();
         tempTicket = new Ticket();
         loadLiveDataTicket(ticketId);
@@ -120,53 +115,6 @@ public class AddTicketViewModel extends ViewModel {
     public void setAppDatabase(AppDatabase appDatabase) {
         this.mAppDatabase =  appDatabase;
     }
-
-
-    /**
-     * Adds or updates ticket to local and remote DBs with video upload.
-     *
-     * @param ticketType View, Add, or Update ticket type for AddTicketActivity session.
-     */
-    /*
-    public void addTicket(final int ticketType){
-
-        // Video Present
-        if (tempTicket.getTicketVideoPostId().equals(C.VIDEO_CREATED_TICKET_VIDEO_POST_ID)){
-
-            startService(new Intent(MyApplication.getAppContext(), VideoUploadService.class));
-
-            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-            StorageReference firebaseVideoRef = firebaseStorage.getReference().child("Videos");
-
-            Uri capturedVideoUri = Uri.parse(tempTicket.getTicketVideoLocalUri());
-            StorageReference localVideoRef = firebaseVideoRef.child(capturedVideoUri.getLastPathSegment());
-            UploadTask uploadTask = localVideoRef.putFile(capturedVideoUri);
-
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    tempTicket.setTicketVideoPostId(C.VIDEO_EXISTS_TICKET_VIDEO_POST_ID);
-                    tempTicket.setTicketVideoInternetUrl(taskSnapshot.getDownloadUrl().toString());
-
-                    addTicketToDb(tempTicket, ticketType);
-
-                    Notifications.ticketPostedNotification(tempTicket.getTicketId());
-                }
-            });
-
-        // No video present
-        } else {
-
-            addTicketToDb(tempTicket, ticketType);
-        }
-    }
-    */
 
 
     /**

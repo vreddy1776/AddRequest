@@ -24,9 +24,9 @@ import project.files.android.addrequest.Utils.C;
 
 
 /**
- * Firebase DB Listenser Service
+ * Video Upload Service
  *
- * Starts FirebaseDB listener at login and ends at logout.
+ * Service to run if user uploads video.
  *
  * @author Vijay T. Reddy
  * @version 1.0.0
@@ -36,14 +36,6 @@ public class VideoUploadService extends Service {
 
     private static final String TAG = VideoUploadService.class.getSimpleName();
 
-    /*
-    private ChildEventListener mChildEventListener;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mMessagesDatabaseReference;
-    private AppDatabase database;
-    */
-
-
 
     @Nullable
     @Override
@@ -52,140 +44,15 @@ public class VideoUploadService extends Service {
     }
 
 
-
-    /**
-     * Start after login by clearing tickets in local DB starting the read listener.
-     */
-
-    @Override
-    public void onCreate() {
-
-
-        //uploadVideo();
-
-        /*
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("Tickets");
-
-        database = AppDatabase.getInstance();
-
-        AppExecuters.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                database.ticketDao().clearAllTickets();
-            }
-        });
-
-        attachDatabaseReadListener();
-        */
-
-
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Ticket mTicket = (Ticket) Parcels.unwrap(intent.getParcelableExtra(C.TICKET_KEY));
-        int mTicketType = (int) intent.getExtras().get(C.TICKET_TYPE_KEY);
+        Ticket ticket = (Ticket) Parcels.unwrap(intent.getParcelableExtra(C.TICKET_KEY));
+        int ticketType = (int) intent.getExtras().get(C.TICKET_TYPE_KEY);
 
-        Log.d(TAG,"mTicket:  " + mTicket);
-
-        uploadVideo(mTicket,mTicketType);
+        uploadVideo(ticket,ticketType);
 
         return super.onStartCommand(intent, flags, startId);
-    }
-
-
-    /**
-     * End listener after logout.
-     */
-    /*
-    @Override
-    public void onDestroy() {
-        //detachDatabaseReadListener();
-    }
-    */
-
-
-    /**
-     * Sync additions, updates, and deletions from Firebase DB to local DB.
-     */
-    private void attachDatabaseReadListener() {
-        /*
-        if (mChildEventListener == null) {
-            mChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
-
-                    if( !database.ticketExists(ticket.getTicketId()) ){
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                database.ticketDao().insertTicket(ticket);
-                            }
-                        }).start();
-                    }
-
-                }
-
-
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
-
-                    if( database.ticketExists(ticket.getTicketId()) &&
-                            !ticket.getUserId().equals(UserProfileSettings.getUserID()) ){
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                database.ticketDao().updateTicket(ticket);
-                            }
-                        }).start();
-                    }
-
-                }
-
-
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    final Ticket ticket = dataSnapshot.getValue(Ticket.class);
-
-                    if( database.ticketExists(ticket.getTicketId()) ){
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                database.ticketDao().deleteTicketById(ticket.getTicketId());
-                            }
-                        }).start();
-                    }
-
-                }
-
-
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                public void onCancelled(DatabaseError databaseError) {}
-
-            };
-            mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
-        }
-        */
-    }
-
-
-    /**
-     *
-     * @see #onDestroy()
-     *
-     */
-    private void detachDatabaseReadListener() {
-        /*
-        if (mChildEventListener != null) {
-            mMessagesDatabaseReference.removeEventListener(mChildEventListener);
-            mChildEventListener = null;
-        }
-        */
     }
 
 
@@ -201,7 +68,7 @@ public class VideoUploadService extends Service {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-
+                stopSelf();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -213,12 +80,12 @@ public class VideoUploadService extends Service {
                 addTicketToDb(tempTicket, ticketType);
 
                 Notifications.ticketPostedNotification(tempTicket.getTicketId());
+
+                stopSelf();
             }
         });
 
     }
-
-
 
 
     public void addTicketToDb(final Ticket ticket, final int ticketType){
@@ -238,7 +105,6 @@ public class VideoUploadService extends Service {
     }
 
 
-
     public void addTicketToLocalDb(final Ticket ticket, int ticketType){
 
         if(ticketType == C.ADD_TICKET_TYPE){
@@ -247,7 +113,6 @@ public class VideoUploadService extends Service {
             AppDatabase.getInstance().ticketDao().updateTicket(ticket);
         }
     }
-
 
 
     private void addTicketToFirebaseDb(final Ticket ticket){

@@ -137,6 +137,12 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     /**
+     * ButterKnife.
+     */
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    /**
      * Leak Canary.
      */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

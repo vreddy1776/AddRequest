@@ -51,6 +51,8 @@ import org.parceler.Parcels;
 import java.io.Serializable;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import project.files.android.addrequest.Analytics.AppseeFunctions;
 import project.files.android.addrequest.Activity.Chat.ChatActivity;
 import project.files.android.addrequest.Background.FirebaseDbListenerService;
@@ -81,8 +83,11 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     private int mTicketType = C.VIEW_TICKET_TYPE;
     private AddTicketViewModel viewModel;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 4;
-    EditText mTitleText;
-    EditText mDescriptionText;
+
+
+    @BindView(R.id.editTextTicketTitle) EditText mTitleText;
+    @BindView(R.id.editTextTicketDescription) EditText mDescriptionText;
+
     FrameLayout videoWrapper;
     FrameLayout streamVideo;
     Button saveButton;
@@ -113,6 +118,8 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ticket);
+
+        ButterKnife.bind(this);
 
         Notifications.clearAllNotifications(this);
 
@@ -206,8 +213,6 @@ public class AddTicketActivity extends AppCompatActivity implements AddTicketCon
 
         setupActionBar();
 
-        mTitleText = findViewById(R.id.editTextTicketTitle);
-        mDescriptionText = findViewById(R.id.editTextTicketDescription);
         saveButton = findViewById(R.id.saveButton);
         videoButton = findViewById(R.id.videoButton);
         videoDeleteButton = findViewById(R.id.videoDelete);

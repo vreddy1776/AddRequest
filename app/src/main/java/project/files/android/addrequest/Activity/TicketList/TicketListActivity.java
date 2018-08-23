@@ -203,7 +203,7 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         AuthUI.getInstance().signOut(this);
 
         Intent intent = new Intent(TicketListActivity.this, MainActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
     }

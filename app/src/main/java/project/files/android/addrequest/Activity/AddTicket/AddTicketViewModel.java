@@ -51,7 +51,7 @@ public class AddTicketViewModel extends ViewModel {
      * Constructor where you call loadTicketById of the ticketDao to initialize the tickets variable.
      * Note: The constructor receives the mAppDatabase and the ticketId
      */
-    public void setup(@NonNull final AddTicketContract.View view, int ticketId, final int ticketType){
+    public void setup(@NonNull final AddTicketContract.View view, final int ticketId, final int ticketType){
 
         mAppDatabase = AppDatabase.getInstance();
         tempTicket = new Ticket();
@@ -62,7 +62,7 @@ public class AddTicketViewModel extends ViewModel {
             @Override
             public void onChanged(@Nullable Ticket ticket) {
 
-                if(ticketType != C.ADD_TICKET_TYPE){
+                if((ticketType != C.ADD_TICKET_TYPE) && (ticket.getTicketId() == ticketId)){
 
                     tempTicket.setTicket(ticket);
                     view.updateTitleDescription();

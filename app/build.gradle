@@ -116,6 +116,11 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.11'
 
     /**
+     * Stripe.
+     */
+    implementation 'com.stripe:stripe-android:6.1.2'
+
+    /**
      * UI.
      */
     implementation 'com.github.devlight.shadowlayout:library:1.0.2'

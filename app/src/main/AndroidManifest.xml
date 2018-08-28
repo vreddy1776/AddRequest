@@ -49,7 +49,9 @@
             android:name="project.files.android.addrequest.Activity.AddTicket.AddTicketActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <!-- VideoActivity -->
+        <!-- PayActivity -->
+        <activity
+            android:name=".Activity.TicketList.PayActivity"/>
 
         <!-- AWS S3 bucket access permission -->
         <service

@@ -239,4 +239,11 @@ public class TicketListActivity extends AppCompatActivity implements TicketAdapt
         //do nothing
     }
 
+
+    public void goToPay(View view){
+        Intent intent = new Intent(this,PayActivity.class);
+        startActivity(intent);
+    }
+
+
 }

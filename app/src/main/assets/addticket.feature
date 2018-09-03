@@ -1,6 +1,6 @@
-Feature: Login screen to authenticate users
+Feature: User can add a new ticket and see it
 
-	Scenario: Invalid username and password
+	Scenario: Add ticket with randomly generated title and description
         Given I do not see ticket text and description
          When I click on add ticket button
           And I enter a ticket title

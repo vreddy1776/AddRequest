@@ -1,8 +1,9 @@
 Feature: Login screen to authenticate users
 
 	Scenario: Invalid username and password
-        Given I see an empty login form
-         When I introduce an invalid username
-          And I introduce an invalid password
-          And I press the login button
-         Then I see an error message saying 'Invalid credentials'
+        Given I do not see ticket text and description
+         When I click on add ticket button
+          And I enter a ticket title
+          And I enter a ticket description
+          And I click on submit button
+         Then I see ticket text and description

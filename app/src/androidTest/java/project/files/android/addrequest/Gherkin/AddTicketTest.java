@@ -1,4 +1,4 @@
-package project.files.android.addrequest;
+package project.files.android.addrequest.Gherkin;
 
 import android.support.test.rule.ActivityTestRule;
 
@@ -17,12 +17,12 @@ import java.util.Locale;
 import project.files.android.addrequest.Activity.TicketList.TicketListActivity;
 
 @RunWith(Parameterized.class)
-public class GC_AddTicketTest extends GreenCoffeeTest
+public class AddTicketTest extends GreenCoffeeTest
 {
     @Rule
     public ActivityTestRule<TicketListActivity> activity = new ActivityTestRule<>(TicketListActivity.class);
 
-    public GC_AddTicketTest(ScenarioConfig scenarioConfig)
+    public AddTicketTest(ScenarioConfig scenarioConfig)
     {
         super(scenarioConfig);
     }
@@ -42,6 +42,6 @@ public class GC_AddTicketTest extends GreenCoffeeTest
     @Test
     public void test()
     {
-        start(new GC_AddTicketSteps());
+        start(new Steps());
     }
 }

@@ -1,10 +1,11 @@
-package project.files.android.addrequest;
+package project.files.android.addrequest.Gherkin;
 
 import com.mauriciotogneri.greencoffee.GreenCoffeeSteps;
 import com.mauriciotogneri.greencoffee.annotations.Given;
 import com.mauriciotogneri.greencoffee.annotations.Then;
 import com.mauriciotogneri.greencoffee.annotations.When;
 
+import project.files.android.addrequest.R;
 import project.files.android.addrequest.Utils.StringUtils;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -20,7 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
-public class GC_AddTicketSteps extends GreenCoffeeSteps
+public class Steps extends GreenCoffeeSteps
 {
 
     String newTitle = StringUtils.randomTitle();
